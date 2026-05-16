@@ -212,24 +212,26 @@
             <div class="form-group">
                 <label>القوانين والشروط العامة:</label>
                 <div class="content-box">
-                    1. الالتزام التام بالسرية الإدارية وعدم تسريب أي معلومات.<br>
-                    2. التواجد اليومي والتفاعل المستمر داخل السيرفر.<br>
-                    3. احترام قرارات الإدارة العليا والتعامل بلباقة مع الأعضاء.
+                    1. الالتزام التام بالسرية الإدارية وعدم تسريب أي معلومات أو قرارات داخلية.<br>
+                    2. التواجد اليومي والتفاعل المستمر داخل السيرفر والمجتمع.<br>
+                    3. احترام قرارات الإدارة العليا والتعامل بلباقة واحترافية تامة مع الأعضاء.
                 </div>
             </div>
 
             <form id="appForm" onsubmit="submitApplication(event)">
                 <div class="form-group">
-                    <label for="discordName">اسم حسابك في الديسكورد (مع الهاشتاق إن وجد):</label>
+                    <label for="discordName">اسم حسابك في الديسكورد (Discord Username):</label>
                     <input type="text" id="discordName" required placeholder="مثال: demon_studio">
                 </div>
 
                 <div class="form-group">
                     <label for="userRank">اختر الرتبة التي تود التقديم عليها:</label>
                     <select id="userRank" required onchange="handleRankChange()">
-                        <option value="" disabled selected>اختر من هنا...</option>
-                        <option value="mod">مشرف ساحة</option>
-                        <option value="support">دعم فني</option>
+                        <option value="" disabled selected>اختر الرتبة من هنا...</option>
+                        <option value="founder">Founder</option>
+                        <option value="co_owner">CO Owner</option>
+                        <option value="head_admin">Headadmin</option>
+                        <option value="admin">Admin</option>
                     </select>
                 </div>
 
@@ -248,7 +250,7 @@
                 <div class="acknowledgement-box">
                     <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
                     <label for="agreeCheck" style="font-size: 0.9rem; color: #fca5a5; cursor: pointer; user-select: none;">
-                        أقر أنا مقدم الطلب بالالتزام بكافة الشروط والقوانين المذكورة أعلاه وأن إخلالي بها يعرضني للاستبعاد.
+                        أقر أنا مقدم الطلب بالالتزام بكافة الشروط والقوانين المذكورة أعلاه وأن إخلالي بها يعرضني للاستبعاد الفوري من الطاقم الإداري.
                     </label>
                 </div>
 
@@ -265,7 +267,7 @@
     </div>
 
     <script>
-        // رابط الـ Webhook الخاص بك مدمج وجاهز تماماً
+        // رابط الـ Webhook الخاص بك مدمج ومفعل
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505176652496244746/oIFuNgWVCjoMP4njvXzIvRvffLTL4UNrAoMvNbPET7taWfFRiJFxc5jTvrZUQUVElhKZ";
 
         // دالة التنقل بين الشاشات
@@ -274,18 +276,24 @@
             document.getElementById(pageId).classList.add('active');
         }
 
-        // تغيير الشروط والأسئلة بناءً على الرتبة المختار
+        // تغيير الشروط والأسئلة بناءً على الرتب الجديدة المحددة
         function handleRankChange() {
             const rank = document.getElementById('userRank').value;
             const conditionsDiv = document.getElementById('rankConditions');
             const questionsTextArea = document.getElementById('rankQuestions');
 
-            if(rank === 'mod') {
-                conditionsDiv.innerText = "• شروط المشرف: العمر لا يقل عن 16 عاماً، مهارة عالية في ضبط النفس وحل النزاعات بين الأعضاء.";
-                questionsTextArea.placeholder = "س1: ما هي خبرتك السابقة في الإشراف؟\nس2: كيف ستتصرف إذا رأيت عضواً يكرر المخالفات بشكل متعمد؟";
-            } else if(rank === 'support') {
-                conditionsDiv.innerText = "• شروط الدعم: سرعة الرد على التذاكر، أسلوب كلام راقي جداً، الالتزام بتقديم الحلول الصحيحة.";
-                questionsTextArea.placeholder = "س1: كم ساعة تستطيع تقديم الدعم الفني يومياً؟\nس2: كيف تتعامل مع عضو يتحدث بأسلوب حاد وغير لائق داخل التذكرة؟";
+            if(rank === 'founder') {
+                conditionsDiv.innerText = "• شروط رتبة Founder: خبرة قيادية شاملة، القدرة على إدارة الطاقم كاملاً، والمسؤولية الكاملة عن القرارات المصيرية.";
+                questionsTextArea.placeholder = "س1: ما هي رؤيتك ومخططاتك لتطوير موقع وسيرفر طرب؟\nس2: تحدث عن مشاريعك السابقة وخبرتك في التأسيس والإدارة العليا؟";
+            } else if(rank === 'co_owner') {
+                conditionsDiv.innerText = "• شروط رتبة CO Owner: النيابة الكاملة عن المؤسس في غيابه، القدرة على حل الأزمات الكبرى، ومتابعة أعمال الـ Headadmins.";
+                questionsTextArea.placeholder = "س1: كيف ستتصرف في حال حدوث خلاف كبير بين أعضاء الإدارة العليا؟\nس2: ما هي المهارات والحلول التقنية أو التنظيمية التي ستقدمها لطرب؟";
+            } else if(rank === 'head_admin') {
+                conditionsDiv.innerText = "• شروط رتبة Headadmin: قيادة وتوجيه طاقم الـ Admins، الإشراف المباشر على تنظيم الفعاليات وحل المشاكل اليومية الكبيرة.";
+                questionsTextArea.placeholder = "س1: كيف تقيم أداء المشرفين والمسؤولين الأقل منك رتبة؟\nس2: اذكر موقفاً صعباً واجهته في إدارة المجتمعات وكيف قمت بحله؟";
+            } else if(rank === 'admin') {
+                conditionsDiv.innerText = "• شروط رتبة Admin: التواجد المستمر، مهارة عالية في ضبط النفس، سرعة الاستجابة لطلبات وشكاوى الأعضاء، وتطبيق العقوبات بحق المخالفين.";
+                questionsTextArea.placeholder = "س1: كم ساعة تستطيع التواجد يومياً في طرب؟\nس2: كيف تتعامل مع عضو قام بمخالفة أحد القوانين الرئيسية أمامك؟";
             }
         }
 
@@ -308,7 +316,7 @@
             const discordPayload = {
                 embeds: [{
                     title: "📥 تقديم جديد على الإدارة - طرب",
-                    color: 9121510, // اللون البنفسجي المميز
+                    color: 9121510, // اللون البنفسجي
                     timestamp: new Date().toISOString(),
                     fields: [
                         {
