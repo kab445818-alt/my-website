@@ -7,12 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0a0a0a; /* أسود داكن ونقي */
-            --white-main: #ffffff; /* أبيض ناصع للأزرار والتوهج */
+            --bg-dark: #050505; /* أسود داكن ونقي جداً */
+            --white-main: #ffffff; 
             --text-light: #f3f4f6;
-            --accent-red: #ef4444;
-            --accent-green: #22c55e;
-            --gray-glow: rgba(255, 255, 255, 0.08); /* وهج أبيض خفيف غامض */
+            --accent-red: #990000; /* أحمر غامق فخم متناسق مع الاستوديو */
+            --accent-green: #16a34a;
+            --gray-glow: rgba(153, 0, 0, 0.15); /* وهج أحمر داكن غامض */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
@@ -29,48 +29,48 @@
             position: relative;
         }
 
-        /* ----- الخلفية: صورة الشبح الغامض بالأبيض والأسود ----- */
+        /* ----- الخلفية: صورة الشبح الغامض والبرق بألوان متناسقة ----- */
         .background-container {
             position: absolute;
             width: 100%; height: 100%;
             top: 0; left: 0;
             z-index: -2;
-            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
-                        url('https://googleusercontent.com/image_generation_content/1') no-repeat center center fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(15, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden;
         }
         
-        /* تأثير الضباب الدخاني الغامض باللون الأبيض الباهت */
+        /* تأثير الضباب الدخاني الغامض باللون الأحمر الباهت والأبيض */
         .fog {
             position: absolute;
             width: 300%; height: 100%;
-            background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
-                        radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.9) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 40%, rgba(153, 0, 0, 0.05) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.95) 0%, transparent 50%);
             opacity: 0.8; filter: blur(40px);
             animation: moveFog 40s linear infinite alternate;
         }
         
-        /* وهج ضوئي أبيض خافت في الزوايا */
+        /* وهج ضوئي أحمر داكن خافت في الزوايا */
         .gothic-glow {
             position: absolute; top: -100px; right: -100px; width: 700px; height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 80%);
+            background: radial-gradient(circle, rgba(153, 0, 0, 0.08) 0%, transparent 80%);
             filter: blur(60px); z-index: -1;
             animation: pulseGlow 10s ease-in-out infinite alternate;
         }
         .gothic-glow-left {
             position: absolute; bottom: -100px; left: -100px; width: 600px; height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 80%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
             filter: blur(60px); z-index: -1;
             animation: pulseGlow 12s ease-in-out infinite alternate-reverse;
         }
         @keyframes moveFog { 0% { transform: translateX(0) translateY(0); } 100% { transform: translateX(-30%) translateY(10px); } }
         @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.15); opacity: 1; } }
 
-        /* ----- الحاوية السوداء الفخمة بحدود بيضاء ----- */
+        /* ----- الحاوية الفخمة بحدود حمراء وبيضاء ----- */
         .container {
-            background: rgba(10, 10, 10, 0.85); /* أسود شفاف يوضح الخلفية بنقاء */
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(10, 10, 10, 0.9); 
+            border: 1px solid rgba(153, 0, 0, 0.3);
             backdrop-filter: blur(15px);
             width: 100%;
             max-width: 550px;
@@ -91,43 +91,43 @@
         .page.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        h1 { font-size: 2.4rem; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); margin-bottom: 12px; font-weight: 800; letter-spacing: 1px; }
-        h2 { font-size: 1.6rem; color: #fff; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px; text-align: center; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        h1 { font-size: 2.4rem; color: #fff; text-shadow: 0 0 15px rgba(153,0,0,0.5); margin-bottom: 12px; font-weight: 800; letter-spacing: 1px; }
+        h2 { font-size: 1.6rem; color: #fff; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(153, 0, 0, 0.2); padding-bottom: 12px; text-align: center; text-shadow: 0 0 10px rgba(153,0,0,0.3); }
         p { color: #e5e7eb; opacity: 0.9; font-size: 1rem; margin-bottom: 25px; line-height: 1.6; }
 
         .welcome-badge {
-            display: inline-block; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 5px 18px; border-radius: 4px; font-size: 0.85rem; color: #ffffff; font-weight: 700; margin-bottom: 15px;
-            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            display: inline-block; background: rgba(153, 0, 0, 0.15); border: 1px solid rgba(153, 0, 0, 0.4);
+            padding: 5px 18px; border-radius: 4px; font-size: 0.85rem; color: #ff3333; font-weight: 700; margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(153,0,0,0.5);
         }
 
-        /* أزرار باللون الأبيض والرمادي الفخم */
+        /* أزرار باللون الفخم المتناسق */
         .btn {
-            background: linear-gradient(135deg, #ffffff, #cccccc);
+            background: linear-gradient(135deg, #ffffff, #dddddd);
             color: #000000; border: none; padding: 12px 35px; font-size: 1.05rem; font-weight: 700;
             border-radius: 6px; cursor: pointer; transition: all 0.25s ease;
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4); background: #ffffff; }
-        .btn:disabled { background: #222222; color: #666666; border: 1px solid rgba(255,255,255,0.05); cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2); background: #ffffff; }
+        .btn:disabled { background: #1a1a1a; color: #555555; border: 1px solid rgba(255,255,255,0.02); cursor: not-allowed; transform: none; box-shadow: none; }
         
         .btn-success { background: linear-gradient(135deg, #22c55e, #15803d); color: white; }
         .btn-success:hover { box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4); background: #22c55e; }
         .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
         .btn-danger:hover { box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4); background: #ef4444; }
-        .btn-secondary { background: #111111; border: 1px solid rgba(255, 255, 255, 0.2); color: #d1d5db; }
-        .btn-secondary:hover { background: #222222; color: white; }
+        .btn-secondary { background: #0a0a0a; border: 1px solid rgba(153, 0, 0, 0.3); color: #d1d5db; }
+        .btn-secondary:hover { background: #150000; color: white; border-color: #ff3333; }
 
         /* كروت الاختيار بالأبيض والأسود */
         .choice-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
         .choice-card {
-            background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(153, 0, 0, 0.2);
             padding: 35px 20px; border-radius: 8px; cursor: pointer; flex: 1; min-width: 220px;
             transition: all 0.3s; text-align: center; position: relative;
         }
-        .choice-card:hover { border-color: #ffffff; background: rgba(255, 255, 255, 0.05); transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.8), 0 0 15px var(--gray-glow); }
+        .choice-card:hover { border-color: #ff3333; background: rgba(153, 0, 0, 0.05); transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.8), 0 0 15px var(--gray-glow); }
         .choice-card h3 { font-size: 1.35rem; margin-bottom: 12px; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
         .choice-card p { font-size: 0.88rem; color: #cbd5e1; margin-bottom: 0; opacity: 0.8; }
-        .choice-card .badge-closed { position: absolute; top: 12px; left: 12px; background: var(--accent-red); color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; box-shadow: 0 0 10px rgba(239,64,64,0.5); }
+        .choice-card .badge-closed { position: absolute; top: 12px; left: 12px; background: #ef4444; color: white; padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; box-shadow: 0 0 10px rgba(239,64,64,0.5); }
 
         /* الهيكل المقسم */
         .split-layout { display: flex; gap: 30px; text-align: right; flex-wrap: wrap; margin-top: 15px; }
@@ -135,7 +135,7 @@
         .split-left { flex: 1.4; min-width: 380px; }
 
         .content-box {
-            background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(153, 0, 0, 0.2);
             padding: 16px; border-radius: 6px; max-height: 220px; overflow-y: auto;
             text-align: right; font-size: 0.9rem; color: #e2e8f0; line-height: 1.7; white-space: pre-line; margin-bottom: 15px;
         }
@@ -146,21 +146,21 @@
         .form-group label { display: block; margin-bottom: 6px; color: #cccccc; font-weight: 600; font-size: 0.9rem; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%; padding: 12px 14px; background: rgba(5, 5, 5, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15); color: white; border-radius: 6px; outline: none; font-size: 0.95rem;
+            border: 1px solid rgba(153, 0, 0, 0.3); color: white; border-radius: 6px; outline: none; font-size: 0.95rem;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #ffffff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.2); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #ff3333; box-shadow: 0 0 12px rgba(153, 0, 0, 0.3); }
         
         .form-group textarea { resize: vertical; height: 280px; min-height: 240px; font-size: 1rem; line-height: 1.6; }
         .input-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; display: block; opacity: 0.8; }
 
-        .acknowledgement-box { display: flex; gap: 12px; background: rgba(0,0,0,0.5); border: 1px dashed rgba(255, 255, 255, 0.2); padding: 14px; border-radius: 6px; text-align: right; font-size: 0.85rem; line-height: 1.6; }
+        .acknowledgement-box { display: flex; gap: 12px; background: rgba(0,0,0,0.5); border: 1px dashed rgba(153, 0, 0, 0.3); padding: 14px; border-radius: 6px; text-align: right; font-size: 0.85rem; line-height: 1.6; }
         .acknowledgement-box input { cursor: pointer; scale: 1.2; margin-top: 4px; }
         .acknowledgement-box label { cursor: pointer; color: #cbd5e1; user-select: none; }
 
         /* ----- لوحة التحكم للمالك ----- */
         .admin-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
-        .admin-section { background: rgba(0,0,0,0.6); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: right; }
-        .admin-section h3 { font-size: 1.1rem; color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(255,255,255,0.2); }
+        .admin-section { background: rgba(0,0,0,0.6); border: 1px solid rgba(153, 0, 0, 0.2); padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: right; }
+        .admin-section h3 { font-size: 1.1rem; color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; text-shadow: 0 0 8px rgba(153,0,0,0.3); }
         
         .toggle-container { display: flex; gap: 15px; margin-bottom: 10px; }
         .counters-container { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -169,14 +169,14 @@
         
         .requests-table { width: 100%; border-collapse: collapse; text-align: right; margin-top: 10px; font-size: 0.9rem; }
         .requests-table th, .requests-table td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .requests-table th { background: rgba(255, 255, 255, 0.08); color: #ffffff; }
+        .requests-table th { background: rgba(153, 0, 0, 0.2); color: #ffffff; border: 1px solid rgba(153,0,0,0.3); }
         .requests-table tr:hover { background: rgba(255,255,255,0.02); }
         
         .action-btns { display: flex; gap: 5px; }
         .action-btns .btn { padding: 5px 12px; font-size: 0.8rem; border-radius: 4px; }
 
         .status-screen { padding: 35px 20px; border-radius: 8px; font-size: 1.2rem; font-weight: 700; line-height: 1.8; border: 1px solid var(--accent-green); background: rgba(34, 197, 94, 0.04); box-shadow: 0 0 15px rgba(34, 197, 94, 0.1); }
-        .status-screen.status-error { border-color: var(--accent-red); background: rgba(239, 68, 68, 0.04); box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); }
+        .status-screen.status-error { border-color: #ef4444; background: rgba(239, 68, 68, 0.04); box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); }
 
         .secret-admin-btn { position: fixed; bottom: 10px; left: 10px; opacity: 0.2; background: none; border: none; color: gray; cursor: pointer; font-size: 0.75rem; z-index: 100; transition: opacity 0.2s; }
         .secret-admin-btn:hover { opacity: 1; color: #ffffff; }
@@ -327,7 +327,7 @@
 
         <div id="pageStatus" class="page">
             <div id="statusBox" class="status-screen">
-                <span id="statusIcon" style="font-size: 2.5rem;">⚪</span><br><br>
+                <span id="statusIcon" style="font-size: 2.5rem;">White_circle</span><br><br>
                 <span id="statusMessage">تم إرسال تقديمك بنجاح للنظام التاريخي المطور!</span>
             </div>
             <button class="btn" style="margin-top: 25px;" onclick="resetToWelcome()">العودة للرئيسية</button>
@@ -433,7 +433,6 @@
                 return;
             }
             
-            // تصفير وتجهيز العناوين والأزرار الافتراضية
             if (type === 'game') {
                 document.getElementById('titleGameForm').innerText = "📋 استمارة تقديم - شاليه طرب (روبلوكس)";
                 document.getElementById('submitGameBtn').innerText = "تقديم الطلب للماب";
@@ -445,14 +444,21 @@
             }
         }
 
-        // دالة تفحص تلقائياً إذا كان الإسم مكتوباً وله طلب معلق لتحديثه (ميزة تغيير الرأي) أو يقع تحت كول داون
+        // تفحص الكول داون والقبول الفوري
         function checkExistingApplication(type) {
             const nameInput = document.getElementById(`${type}DiscordName`).value.trim().toLowerCase();
-            if(!nameInput) return;
+            if(!nameInput) return true;
 
             const currentTime = Date.now();
 
-            // 1. فحص نظام الكول داون (إذا كان مرفوضاً مؤخراً)
+            // 1. فحص هل الشخص مقبول حالياً وموجود في طاقم العمل؟
+            const isAccepted = applications.some(app => app.name.toLowerCase() === nameInput && app.status === 'accepted');
+            if (isAccepted) {
+                showStatusScreen(false, `❌ نعتذر منك، أنت مقبول ومسجل كإداري حالياً في النظام التاريخي. لا يمكنك التقديم مجدداً حتى يتم طردك أو استقالتك من المالك.`);
+                return false;
+            }
+
+            // 2. فحص نظام الكول داون 5 دقائق للمرفوضين
             if (cooldowns[nameInput]) {
                 const expirationTime = cooldowns[nameInput] + COOLDOWN_TIME;
                 if (currentTime < expirationTime) {
@@ -460,25 +466,25 @@
                     const minutes = Math.floor(timeLeft / 60);
                     const seconds = timeLeft % 60;
                     
-                    showStatusScreen(false, `❌ نعتذر منك، تم رفض طلبك السابق مؤخراً. يرجى الانتظار مدة **${minutes} دقيقة و ${seconds} ثانية** قبل المحاولة مجدداً.`);
-                    return;
+                    showStatusScreen(false, `⏰ كول داون نشط! لقد تم رفض طلبك مؤخراً. يرجى الانتظار مدة **${minutes} دقيقة و ${seconds} ثانية** قبل التقديم مرة أخرى.`);
+                    return false;
                 } else {
                     delete cooldowns[nameInput];
                     localStorage.setItem('tarab_cooldowns', JSON.stringify(cooldowns));
                 }
             }
 
-            // 2. فحص ميزة تغيير الرأي (تعديل الطلب القديم)
+            // 3. ميزة تعديل الطلب القديم المعلق
             const foundApp = applications.find(app => app.name.toLowerCase() === nameInput && app.platform === type && app.status === 'pending');
             if (foundApp) {
                 document.getElementById(`${type}Rank`).value = foundApp.rank;
                 document.getElementById(`${type}Answers`).value = foundApp.answers;
                 updateConditions(type);
                 
-                // تعديل نصوص الفورم ليعرف العميل أنه يغير رأيه الآن
                 document.getElementById(type === 'game' ? 'titleGameForm' : 'titleDiscordForm').innerText = "🔄 تعديل وتحديث طلبك الحالي (تغيير الرأي)";
                 document.getElementById(`submit${type === 'game' ? 'Game' : 'Discord'}Btn`).innerText = "تحديث وإرسال التعديل";
             }
+            return true;
         }
 
         function updateConditions(type) {
@@ -489,7 +495,6 @@
             const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل اليومية :\nخبراتك السابقة بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
             const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام التام بالنظام الإداري الصارم داخل شاليه طرب :`;
 
-            // نضع القالب فقط إذا كانت الخانة فارغة أو تحتوي على القالب الافتراضي الآخر لكي لا نمسح تعديل المستخدم
             if (type === 'discord') {
                 if(rank === 'founder') conditionsDiv.innerHTML = `<b>متطلبات Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة بالكامل وضمان حماية النظام العام.`;
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>متطلبات CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جداً بإدارة الطاقم واحترافية بحل النزاعات وتنظيم الأقسام وحظر المصلحة الشخصية.`;
@@ -501,19 +506,57 @@
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>⚡ متطلبات CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم المراقبة وإصدار قرارات الباند النهائي للمخربين ورصد الأداء اليومي.`;
                 else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>🛡️ متطلبات Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
                 else if(rank === 'admin') conditionsDiv.innerHTML = `<b>👾 متطلبات Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل الفوري معهم.`;
-                if(textArea.value.trim() === "" || textArea.value.includes("ديسكورد")) textArea.value = gameForm;
+                if(textArea.value.trim() === "" || textArea.value.includes("التفاعل اليومية")) textArea.value = gameForm;
             }
             toggleSubmitBtn(type);
         }
 
         function toggleSubmitBtn(type) {
-            const checkBox = document.getElementById(`agree${type === 'game' ? 'Game' : 'Discord'}`);
-            const name = document.getElementById(`${type}DiscordName`).value;
-            const rank = document.getElementById(`${type}Rank`).value;
-            const answers = document.getElementById(`${type}Answers`).value;
-            const btn = document.getElementById(`submit${type === 'game' ? 'Game' : 'Discord'}Btn`);
+            const isChecked = document.getElementById(`agree${type === 'game' ? 'Game' : 'Discord'}`).checked;
+            const textLength = document.getElementById(`${type}Answers`).value.trim().length;
+            const rankSelected = document.getElementById(`${type}Rank`).value;
+            const nameInput = document.getElementById(`${type}DiscordName`).value.trim();
+            const submitBtn = document.getElementById(`submit${type === 'game' ? 'Game' : 'Discord'}Btn`);
 
-            btn.disabled = !(checkBox.checked && name.length >= 3 && rank && answers.length >= 10);
+            if (isChecked && textLength > 20 && rankSelected && nameInput) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function submitApplication(event, type) {
+            event.preventDefault();
+
+            if (!checkExistingApplication(type)) return;
+
+            const name = document.getElementById(`${type}DiscordName`).value.trim();
+            const rank = document.getElementById(`${type}Rank`).value;
+            const answers = document.getElementById(`${type}Answers`).value.trim();
+
+            const existingIndex = applications.findIndex(app => app.name.toLowerCase() === name.toLowerCase() && app.platform === type && app.status === 'pending');
+
+            if (existingIndex > -1) {
+                applications[existingIndex].rank = rank;
+                applications[existingIndex].answers = answers;
+                applications[existingIndex].time = new Date().toLocaleString('ar-EG');
+                alert("🔄 تم تحديث وإرسال تعديل طلبك بنجاح للمالك!");
+            } else {
+                const newApp = {
+                    id: Date.now(),
+                    name: name,
+                    platform: type,
+                    rank: rank,
+                    answers: answers,
+                    status: 'pending',
+                    time: new Date().toLocaleString('ar-EG')
+                };
+                applications.push(newApp);
+            }
+
+            localStorage.setItem('tarab_apps', JSON.stringify(applications));
+            sendToDiscordWebhook(name, type, rank, answers);
+            showStatusScreen(true, "✨ تم إرسال استمارتك التاريخية المكتملة بنجاح! يرجى انتظار قرار مالك السيرفر الكبرى قريباً.");
         }
 
         function showStatusScreen(isSuccess, message) {
@@ -521,86 +564,32 @@
             const statusIcon = document.getElementById('statusIcon');
             const statusMessage = document.getElementById('statusMessage');
 
-            if(isSuccess) {
-                statusBox.className = "status-screen";
+            if (isSuccess) {
+                statusBox.classList.remove('status-error');
                 statusIcon.innerText = "✅";
             } else {
-                statusBox.className = "status-screen status-error";
+                statusBox.classList.add('status-error');
                 statusIcon.innerText = "❌";
             }
             statusMessage.innerHTML = message;
             navigateTo('pageStatus');
         }
 
-        function submitApplication(event, type) {
-            event.preventDefault();
-
-            if (!systemStatus[type]) {
-                alert("🚨 هذا التقديم مغلق حالياً، لا يمكنك الإرسال.");
-                return;
-            }
-
-            const nameInput = document.getElementById(`${type}DiscordName`).value.trim().toLowerCase();
-            const rankSelect = document.getElementById(`${type}Rank`);
-            const answersText = document.getElementById(`${type}Answers`).value;
-            const platformSelect = type === 'game' ? "شاليه طرب" : "طرب ديسكورد";
-
-            // فحص كول داون أخير قبل الرفع للحماية
-            if (cooldowns[nameInput] && (Date.now() < cooldowns[nameInput] + COOLDOWN_TIME)) {
-                checkExistingApplication(type);
-                return;
-            }
-
-            // البحث إذا كان تعديل (تغيير رأي) أو تقديم جديد
-            let existingAppIndex = applications.findIndex(app => app.name.toLowerCase() === nameInput && app.platform === type && app.status === 'pending');
-
-            if (existingAppIndex !== -1) {
-                // تحديث البيانات للطلب المعلق الحالي
-                applications[existingAppIndex].rank = rankSelect.value;
-                applications[existingAppIndex].rankText = rankSelect.options[rankSelect.selectedIndex].text;
-                applications[existingAppIndex].answers = answersText;
-                applications[existingAppIndex].time = Date.now();
-
-                localStorage.setItem('tarab_apps', JSON.stringify(applications));
-                sendWebhookNotification("🔄 تم تحديث تعديل جديد (تغيير رأي)", applications[existingAppIndex], 3447003, "قام المستخدم بتعديل طلب المعلق مسبقاً وتغيير معلوماته.");
-                showStatusScreen(true, "🔄 تم تحديث وتعديل طلبك السابق بنجاح بمعلوماتك الجديدة والجديدة كلياً!");
-            } else {
-                // إنشاء طلب جديد تماماً أول مرة
-                const newApp = {
-                    id: Date.now(),
-                    name: document.getElementById(`${type}DiscordName`).value.trim(),
-                    platform: type,
-                    platformText: platformSelect,
-                    rank: rankSelect.value,
-                    rankText: rankSelect.options[rankSelect.selectedIndex].text,
-                    answers: answersText,
-                    status: 'pending',
-                    time: Date.now()
-                };
-
-                applications.push(newApp);
-                localStorage.setItem('tarab_apps', JSON.stringify(applications));
-                sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة الإدارية", newApp, 16777215, "بانتظار مراجعة المالك واتخاذ قرار القبول أو الرفض عبر لوحة التحكم.");
-                showStatusScreen(true, "✅ تم إرسال تقديمك الأول بنجاح للنظام التاريخي المطور!<br><br><span style='color: #cbd5e1; font-weight: 600;'>إذا غيّرت رايك يمكنك إدخال نفس الاسم لتحديث الطلب.</span>");
-            }
-
-            document.getElementById(`form${type === 'game' ? 'Game' : 'Discord'}`).reset();
-            toggleSubmitBtn(type);
-        }
-
-        // دالة إرسال الويب هوك لديسكورد
-        function sendWebhookNotification(title, app, color, footerText) {
-            const payload = {
+        function sendToDiscordWebhook(user, platform, rank, answers) {
+            const targetPlatform = platform === 'game' ? "👾 شاليه طرب (روبلوكس)" : "💬 طرب ديسكورد";
+            const embedData = {
+                username: "بوابة طرب المحدثة",
+                avatar_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop",
                 embeds: [{
-                    title: title,
-                    color: color,
+                    title: "📥 استمارة تقديم جديدة بانتظار القرار الإداري",
+                    color: 10005760, // أحمر غامق متناسق بالـ Hex decimal
                     fields: [
-                        { name: "👤 اسم المتقدم (ديسكورد):", value: `\`${app.name}\``, inline: true },
-                        { name: "🏢 مكان التقديم:", value: `\`${app.platformText}\``, inline: true },
-                        { name: "👑 الرتبة المحددة:", value: `\`${app.rankText}\``, inline: true },
-                        { name: "📝 الإجابات والنموذج المشروح:", value: `\`\`\`text\n${app.answers}\n\`\`\`` }
+                        { name: "👤 اسم المتقدم بالديسكورد", value: `**${user}**`, inline: true },
+                        { name: "📍 مكان التقديم", value: targetPlatform, inline: true },
+                        { name: "🎖️ الرتبة المطلوبة", value: rank.toUpperCase(), inline: true },
+                        { name: "📝 الإجابات والنموذج المرفوع:", value: `\`\`\`\n${answers}\n\`\`\`` }
                     ],
-                    footer: { text: footerText },
+                    footer: { text: "نظام طرب التاريخي المطور" },
                     timestamp: new Date()
                 }]
             };
@@ -608,18 +597,19 @@
             fetch(DISCORD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error("Webhook error:", err));
+                body: JSON.stringify(embedData)
+            }).catch(err => console.error("Error sending webhook: ", err));
         }
 
-        /* ----- كود لوحة التحكم للمالك والأدمن ----- */
+        /* ----- كود الإدارة والتحكم الفوري ----- */
         function openAdminLogin() {
-            const pass = prompt("أدخل الرقم السري المحدث لمالك طرب للوصول للوحة التحكم الفورية:");
-            if (pass === ADMIN_PASSWORD) {
-                renderAdminPanel();
+            const password = prompt("🔒 أدخل كلمة المرور السرية الكبرى للمالك:");
+            if (password === ADMIN_PASSWORD) {
+                renderAdminRequests();
+                updateAdminCountersUI();
                 navigateTo('pageAdminPanel');
-            } else if (pass !== null) {
-                alert("الرمز السري خاطئ! لا تملك الصلاحيات المخصصة للمالك.");
+            } else if (password !== null) {
+                alert("❌ كلمة المرور خاطئة تماماً! لا تحاول الدخول لملفات المالك.");
             }
         }
 
@@ -627,101 +617,115 @@
             navigateTo('pageWelcome');
         }
 
-        function togglePlatformStatus(type) {
-            systemStatus[type] = !systemStatus[type];
-            localStorage.setItem('tarab_status', JSON.stringify(systemStatus));
-            
-            const btn = document.getElementById(`toggle-${type}-btn`);
-            if (systemStatus[type]) {
-                btn.className = "btn btn-success";
-                btn.innerText = `تقديم ${type === 'game' ? 'شاليه طرب' : 'طرب ديسكورد'}: مفتوح`;
-            } else {
-                btn.className = "btn btn-danger";
-                btn.innerText = `تقديم ${type === 'game' ? 'شاليه طرب' : 'طرب ديسكورد'}: مغلق`;
-            }
-        }
-
-        function resetAllCounts() {
-            if(confirm("هل أنت متأكد من تصفير كافة مقاعد السقف الإداري المتوفرة؟")) {
-                approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
-                localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
-                renderAdminPanel();
-            }
-        }
-
-        function renderAdminPanel() {
+        function updateAdminCountersUI() {
             document.getElementById('count-founder').innerText = approvedCounts.founder;
             document.getElementById('count-co_owner').innerText = approvedCounts.co_owner;
             document.getElementById('count-head_admin').innerText = approvedCounts.head_admin;
             document.getElementById('count-admin').innerText = approvedCounts.admin;
 
             const btnGame = document.getElementById('toggle-game-btn');
-            btnGame.className = systemStatus.game ? "btn btn-success" : "btn btn-danger";
-            btnGame.innerText = `تقديم شاليه طرب: ${systemStatus.game ? 'مفتوح' : 'مغلق'}`;
-
             const btnDiscord = document.getElementById('toggle-discord-btn');
-            btnDiscord.className = systemStatus.discord ? "btn btn-success" : "btn btn-danger";
-            btnDiscord.innerText = `تقديم طرب ديسكورد: ${systemStatus.discord ? 'مفتوح' : 'مغلق'}`;
 
+            if(systemStatus.game) { btnGame.className = "btn btn-success"; btnGame.innerText = "تقديم شاليه طرب: مفتوح"; }
+            else { btnGame.className = "btn btn-danger"; btnGame.innerText = "تقديم شاليه طرب: مغلق"; }
+
+            if(systemStatus.discord) { btnDiscord.className = "btn btn-success"; btnDiscord.innerText = "تقديم طرب ديسكورد: مفتوح"; }
+            else { btnDiscord.className = "btn btn-danger"; btnDiscord.innerText = "تقديم طرب ديسكورد: مغلق"; }
+        }
+
+        function togglePlatformStatus(platform) {
+            systemStatus[platform] = !systemStatus[platform];
+            localStorage.setItem('tarab_status', JSON.stringify(systemStatus));
+            updateAdminCountersUI();
+        }
+
+        function renderAdminRequests() {
             const tbody = document.getElementById('adminRequestsRows');
             tbody.innerHTML = "";
 
-            const pendingApps = applications.filter(app => app.status === 'pending');
-
-            if(pendingApps.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666;">لا توجد أي طلبات تقديم معلقة حالياً بانتظارك..</td></tr>`;
+            if (applications.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:gray;">لا توجد أي طلبات حالية في قاعدة البيانات التاريخية.</td></tr>`;
                 return;
             }
 
-            pendingApps.forEach(app => {
+            applications.forEach(app => {
                 const tr = document.createElement('tr');
+                let badgeColor = app.status === 'pending' ? 'orange' : (app.status === 'accepted' ? '#22c55e' : '#ef4444');
+                let statusText = app.status === 'pending' ? 'معلق' : (app.status === 'accepted' ? 'مقبول بنجاح' : 'مرفوض');
+                
+                let actionButtons = '';
+                if (app.status === 'pending') {
+                    actionButtons = `
+                        <button class="btn btn-success" style="padding:4px 8px; font-size:0.75rem;" onclick="processRequest(${app.id}, 'accept')">قبول</button>
+                        <button class="btn btn-danger" style="padding:4px 8px; font-size:0.75rem;" onclick="processRequest(${app.id}, 'reject')">رفض</button>
+                    `;
+                } else if (app.status === 'accepted') {
+                    actionButtons = `
+                        <button class="btn btn-danger" style="padding:4px 8px; font-size:0.75rem; background:#7f1d1d;" onclick="processRequest(${app.id}, 'fire')">طرد / استقالة</button>
+                    `;
+                } else {
+                    actionButtons = `<span style="color:gray; font-size:0.8rem;">انتهى بالكول داون</span>`;
+                }
+
                 tr.innerHTML = `
-                    <td style="font-weight:bold; color:#fff;">${app.name}</td>
-                    <td>${app.platformText}</td>
-                    <td style="color:var(--accent-green); font-weight:bold;">${app.rankText}</td>
-                    <td><div class="content-box" style="max-height:100px; margin-bottom:0; font-size:0.8rem;">${app.answers}</div></td>
+                    <td><b>${app.name}</b><br><small style="color:gray;">${app.time}</small></td>
+                    <td>${app.platform === 'game' ? '👾 شاليه طرب' : '💬 ديسكورد'}</td>
+                    <td><span style="color:#fff; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">${app.rank.toUpperCase()}</span></td>
+                    <td><div style="font-size:0.8rem; white-space:pre-line; max-height:80px; overflow-y:auto; background:#111; padding:5px; border-radius:4px;">${app.answers}</div></td>
                     <td>
                         <div class="action-btns">
-                            <button class="btn btn-success" onclick="processApp(${app.id}, 'approve')">قبول</button>
-                            <button class="btn btn-danger" onclick="processApp(${app.id}, 'reject')">رفض</button>
+                            ${actionButtons}
                         </div>
+                        <div style="margin-top:4px; font-size:0.75rem; color:${badgeColor}">الحالة: ${statusText}</div>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function processApp(appId, action) {
-            const index = applications.findIndex(app => app.id === appId);
-            if(index === -1) return;
+        function processRequest(id, action) {
+            const app = applications.find(a => a.id === id);
+            if (!app) return;
 
-            const app = applications[index];
-
-            if(action === 'approve') {
-                if(approvedCounts[app.rank] >= LIMITS[app.rank]) {
-                    alert(`🚨 نعتذر منك أيها المالك! لا يمكن القبول، لقد تم الوصول للحد الأقصى للسقف الإداري لهذه الرتبة (${LIMITS[app.rank]} مقاعد).`);
+            if (action === 'accept') {
+                if (approvedCounts[app.rank] >= LIMITS[app.rank]) {
+                    alert(`🚨 لا يمكن القبول! تم الوصول للحد الأقصى للمقاعد المتاحة لهذه الرتبة (${LIMITS[app.rank]} مقاعد). قم بتصفير المقاعد أو طرد عضو أولاً.`);
                     return;
                 }
+                app.status = 'accepted';
                 approvedCounts[app.rank]++;
-                localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
-                
-                applications[index].status = 'approved';
-                sendWebhookNotification("🟢 تم قبول المتقدم رسمياً بواسطة المالك", app, 3066993, "تمت إضافة المتقدم للسقف وجاري تسليمه الرتبة والخصائص.");
-                alert(`✅ تم قبول طلب ${app.name} وتحديث السقف الإداري بنجاح!`);
+                alert(`✅ تم قبول المتقدم [${app.name}] فورياً بنجاح وتثبيت مقعده!`);
             } 
-            else if(action === 'reject') {
-                // تفعيل نظام الكول داون فوراً لحساب الشخص لمدة 5 دقائق
-                const lowercaseName = app.name.toLowerCase();
-                cooldowns[lowercaseName] = Date.now();
+            else if (action === 'reject') {
+                app.status = 'rejected';
+                // تفعيل كول داون 5 دقائق فوراً للمرفوض
+                cooldowns[app.name.toLowerCase()] = Date.now();
                 localStorage.setItem('tarab_cooldowns', JSON.stringify(cooldowns));
-
-                applications[index].status = 'rejected';
-                sendWebhookNotification("🔴 تم رفض المتقدم وتفعيل فترة الكول داون", app, 15158332, "تم رفض الطلب وحظر المستخدم من التقديم مجدداً لمدة 5 دقائق كاملة.");
-                alert(`🚫 تم رفض طلب ${app.name} ودخل في فترة كول داون 5 دقائق حالياً.`);
+                alert(`❌ تم رفض الطلب وإعطاء [${app.name}] كول داون 5 دقائق لمنعه من التقديم.`);
+            } 
+            else if (action === 'fire') {
+                // ميزة الطرد أو الاستقالة لتصفير حالته وإتاحة التقديم له مجدداً
+                if (confirm(`هل أنت متأكد من إزالة/طرد [${app.name}] من طاقم العمل؟ سيتمكن من التقديم مرة أخرى.`)) {
+                    app.status = 'fired';
+                    if (approvedCounts[app.rank] > 0) approvedCounts[app.rank]--;
+                    alert(`🚪 تم تسجيل طرد/استقالة العضو بنجاح وإتاحة مقعده.`);
+                } else {
+                    return;
+                }
             }
 
             localStorage.setItem('tarab_apps', JSON.stringify(applications));
-            renderAdminPanel();
+            localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
+            updateAdminCountersUI();
+            renderAdminRequests();
+        }
+
+        function resetAllCounts() {
+            if(confirm("⚠️ هل أنت متأكد من تصفير كافة مقاعد الرتب؟ (لن يحذف الأعضاء بل سيجعل العدادات صفر)")) {
+                approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
+                localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
+                updateAdminCountersUI();
+            }
         }
     </script>
 </body>
