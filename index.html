@@ -1,140 +1,327 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>طرب للتقديمات</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع التقديم الرسمي | الإدارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a; /* لون الخلفية داكن */
+            --card-bg: #1e293b; /* لون البطاقات */
+            --primary-color: #3b82f6; /* لون رئيسي (أزرق) */
+            --primary-hover: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
-  color: white;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
 
-header {
-  padding: 40px;
-  text-align: center;
-}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-h1 {
-  font-size: 45px;
-  margin: 0;
-}
+        /* شريط التنقل (الناف بار) */
+        nav {
+            background-color: rgba(30, 41, 59, 0.9);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #334155;
+        }
 
-p {
-  color: #bbb;
-}
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
 
-.container {
-  text-align: center;
-  margin-top: 40px;
-}
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
 
-button {
-  padding: 15px 35px;
-  font-size: 18px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  background: white;
-  color: black;
-  transition: 0.3s;
-}
+        nav ul li a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
 
-button:hover {
-  background: #00c3ff;
-  color: white;
-  transform: scale(1.1);
-}
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
 
-.card {
-  margin: 30px auto;
-  width: 60%;
-  background: rgba(255,255,255,0.08);
-  padding: 20px;
-  border-radius: 15px;
-}
+        /* القسم الرئيسي (الهيرو) */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #0f172a, #1e293b);
+        }
 
-input, select, textarea {
-  width: 80%;
-  padding: 12px;
-  margin: 10px;
-  border-radius: 10px;
-  border: none;
-}
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
 
-.page {
-  display: none;
-}
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
 
-.active {
-  display: block;
-}
-</style>
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* تنسيق الأقسام العامة */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        /* شبكة البطاقات (للرتب والقوانين) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* نموذج التقديم */
+        .apply-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-top: 1px solid #334155;
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <h1>طرب للتقديمات</h1>
-  <p>النظام الرسمي لتقديم الإدارة</p>
-</header>
+    <nav>
+        <div class="logo">المجتمع الاحترافي</div>
+        <ul>
+            <li><a href="#rules">القوانين</a></li>
+            <li><a href="#ranks">الرتب</a></li>
+            <li><a href="#apply">قدم الآن</a></li>
+        </ul>
+    </nav>
 
-<!-- الصفحة الرئيسية -->
-<div id="home" class="page active container">
-  <button onclick="go('rules')">ابدأ التقديم</button>
-</div>
+    <header class="hero">
+        <h1>أهلاً بك في بوابة التقديم الرسمية</h1>
+        <p>نحن نبحث عن أشخاص طموحين ومحترفين للانضمام إلى فريقنا. اقرأ القوانين، تعرف على الرتب المتاحة، وقدم طلبك الآن لتكون جزءاً من مجتمعنا.</p>
+        <a href="#apply" class="btn">ابدأ التقديم</a>
+    </header>
 
-<!-- القوانين -->
-<div id="rules" class="page container">
-  <div class="card">
-    <h2>القوانين</h2>
-    <p>1- احترام الإدارة</p>
-    <p>2- الالتزام بالشروط</p>
-    <p>3- عدم الإزعاج</p>
-  </div>
-  <button onclick="go('form')">أوافق</button>
-</div>
+    <section id="rules">
+        <h2 class="section-title">القوانين والشروط العامة</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>1. الاحترام المتبادل</h3>
+                <p>يجب احترام جميع الأعضاء والإدارة. يمنع منعاً باتاً التلفظ بألفاظ بذيئة أو الإساءة لأي شخص داخل المجتمع.</p>
+            </div>
+            <div class="card">
+                <h3>2. الالتزام بالتعليمات</h3>
+                <p>يجب اتباع تعليمات الإدارة العليا والمشرفين. في حال وجود شكوى، يرجى تقديمها عبر التذاكر الرسمية (Tickets).</p>
+            </div>
+            <div class="card">
+                <h3>3. التفاعل والتواجد</h3>
+                <p>الرتب الإدارية تتطلب تواجداً وتفاعلاً مستمراً. الغياب لفترات طويلة بدون عذر مسبق قد يؤدي إلى سحب الرتبة.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- التقديم -->
-<div id="form" class="page container">
-  <div class="card">
-    <h2>نموذج التقديم</h2>
+    <section id="ranks">
+        <h2 class="section-title">الرتب المتاحة للتقديم</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="rank-badge">إدارة متوسطة</span>
+                <h3>مشرف عام (Moderator)</h3>
+                <p>المسؤول عن مراقبة المحادثات، مساعدة الأعضاء الجدد، والتأكد من تطبيق القوانين. يتطلب خبرة سابقة في إدارة المجتمعات.</p>
+            </div>
+            <div class="card">
+                <span class="rank-badge">فريق الدعم</span>
+                <h3>دعم فني (Support)</h3>
+                <p>مختص في الرد على استفسارات الأعضاء وحل المشاكل التقنية أو الشكاوى عبر نظام التذاكر. يتطلب أسلوباً لبقاً وسرعة استجابة.</p>
+            </div>
+            <div class="card">
+                <span class="rank-badge">فريق الإعلام</span>
+                <h3>صانع محتوى (Creator)</h3>
+                <p>رتبة مخصصة للمبدعين في التصميم أو المونتاج أو البث المباشر للمساهمة في نشر محتوى المجتمع.</p>
+            </div>
+        </div>
+    </section>
 
-    <input type="text" placeholder="اسمك في الديسكورد">
-    <br>
+    <section id="apply">
+        <h2 class="section-title">نموذج التقديم</h2>
+        <div class="apply-container">
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label for="name">الاسم / اللقب</label>
+                    <input type="text" id="name" required placeholder="اكتب اسمك هنا...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="discord">اسمك في الديسكورد (Discord Tag)</label>
+                    <input type="text" id="discord" required placeholder="مثال: user#1234">
+                </div>
 
-    <select>
-      <option>اختر الرتبة</option>
-      <option>مشرف</option>
-      <option>إداري</option>
-      <option>مراقب</option>
-    </select>
-    <br>
+                <div class="form-group">
+                    <label for="age">العمر</label>
+                    <input type="number" id="age" required placeholder="اكتب عمرك الحقيقي...">
+                </div>
 
-    <textarea placeholder="لماذا تريد الانضمام؟"></textarea>
-    <br>
+                <div class="form-group">
+                    <label for="rank">الرتبة المطلوبة</label>
+                    <select id="rank" required>
+                        <option value="" disabled selected>اختر الرتبة...</option>
+                        <option value="moderator">مشرف عام</option>
+                        <option value="support">دعم فني</option>
+                        <option value="creator">صانع محتوى</option>
+                    </select>
+                </div>
 
-    <textarea placeholder="اكتب الإقرار: أتعهد بالالتزام بالقوانين"></textarea>
-    <br>
+                <div class="form-group">
+                    <label for="experience">لماذا يجب أن نختارك؟ (خبراتك السابقة)</label>
+                    <textarea id="experience" required placeholder="تحدث عن خبراتك، مهاراتك، ولماذا أنت الشخص المناسب لهذه الرتبة..."></textarea>
+                </div>
 
-    <button onclick="go('done')">إرسال</button>
-  </div>
-</div>
+                <button type="submit" class="btn" style="width: 100%;">إرسال التقديم</button>
+            </form>
+        </div>
+    </section>
 
-<!-- تم -->
-<div id="done" class="page container">
-  <h2>تم إرسال تقديمك ✅</h2>
-  <p>سيتم مراجعة طلبك قريبًا</p>
-</div>
+    <footer>
+        <p>جميع الحقوق محفوظة للمجتمع الاحترافي &copy; 2026</p>
+    </footer>
 
-<script>
-function go(page){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(page).classList.add('active');
-}
-</script>
-
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            
+            // هنا يمكنك مستقبلاً ربط النموذج بـ Discord Webhook أو قاعدة بيانات
+            // حالياً سنظهر رسالة نجاح للمستخدم فقط
+            
+            alert('تم إرسال تقديمك بنجاح! سيتم التواصل معك عبر الديسكورد قريباً في حال تم قبولك.');
+            this.reset(); // تفريغ الخانات بعد الإرسال
+        });
+    </script>
 </body>
 </html>
