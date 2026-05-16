@@ -46,6 +46,7 @@
             overflow: hidden;
         }
 
+        /* الغيوم العامة والمتحركة */
         .clouds {
             position: absolute;
             width: 300%;
@@ -57,9 +58,28 @@
             animation: moveClouds 35s linear infinite alternate;
         }
 
+        /* غيوم مخصصة في الأعلى واليمين للواجهة الترحيبية */
+        .top-right-clouds {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(17, 5, 28, 0.6) 50%, transparent 100%);
+            filter: blur(50px);
+            z-index: -1;
+            animation: cloudFloatTopRight 8s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
         @keyframes moveClouds {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
+        }
+
+        @keyframes cloudFloatTopRight {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            100% { transform: translate(-30px, 20px) scale(1.1); opacity: 0.9; }
         }
 
         .lightning-flash {
@@ -115,6 +135,26 @@
         @keyframes ghostFloat {
             0% { transform: translateY(0) scaleX(1); filter: blur(3px); }
             100% { transform: translateY(-8px) scaleX(0.96); filter: blur(5px); }
+        }
+
+        /* ----- تأثير نص الترحيب المتحرك في الواجهة ----- */
+        .welcome-badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 4px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #c084fc;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.2); }
+            100% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
         }
 
         /* ----- الحاوية الرئيسية ومحتوى الموقع ----- */
@@ -234,7 +274,7 @@
 
     <div class="background-container">
         <div class="clouds"></div>
-        <div class="lightning-flash"></div>
+        <div class="top-right-clouds"></div> <div class="lightning-flash"></div>
     </div>
     
     <div class="ghost-shadow"></div>
@@ -242,8 +282,9 @@
     <div class="container">
         
         <div id="pageWelcome" class="page active">
+            <div class="welcome-badge">👋 أهلاً بك في البوابة الرسمية</div>
             <h1>بوابة طرب للتقديم</h1>
-            <p>مرحباً بك في نظام التقديم الرسمي لإدارة سيرفر طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية.</p>
+            <p>مرحباً بك في نظام التقديم الموحد لـ طرب ديسكورد وشاليه طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية.</p>
             <button class="btn" onclick="navigateTo('pageApply')">ابدأ التقديم</button>
         </div>
 
@@ -251,9 +292,9 @@
             <h2>التقديم الرسمي لإدارة طرب</h2>
             
             <div class="form-group">
-                <label>الشروط والتعليمات العامة لسيرفر طرب:</label>
+                <label>الشروط والتعليمات العامة لسيرفر وماب طرب:</label>
                 <div class="content-box">
-                    • تم فتح التقديمات للإدارة للأشخاص القادرين على تحمل المسؤولية والمحافظة على نظام السيرفر.
+                    • تم فتح التقديمات للإدارة للأشخاص القادرين على تحمل المسؤولية والمحافظة على النظام.
                     • الرجاء قراءة جميع الشروط بعناية، لأن أي مخالفة أو استهتار قد يؤدي إلى رفض التقديم أو سحب الرتبة مستقبلاً.
                     
                     ⚖️ قوانين وتعليمات التقديم:
@@ -280,8 +321,8 @@
                     <label for="platformType">مكان التقديم المطلوب:</label>
                     <select id="platformType" required onchange="handlePlatformChange()">
                         <option value="" disabled selected>اختر مكان الإدارة...</option>
-                        <option value="discord">إدارة الديسكورد (Discord Admin)</option>
-                        <option value="game">إدارة اللعبة داخل روبلوكس (In-Game Admin)</option>
+                        <option value="discord">طرب ديسكورد (Discord Admin)</option>
+                        <option value="game">شاليه طرب (In-Game Admin)</option>
                     </select>
                 </div>
 
@@ -310,7 +351,7 @@
                 <div class="acknowledgement-box">
                     <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
                     <label for="agreeCheck">
-                        أقر أنا مقدم الطلب بأنني قرأت جميع شروط وقوانين الإدارة الخاصة بسيرفر طرب، وأتعهد بالالتزام الكامل بها دون أي مخالفة. كما أتحمل كامل المسؤولية عن أي إساءة استخدام للصلاحيات.
+                        أقر أنا مقدم الطلب بأنني قرأت جميع شروط وقوانين الإدارة الخاصة بـ طرب، وأتعهد بالالتزام الكامل بها دون أي مخالفة. كما أتحمل كامل المسؤولية عن أي إساءة استخدام للصلاحيات.
                     </label>
                 </div>
 
@@ -353,7 +394,7 @@
             }
         }
 
-        // تحديث الرتب بناءً على اختيار (لعبة أو ديسكورد)
+        // تحديث الرتب لتكون بنفس أسماء رتب الديسكورد لكلا الخيارين
         function handlePlatformChange() {
             const platform = document.getElementById('platformType').value;
             const rankSelect = document.getElementById('userRank');
@@ -365,60 +406,48 @@
             conditionsDiv.innerHTML = 'يرجى تحديد الرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..';
             questionsTextArea.value = '';
 
-            if (platform === 'discord') {
-                rankSelect.innerHTML += `
-                    <option value="founder">Founder</option>
-                    <option value="co_owner">CO Owner</option>
-                    <option value="head_admin">Headadmin</option>
-                    <option value="admin">Admin</option>
-                `;
-            } else if (platform === 'game') {
-                rankSelect.innerHTML += `
-                    <option value="game_director">Game Director (مشرف عام اللعبة)</option>
-                    <option value="server_supervisor">Server Supervisor (مراقب سيرفرات)</option>
-                    <option value="game_moderator">Game Moderator (مراقب داخل اللعبة)</option>
-                `;
-            }
+            // توحيد أسماء الرتب للجهتين بناء على طلبك
+            rankSelect.innerHTML += `
+                <option value="founder">Founder</option>
+                <option value="co_owner">CO Owner</option>
+                <option value="head_admin">Headadmin</option>
+                <option value="admin">Admin</option>
+            `;
             toggleSubmitBtn();
         }
 
-        // تحديث الشروط والأسئلة بناءً على الرتب المحددة
         function handleRankChange() {
             const platform = document.getElementById('platformType').value;
             const rank = document.getElementById('userRank').value;
             const conditionsDiv = document.getElementById('rankConditions');
             const questionsTextArea = document.getElementById('rankQuestions');
             
-            // قوالب الأسئلة الثابتة
-            const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة للديسكورد :\nعدد ساعات التفاعل في الديسكورد :\nخبراتك بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد سيرفر طرب؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
+            const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل في الديسكورد :\nخبراتك بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
             
-            const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة داخل اللعبة :\nعدد ساعات تواجدك اليومي داخل اللعبة :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب اللعبة؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي مثلاً) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات أو الـ Exploits والإبلاغ عنها؟ :\nتعهد بالالتزام بالزي الرسمي والنظام الإداري الصارم داخل الماب :`;
+            const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي مثلاً) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام بالزي الرسمي والنظام الإداري الصارم داخل شاليه طرب :`;
 
             if (platform === 'discord') {
                 if(rank === 'founder') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Founder (ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة.\n• التكفل بالتطوير العام وإدارة شؤون المجتمع مصيرياً.`;
-                    questionsTextArea.value = discordForm;
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة.\n• التكفل بالتطوير العام وإدارة شؤون المجتمع مصيرياً.`;
                 } else if(rank === 'co_owner') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة CO Owner (ديسكورد):</b>\n• خبرة قوية جدًا بإدارة السيرفرات، إدارة الطاقم، احترافية بحل النزاعات، تنظيم الأقسام، وحظر تام للمصلحة الشخصية.`;
-                    questionsTextArea.value = discordForm;
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جدًا بإدارة السيرفرات، إدارة الطاقم، احترافية بحل النزاعات، تنظيم الأقسام، وحظر تام للمصلحة الشخصية.`;
                 } else if(rank === 'head_admin') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Head Admin (ديسكورد):</b>\n• إشراف ومتابعة تطبيق القوانين، تفاعل قوي، وهدوء تام وتوجيه طاقم الـ Admins بالكامل.`;
-                    questionsTextArea.value = discordForm;
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Head Admin (طرب ديسكورد):</b>\n• إشراف ومتابعة تطبيق القوانين، تفاعل قوي، وهدوء تام وتوجيه طاقم الـ Admins بالكامل.`;
                 } else if(rank === 'admin') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Admin (ديسكورد):</b>\n• تفاعل ممتاز، احترام الأعضاء، تنفيذ التعليمات، وتطهير الشات والرموز من أي مخالفات فوراً.`;
-                    questionsTextArea.value = discordForm;
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Admin (طرب ديسكورد):</b>\n• تفاعل ممتاز، احترام الأعضاء، تنفيذ التعليمات، وتطهير الشات والرموز من أي مخالفات فوراً.`;
                 }
+                questionsTextArea.value = discordForm;
             } else if (platform === 'game') {
-                if(rank === 'game_director') {
-                    conditionsDiv.innerHTML = `<b>🔥 متطلبات رتبة Game Director (إدارة اللعبة):</b>\n• سلطة عليا داخل الماب مسؤولة عن تنظيم السيرفرات بالكامل.\n• إدارة مراقبي اللعبة وتوزيعهم على السيرفرات لمنع أي تخريب.\n• القدرة على اتخاذ قرارات حظر نهائي (Permaban) للمخربين والهاكات بالتنسيق مع الإدارة العليا.`;
-                    questionsTextArea.value = gameForm;
-                } else if(rank === 'server_supervisor') {
-                    conditionsDiv.innerHTML = `<b>⚡ متطلبات رتبة Server Supervisor (إدارة اللعبة):</b>\n• الإشراف المباشر على سيرفرات الماب وحل النزاعات السريعة بين اللاعبين.\n• التواجد الميداني المستمر والتأكد من استقرار اللعبة وعدم وجود "جلتشات متعمدة" تخرب متعة الآخرين.\n• رفع تقارير يومية عن حالة اللعبة وأي ثغرات مريبة.`;
-                    questionsTextArea.value = gameForm;
-                } else if(rank === 'game_moderator') {
-                    conditionsDiv.innerHTML = `<b>🛡️ متطلبات رتبة Game Moderator (إدارة اللعبة):</b>\n• عين الإدارة داخل الماب! التفاعل اليومي المستمر وسط اللاعبين.\n• رصد وتوثيق أي لاعب يستخدم (Hacks / Exploits) والتعامل الفوري معه بالـ Kick أو الـ Ban المؤقت.\n• الالتزام التام بالحيادية وعدم مجاملة الأصدقاء بالصلاحيات الإدارية نهائياً.`;
-                    questionsTextArea.value = gameForm;
+                if(rank === 'founder') {
+                    conditionsDiv.innerHTML = `<b>🔥 متطلبات رتبة Founder (شاليه طرب):</b>\n• سلطة قيادية عليا مسؤولة عن إدارة وضبط سيرفرات الماب بالكامل وتطوير جودة الأمن الإداري داخل الماب بالتنسيق مع الإدارة العليا.`;
+                } else if(rank === 'co_owner') {
+                    conditionsDiv.innerHTML = `<b>⚡ متطلبات رتبة CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم الإشراف الداخلي، وإصدار قرارات الباند النهائي للمخربين الكبار، والتعامل الاحترافي مع النزاعات ومتابعة الأداء اليومي.`;
+                } else if(rank === 'head_admin') {
+                    conditionsDiv.innerHTML = `<b>🛡️ متطلبات رتبة Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني، ورصد أداء الـ Admins الجدد، وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
+                } else if(rank === 'admin') {
+                    conditionsDiv.innerHTML = `<b>👾 متطلبات رتبة Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي المستمر وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل معهم فوراً (Kick / Ban مؤقت) دون أي مجاملات شخصية.`;
                 }
+                questionsTextArea.value = gameForm;
             }
             validateQuestions(questionsTextArea);
         }
@@ -446,7 +475,6 @@
             const rankName = selectedRankElement.options[selectedRankElement.selectedIndex].text;
             const userAnswers = document.getElementById('rankQuestions').value;
 
-            // تحديد لون الـ Embed بناء على نوع التقديم (بنفسجي للديسكورد، أحمر/برتقالي ناري للعبة)
             const embedColor = document.getElementById('platformType').value === 'discord' ? 9121510 : 15682844;
 
             const discordPayload = {
