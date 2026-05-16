@@ -331,20 +331,18 @@
     </div>
 
     <script>
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505176652496244746/oIFuNgWVCjoMP4njvXzIvRvffLTL4UNrAoMvNbPET7taWfFRiJFxc5jTvrZUQUVElhKZ";
+        // الـ Webhook الجديد المحدث الخاص بك
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
 
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
 
-        // فحص لغة وحروف اسم الديسكورد (إنجليزي فقط)
         function validateName(input) {
-            // استبدال أي حرف غير إنجليزي فوراً لمنع كتابته
             input.value = input.value.replace(/[^A-Za-z0-9_.\s]/g, '');
         }
 
-        // فحص عدد أحرف الأسئلة وتنبيه المتقدم
         function validateQuestions(textarea) {
             const counter = document.getElementById('charCounter');
             const len = textarea.value.length;
@@ -357,13 +355,11 @@
             }
         }
 
-        // تحديث الشروط والأسئلة بناء على رسالتك الرسمية
         function handleRankChange() {
             const rank = document.getElementById('userRank').value;
             const conditionsDiv = document.getElementById('rankConditions');
             const questionsTextArea = document.getElementById('rankQuestions');
             
-            // قالب الأسئلة الثابت المستخرج من رسالتك
             const baseForm = `الاسم أو اللقب :\nالرتبة المطلوبة :\nعدد ساعات التفاعل :\nخبراتك بالإدارة :\nالسيرفرات اللي أدرتها قبل :\nكيف تتعامل مع المشاكل والنزاعات؟ :\nوش اللي يميزك عن غيرك؟ :\nوش بتقدم لسيرفر طرب إذا انقبلت؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
 
             if(rank === 'founder') {
@@ -387,11 +383,9 @@
             const questionsLen = document.getElementById('rankQuestions').value.length;
             const nameLen = document.getElementById('discordName').value.length;
             
-            // تفعيل الزر فقط إذا وافق على الشروط والبيانات مطابقة للقيود ومكتملة
             document.getElementById('submitBtn').disabled = !(checkBox.checked && questionsLen >= 10 && nameLen >= 3);
         }
 
-        // مراقبة التغييرات بشكل مستمر لتحديث حالة زر الإرسال
         document.getElementById('appForm').addEventListener('input', toggleSubmitBtn);
 
         function submitApplication(event) {
