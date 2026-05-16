@@ -93,7 +93,7 @@
             margin-bottom: 30px;
         }
 
-        /* الأزرار الاحترافية */
+        /* الأزرار */
         .btn {
             background: linear-gradient(135deg, var(--purple-main), #6d28d9);
             color: white;
@@ -173,7 +173,7 @@
             text-align: right;
         }
 
-        /* حالة النتيجة (قبول / رفض) */
+        /* حالة النتيجة */
         .status-screen {
             padding: 30px;
             border-radius: 12px;
@@ -212,13 +212,18 @@
             <div class="form-group">
                 <label>القوانين والشروط العامة:</label>
                 <div class="content-box">
-                    1. [سيتم استبدال هذا النص بالقوانين التي سترسلها]<br>
-                    2. الالتزام التام بالسرية الإدارية.<br>
-                    3. التواجد اليومي والتفاعل المستمر.
+                    1. الالتزام التام بالسرية الإدارية وعدم تسريب أي معلومات.<br>
+                    2. التواجد اليومي والتفاعل المستمر داخل السيرفر.<br>
+                    3. احترام قرارات الإدارة العليا والتعامل بلباقة مع الأعضاء.
                 </div>
             </div>
 
             <form id="appForm" onsubmit="submitApplication(event)">
+                <div class="form-group">
+                    <label for="discordName">اسم حسابك في الديسكورد (مع الهاشتاق إن وجد):</label>
+                    <input type="text" id="discordName" required placeholder="مثال: demon_studio">
+                </div>
+
                 <div class="form-group">
                     <label for="userRank">اختر الرتبة التي تود التقديم عليها:</label>
                     <select id="userRank" required onchange="handleRankChange()">
@@ -236,14 +241,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label>الأسئلة الإدارية:</label>
-                    <textarea id="rankQuestions" required placeholder="[هنا ستظهر الأسئلة بناءً على رتبتك لتجيب عليها...]"></textarea>
+                    <label>الأسئلة الإدارية وعن خبراتك:</label>
+                    <textarea id="rankQuestions" required placeholder="يرجى اختيار رتبة لتظهر لك الأسئلة هنا والتحقق منها..."></textarea>
                 </div>
 
                 <div class="acknowledgement-box">
                     <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
-                    <label for="agreeCheck" style="font-size: 0.9rem; color: #fca5a5; cursor: pointer;">
-                        [الإقرار الإلزامي: أقر أنا مقدم الطلب بالالتزام بكافة الشروط المذكورة أعلاه]
+                    <label for="agreeCheck" style="font-size: 0.9rem; color: #fca5a5; cursor: pointer; user-select: none;">
+                        أقر أنا مقدم الطلب بالالتزام بكافة الشروط والقوانين المذكورة أعلاه وأن إخلالي بها يعرضني للاستبعاد.
                     </label>
                 </div>
 
@@ -260,6 +265,9 @@
     </div>
 
     <script>
+        // رابط الـ Webhook الخاص بك مدمج وجاهز تماماً
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505176652496244746/oIFuNgWVCjoMP4njvXzIvRvffLTL4UNrAoMvNbPET7taWfFRiJFxc5jTvrZUQUVElhKZ";
+
         // دالة التنقل بين الشاشات
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
@@ -273,41 +281,90 @@
             const questionsTextArea = document.getElementById('rankQuestions');
 
             if(rank === 'mod') {
-                conditionsDiv.innerText = "شروط المشرف: عمرك فوق 18، خبرة سابقة في التعامل مع المشاكل.";
-                questionsTextArea.placeholder = "س1: كيف تتصرف إذا قام إداري آخر بمخالفة القوانين؟";
+                conditionsDiv.innerText = "• شروط المشرف: العمر لا يقل عن 16 عاماً، مهارة عالية في ضبط النفس وحل النزاعات بين الأعضاء.";
+                questionsTextArea.placeholder = "س1: ما هي خبرتك السابقة في الإشراف؟\nس2: كيف ستتصرف إذا رأيت عضواً يكرر المخالفات بشكل متعمد؟";
             } else if(rank === 'support') {
-                conditionsDiv.innerText = "شروط الدعم: سرعة الرد، أسلوب لبق، التواجد في نظام التذاكر.";
-                questionsTextArea.placeholder = "س1: ما هي خبرتك السابقة في الدعم الفني؟";
+                conditionsDiv.innerText = "• شروط الدعم: سرعة الرد على التذاكر، أسلوب كلام راقي جداً، الالتزام بتقديم الحلول الصحيحة.";
+                questionsTextArea.placeholder = "س1: كم ساعة تستطيع تقديم الدعم الفني يومياً؟\nس2: كيف تتعامل مع عضو يتحدث بأسلوب حاد وغير لائق داخل التذكرة؟";
             }
         }
 
-        // تفعيل زر التقديم فقط إذا تم الضغط على checkbox الإقرار
+        // تفعيل زر التقديم فقط إذا وافق على الإقرار
         function toggleSubmitBtn() {
             const checkBox = document.getElementById('agreeCheck');
             document.getElementById('submitBtn').disabled = !checkBox.checked;
         }
 
-        // محاكاة إرسال الطلب (هنا نربط الـ Webhook مستقبلاً)
+        // إرسال البيانات فوراً إلى سيرفر ديسكورد الخاص بك
         function submitApplication(event) {
             event.preventDefault();
-            
-            // لإظهار كيف ستعمل لوحة التحكم الخاصة بك (القبول والرفض والنور المتحرك):
-            // سنقوم بعمل محاكاة تجريبية (تظهر لك كيف يبدو شكل القبول والرفض بالموقع)
-            
-            let choice = confirm("محاكاة تحكم صاحب الموقع (أنت):\nاضغط [OK] للمحاكاة كـ (مقبول - نور أخضر)\nاضغط [Cancel] للمحاكاة كـ (مرفوض - نور أحمر)");
-            
-            const statusBox = document.getElementById('statusBox');
-            if(choice) {
-                statusBox.className = "status-screen accepted";
-                statusBox.innerHTML = "🟢 نعتز باختيارك!<br><br>لقد تم قبولك في طرب، سيتم التواصل معك قريباً.";
-            } else {
-                statusBox.className = "status-screen rejected";
-                statusBox.innerHTML = "🔴 نعتذر منك...<br><br>تم رفض طلبك حالياً، ولكن يمكنك المحاولة والتقديم مرة أخرى لاحقاً.";
-            }
-            
-            navigateTo('pageStatus');
-            document.getElementById('appForm').reset();
-            toggleSubmitBtn();
+
+            const discordName = document.getElementById('discordName').value;
+            const selectedRankElement = document.getElementById('userRank');
+            const rankName = selectedRankElement.options[selectedRankElement.selectedIndex].text;
+            const userAnswers = document.getElementById('rankQuestions').value;
+
+            // بناء البطاقة المنسقة لترسل للديسكورد
+            const discordPayload = {
+                embeds: [{
+                    title: "📥 تقديم جديد على الإدارة - طرب",
+                    color: 9121510, // اللون البنفسجي المميز
+                    timestamp: new Date().toISOString(),
+                    fields: [
+                        {
+                            name: "👤 صاحب التقديم (Discord)",
+                            value: `\`${discordName}\``,
+                            inline: true
+                        },
+                        {
+                            name: "👑 الرتبة المطلوبة",
+                            value: `\`${rankName}\``,
+                            inline: true
+                        },
+                        {
+                            name: "📝 الإجابات على الأسئلة والخبرات",
+                            value: `\`\`\`text\n${userAnswers}\n\`\`\``,
+                            inline: false
+                        },
+                        {
+                            name: "✅ حالة الإقرار والشروط",
+                            value: "تمت الموافقة على الإقرار والالتزام التام بالقوانين.",
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: "بوابة تقديم طرب الرسمية"
+                    }
+                }]
+            };
+
+            // عملية الإرسال الفعلي للديسكورد
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(discordPayload)
+            })
+            .then(response => {
+                const statusBox = document.getElementById('statusBox');
+                
+                if (response.ok) {
+                    statusBox.className = "status-screen accepted";
+                    statusBox.innerHTML = "🟢 تم إرسال طلبك بنجاح للـ Discord!<br><br>الطلب قيد المراجعة الآن من قِبل الإدارة العليا لـ طرب، انتظر تواصلنا معك.";
+                } else {
+                    statusBox.className = "status-screen rejected";
+                    statusBox.innerHTML = "🔴 عذراً، فشل إرسال الطلب للديسكورد.<br><br>تأكد من إعدادات الـ Webhook الخاص بك وحاول مرة أخرى.";
+                }
+                
+                navigateTo('pageStatus');
+                document.getElementById('appForm').reset();
+                toggleSubmitBtn();
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("حدث خطأ غير متوقع في الاتصال. تأكد من جودة الإنترنت لديك.");
+            });
         }
     </script>
 </body>
