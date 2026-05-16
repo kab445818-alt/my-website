@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة تقديم طرب الرسمية الإدارية</title>
+    <title>بوابة تقديم طرب الرسمية المتطورة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        /* ----- الخلفية والمؤثرات المتطورة ----- */
+        /* ----- الخلفية الضبابية والغيوم المتحركة ----- */
         .background-container {
             position: absolute;
             width: 100%; height: 100%;
@@ -54,13 +54,13 @@
         @keyframes moveClouds { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes cloudFloatTopRight { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-30px, 20px) scale(1.1); } }
 
-        /* ----- الحاوية الرئيسية (شاشة عريضة لتقسيم يمين ويسار) ----- */
+        /* ----- الحاوية الديناميكية الذكية ----- */
         .container {
             background: rgba(10, 6, 15, 0.82);
             border: 1px solid rgba(139, 92, 246, 0.2);
             backdrop-filter: blur(25px);
             width: 100%;
-            max-width: 550px; /* تفتح تلقائياً عند الدخول للاستمارة */
+            max-width: 550px;
             padding: 35px 25px;
             border-radius: 16px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 35px var(--purple-glow);
@@ -69,80 +69,98 @@
             max-height: 95vh;
             overflow-y: auto;
             z-index: 10;
-            transition: max-width 0.4s ease;
+            transition: all 0.3s ease-in-out;
         }
 
-        /* حاوية التقديم الواسعة المقسمة لليمين واليسار وحاوية لوحة الإدارة */
-        .container.split-mode, .container.admin-mode { max-width: 1050px; width: 95%; }
-
-        /* تقسيم عناصر شاشة التقديم */
-        .split-layout { display: flex; gap: 25px; text-align: right; flex-wrap: wrap; }
-        .split-right { flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between; }
-        .split-left { flex: 1.3; min-width: 350px; }
+        /* حاويات الصفحات العريضة للتقديم المفرز ولوحة المسؤول */
+        .container.wide-mode { max-width: 1100px; width: 95%; }
 
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
         h1 { font-size: 2.2rem; color: #fff; text-shadow: 0 0 15px var(--purple-main); margin-bottom: 12px; font-weight: 800; }
-        h2 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(139,92,246,0.2); padding-bottom: 10px; }
-        p { color: #a78bfa; font-size: 0.98rem; margin-bottom: 25px; }
+        h2 { font-size: 1.6rem; color: #fff; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(139,92,246,0.15); padding-bottom: 10px; text-align: center; }
+        p { color: #a78bfa; font-size: 1rem; margin-bottom: 25px; line-height: 1.6; }
 
         .welcome-badge {
             display: inline-block; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
             padding: 4px 16px; border-radius: 50px; font-size: 0.85rem; color: #c084fc; font-weight: 700; margin-bottom: 15px;
         }
 
+        /* أزرار مخصصة وبألوان جامدة */
         .btn {
             background: linear-gradient(135deg, var(--purple-main), #6d28d9);
             color: white; border: none; padding: 12px 30px; font-size: 1.05rem; font-weight: 700;
             border-radius: 8px; cursor: pointer; transition: all 0.25s ease;
         }
-        .btn:hover { transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5); }
-        .btn:disabled { background: #262030; color: #6b7280; cursor: not-allowed; box-shadow: none; transform: none;}
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5); }
+        .btn:disabled { background: #221c29; color: #4b5563; border: 1px solid rgba(255,255,255,0.02); cursor: not-allowed; transform: none; box-shadow: none; }
+        
         .btn-success { background: linear-gradient(135deg, #22c55e, #15803d); }
+        .btn-success:hover { box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4); }
         .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        .btn-danger:hover { box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4); }
+        .btn-secondary { background: #261f30; border: 1px solid rgba(139,92,246,0.3); }
 
-        /* صناديق القوانين والشروط المنسقة */
-        .content-box {
-            background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(139, 92, 246, 0.18);
-            padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto;
-            text-align: right; font-size: 0.88rem; color: #d1d5db; line-height: 1.7; white-space: pre-line; margin-bottom: 20px;
+        /* أزرار اختيار التقديم الفخمة (الماب والديسكورد) */
+        .choice-container { display: flex; gap: 20px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .choice-card {
+            background: rgba(15, 8, 24, 0.6); border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 30px 20px; border-radius: 12px; cursor: pointer; flex: 1; min-width: 220px;
+            transition: all 0.3s; text-align: center; position: relative;
         }
-        .content-box::-webkit-scrollbar { width: 4px; }
-        .content-box::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.25); border-radius: 10px; }
+        .choice-card:hover { border-color: var(--purple-main); background: rgba(139, 92, 246, 0.05); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .choice-card h3 { font-size: 1.3rem; margin-bottom: 10px; color: #fff; }
+        .choice-card p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0; }
+        .choice-card .badge-closed { position: absolute; top: 10px; left: 10px; background: var(--accent-red); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
 
-        .form-group { text-align: right; margin-bottom: 16px; }
+        /* الهيكل المقسم (نظام الصفحات المستقلة العريضة) */
+        .split-layout { display: flex; gap: 30px; text-align: right; flex-wrap: wrap; margin-top: 15px; }
+        .split-right { flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+        .split-left { flex: 1.4; min-width: 380px; }
+
+        .content-box {
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(139, 92, 246, 0.15);
+            padding: 16px; border-radius: 8px; max-height: 220px; overflow-y: auto;
+            text-align: right; font-size: 0.9rem; color: #d1d5db; line-height: 1.7; white-space: pre-line; margin-bottom: 15px;
+        }
+
+        .form-group { text-align: right; margin-bottom: 18px; }
         .form-group label { display: block; margin-bottom: 6px; color: #c084fc; font-weight: 600; font-size: 0.9rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 12px 14px; background: rgba(5, 2, 8, 0.85);
-            border: 1px solid rgba(139, 92, 246, 0.22); color: white; border-radius: 7px; outline: none; font-size: 0.95rem;
+            width: 100%; padding: 12px 14px; background: rgba(5, 2, 8, 0.9);
+            border: 1px solid rgba(139, 92, 246, 0.2); color: white; border-radius: 7px; outline: none; font-size: 0.95rem;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--purple-main); box-shadow: 0 0 8px rgba(139, 92, 246, 0.3); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--purple-main); box-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
         
-        /* تكبير صندوق الأسئلة والإجابات ليكون واسع جداً وضخم للكتابة المريحة */
-        .form-group textarea { resize: vertical; height: 250px; min-height: 200px; font-size: 1rem; line-height: 1.6; }
-
+        /* تكبير وتوسيع ضخم لصندوق الكتابة */
+        .form-group textarea { resize: vertical; height: 280px; min-height: 240px; font-size: 1rem; line-height: 1.6; }
         .input-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; display: block; }
 
-        /* صندوق الإقرار المرتب أسفل اليمين */
-        .acknowledgement-box { display: flex; gap: 10px; background: rgba(239, 68, 68, 0.02); border: 1px dashed rgba(139, 92, 246, 0.3); padding: 14px; border-radius: 8px; margin-bottom: 10px; text-align: right; font-size: 0.85rem; line-height: 1.5; }
+        .acknowledgement-box { display: flex; gap: 10px; background: rgba(0,0,0,0.3); border: 1px dashed rgba(139, 92, 246, 0.3); padding: 14px; border-radius: 8px; text-align: right; font-size: 0.85rem; line-height: 1.6; }
         .acknowledgement-box input { accent-color: var(--purple-main); cursor: pointer; scale: 1.2; margin-top: 4px; }
-        .acknowledgement-box label { cursor: pointer; color: #d1d5db; user-select: none; }
+        .acknowledgement-box label { cursor: pointer; color: #cbd5e1; user-select: none; }
 
-        /* ----- لوحة التحكم الإدارية ----- */
+        /* ----- لوحة التحكم السرية للمالك ----- */
         .admin-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(139, 92, 246, 0.2); }
-        .counters-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .counter-badge { background: rgba(255,255,255,0.04); border: 1px solid rgba(139,92,246,0.2); padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; }
+        .admin-section { background: rgba(0,0,0,0.4); border: 1px solid rgba(139,92,246,0.15); padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: right; }
+        .admin-section h3 { font-size: 1.1rem; color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
+        .toggle-container { display: flex; gap: 15px; margin-bottom: 10px; }
+        .counters-container { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .counter-badge { background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.2); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; }
         .counter-badge span { color: #c084fc; font-weight: bold; }
-        .requests-table { width: 100%; border-collapse: collapse; text-align: right; margin-top: 15px; font-size: 0.9rem; }
+        
+        .requests-table { width: 100%; border-collapse: collapse; text-align: right; margin-top: 10px; font-size: 0.9rem; }
         .requests-table th, .requests-table td { padding: 12px; border-bottom: 1px solid rgba(139, 92, 246, 0.15); }
         .requests-table th { background: rgba(139, 92, 246, 0.1); color: #c084fc; }
         .requests-table tr:hover { background: rgba(255,255,255,0.02); }
+        
         .action-btns { display: flex; gap: 5px; }
         .action-btns .btn { padding: 5px 12px; font-size: 0.8rem; border-radius: 4px; }
 
-        .status-screen { padding: 30px 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 700; line-height: 1.7; border: 1px solid var(--accent-green); background: rgba(34, 197, 94, 0.04); }
+        .status-screen { padding: 35px 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 700; line-height: 1.8; border: 1px solid var(--accent-green); background: rgba(34, 197, 94, 0.04); }
 
         .secret-admin-btn { position: fixed; bottom: 10px; left: 10px; opacity: 0.15; background: none; border: none; color: gray; cursor: pointer; font-size: 0.75rem; z-index: 100; }
         .secret-admin-btn:hover { opacity: 1; color: var(--purple-main); }
@@ -155,7 +173,7 @@
         <div class="top-right-clouds"></div>
     </div>
 
-    <button class="secret-admin-btn" onclick="openAdminLogin()">🔒 لوحة التحكم</button>
+    <button class="secret-admin-btn" onclick="openAdminLogin()">🔒 لوحة التحكم والأسقف</button>
 
     <div class="container" id="mainContainer">
         
@@ -163,77 +181,129 @@
             <div class="welcome-badge">👋 أهلاً بك في البوابة الرسمية</div>
             <h1 style="margin-top: 10px;">بوابة طرب للتقديم</h1>
             <p>مرحباً بك في نظام التقديم الموحد لـ طرب ديسكورد وشاليه طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية الكاملة.</p>
-            <button class="btn" onclick="startApplicationProcess()">ابدأ التقديم</button>
+            <button class="btn" onclick="navigateTo('pageGate')">ابدأ التقديم</button>
         </div>
 
-        <div id="pageApply" class="page">
-            <h2>التقديم الرسمي لإدارة طرب</h2>
+        <div id="pageGate" class="page">
+            <h2>اختر مكان التقديم المطلوب</h2>
+            <p style="margin-bottom: 15px;">يرجى تحديد الجهة التي ترغب بالانضمام إلى طاقم إدارتها:</p>
             
-            <form id="appForm" onsubmit="submitApplication(event)">
+            <div class="choice-container">
+                <div class="choice-card" id="card-game" onclick="selectPlatform('game')">
+                    <h3>👾 شاليه طرب</h3>
+                    <p>التقديم للعمل الإداري الميداني داخل ماب روبلوكس وحظر المخربين.</p>
+                </div>
+                <div class="choice-card" id="card-discord" onclick="selectPlatform('discord')">
+                    <h3>💬 طرب ديسكورد</h3>
+                    <p>التقديم للإشراف على السيرفر، تصفية الشاتات وحماية السيرفر الصوتي.</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary" style="margin-top: 30px; padding: 7px 20px; font-size: 0.9rem;" onclick="navigateTo('pageWelcome')">العودة للرئيسية</button>
+        </div>
+
+        <div id="pageApplyGame" class="page">
+            <h2>📋 استمارة تقديم - شاليه طرب (روبلوكس)</h2>
+            <form id="formGame" onsubmit="submitApplication(event, 'game')">
                 <div class="split-layout">
-                    
                     <div class="split-right">
                         <div>
                             <div class="form-group">
-                                <label>⚖️ الشروط والتعليمات العامة لطرب:</label>
+                                <label>⚖️ شروط شاليه طرب العامة:</label>
                                 <div class="content-box">
-                                    • تم فتح التقديمات للإدارة للأشخاص القادرين على تحمل المسؤولية والمحافظة على نظام السيرفر والماب.
-                                    • أي تقديم غير جاد يتم رفضه مباشرة.
-                                    • يمنع الكذب أو إعطاء معلومات وهمية في الاستمارة.
-                                    • يمنع منشن الإدارة العليا أو المالك بعد إرسال التقديم.
-                                    • الإدارة مسؤولية وأمانة كاملة وليست مجرد ميزات وصلاحيات.
-                                    • إساءة استخدام الرتبة يعرضك للسحب المباشر الفوري.
+                                    • فتح التقديمات للأشخاص القادرين على التواجد الميداني لحماية الماب.
+                                    • يمنع الكذب أو منشن الإدارة العليا بعد إرسال الطلب.
+                                    • أي إساءة استخدام للصلاحيات تعني الطرد الفوري ووضع اسمك في القائمة السوداء.
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label>📜 شروط ومتطلبات الرتبة المحددة:</label>
-                                <div id="rankConditions" class="content-box" style="height: 130px; color: #c084fc;">
-                                    يرجى تحديد مكان التقديم والرتبة المطلوبة من اليسار لعرض الشروط الخاصة بها هنا..
-                                </div>
+                                <div id="gameConditions" class="content-box" style="height: 120px; color: #c084fc;">يرجى تحديد الرتبة من اليسار أولاً لعرض الشروط الخاصة بها هنا..</div>
                             </div>
                         </div>
-
                         <div class="acknowledgement-box">
-                            <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
-                            <label for="agreeCheck">
-                                أقر أنا مقدم الطلب بأنني قرأت جميع شروط وقوانين الإدارة الخاصة بـ طرب، وأتعهد بالالتزام الكامل بها دون أي مخالفة، ومستعد للمحاسبة وسحب الصلاحيات في حال التقصير.
-                            </label>
+                            <input type="checkbox" id="agreeGame" onchange="toggleSubmitBtn('game')">
+                            <label for="agreeGame">أتعهد بالالتزام الكامل بجميع القوانين الإدارية الصارمة المعمول بها داخل شاليه طرب داخل اللعبة وأتحمل كامل المسؤولية.</label>
                         </div>
                     </div>
 
                     <div class="split-left">
                         <div class="form-group">
-                            <label for="discordName">اسم حسابك في الديسكورد (بالإنجليزي فقط):</label>
-                            <input type="text" id="discordName" required pattern="[A-Za-z0-9_.\s]{3,}" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')" placeholder="مثال: demon_studio">
-                            <span class="input-note">يجب أن يتكون من 3 أحرف أو أكثر.</span>
+                            <label>اسم حسابك في الديسكورد (بالإنجليزي):</label>
+                            <input type="text" id="gameDiscordName" required placeholder="مثال: demon_studio" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
                         </div>
-
                         <div class="form-group">
-                            <label for="platformType">مكان التقديم المطلوب:</label>
-                            <select id="platformType" required onchange="handlePlatformChange()">
-                                <option value="" disabled selected>اختر مكان الإدارة...</option>
-                                <option value="discord">طرب ديسكورد (Discord Admin)</option>
-                                <option value="game">شاليه طرب (In-Game Admin)</option>
+                            <label>اختر الرتبة المطلوبة في الماب:</label>
+                            <select id="gameRank" required onchange="updateConditions('game')">
+                                <option value="" disabled selected>اختر الرتبة الإدارية...</option>
+                                <option value="founder">Founder</option>
+                                <option value="co_owner">CO Owner</option>
+                                <option value="head_admin">Headadmin</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label for="userRank">اختر الرتبة المطلوبة:</label>
-                            <select id="userRank" required onchange="handleRankChange()" disabled>
-                                <option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>
-                            </select>
+                            <label>📝 الإجابات والنموذج (اكتب بشكل مفصل وواسع):</label>
+                            <textarea id="gameAnswers" required minlength="10" oninput="toggleSubmitBtn('game')" placeholder="حدد الرتبة لتظهر الأسئلة هنا.."></textarea>
                         </div>
-
-                        <div class="form-group">
-                            <label id="questionsLabel">📝 نموذج التقديم والإجابات الوافية:</label>
-                            <textarea id="rankQuestions" required minlength="10" oninput="validateQuestions(this)" placeholder="يرجى اختيار الرتبة لتظهر لك الأسئلة والنموذج هنا لتكتب إجاباتك كاملة وبشكل واسع ومفصل..."></textarea>
-                            <span class="input-note" id="charCounter">الحد الأدنى للكتابة: 10 أحرف.</span>
+                        <div style="display:flex; gap:10px;">
+                            <button type="button" class="btn btn-secondary" style="flex:1;" onclick="navigateTo('pageGate')">إلغاء</button>
+                            <button type="submit" id="submitGameBtn" class="btn" style="flex:2;" disabled>تقديم الطلب للماب</button>
                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-                        <button type="submit" id="submitBtn" class="btn" style="width: 100%; margin-top: 10px;" disabled>تقديم الطلب الرسمي</button>
+        <div id="pageApplyDiscord" class="page">
+            <h2>📋 استمارة تقديم - طرب ديسكورد</h2>
+            <form id="formDiscord" onsubmit="submitApplication(event, 'discord')">
+                <div class="split-layout">
+                    <div class="split-right">
+                        <div>
+                            <div class="form-group">
+                                <label>⚖️ شروط طرب ديسكورد العامة:</label>
+                                <div class="content-box">
+                                    • التقديم للأعضاء الفاعلين وأصحاب الخبرة في التعامل مع المشاكل وتصفية الشاتات.
+                                    • يمنع منعا باتا إساءة استخدام خصائص الحظر أو الميوت الشخصي.
+                                    • يجب قراءة ومتابعة التحديثات الإدارية بدقة تامة.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>📜 شروط ومتطلبات الرتبة المحددة:</label>
+                                <div id="discordConditions" class="content-box" style="height: 120px; color: #c084fc;">يرجى تحديد الرتبة من اليسار أولاً لعرض الشروط الخاصة بها هنا..</div>
+                            </div>
+                        </div>
+                        <div class="acknowledgement-box">
+                            <input type="checkbox" id="agreeDiscord" onchange="toggleSubmitBtn('discord')">
+                            <label for="agreeDiscord">أقر بالتزامي الكامل بحماية سيرفر طرب ديسكورد، والعمل بروح الفريق وتطبيق التعليمات الصادرة من المالك والقيادة.</label>
+                        </div>
                     </div>
 
+                    <div class="split-left">
+                        <div class="form-group">
+                            <label>اسم حسابك في الديسكورد (بالإنجليزي):</label>
+                            <input type="text" id="discordDiscordName" required placeholder="مثال: demon_studio" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
+                        </div>
+                        <div class="form-group">
+                            <label>اختر الرتبة المطلوبة في الديسكورد:</label>
+                            <select id="discordRank" required onchange="updateConditions('discord')">
+                                <option value="" disabled selected>اختر الرتبة الإدارية...</option>
+                                <option value="founder">Founder</option>
+                                <option value="co_owner">CO Owner</option>
+                                <option value="head_admin">Headadmin</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>📝 الإجابات والنموذج (اكتب بشكل مفصل وواسع):</label>
+                            <textarea id="discordAnswers" required minlength="10" oninput="toggleSubmitBtn('discord')" placeholder="حدد الرتبة لتظهر الأسئلة هنا.."></textarea>
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button type="button" class="btn btn-secondary" style="flex:1;" onclick="navigateTo('pageGate')">إلغاء</button>
+                            <button type="submit" id="submitDiscordBtn" class="btn" style="flex:2;" disabled>تقديم الطلب للديسكورد</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -241,39 +311,57 @@
         <div id="pageStatus" class="page">
             <div class="status-screen">
                 <span style="font-size: 2.5rem;">🟢</span><br><br>
-                تم إرسال تقديمك بنجاح للنظام الفوري!<br><br>
-                <span style="color: #a78bfa; font-weight: 600;">سيقوم مالك السيرفر بمراجعة طلبك يدويّاً وقبوله بناءً على المقاعد المتاحة.</span>
+                تم إرسال تقديمك بنجاح للنظام الفوري المطور!<br><br>
+                <span style="color: #a78bfa; font-weight: 600;">سيقوم المالك بمراجعة إجاباتك المفصلة وقبولك في حال وجود مقاعد متوفرة.</span>
             </div>
             <button class="btn" style="margin-top: 25px;" onclick="resetToWelcome()">العودة للرئيسية</button>
         </div>
 
+
         <div id="pageAdminPanel" class="page">
             <div class="admin-nav">
-                <h2 style="margin-bottom: 0; color: #fff; text-shadow: 0 0 10px var(--purple-main);">🛡️ لوحة إدارة التقديمات الفورية</h2>
+                <h2 style="margin-bottom: 0; color: #fff; text-shadow: 0 0 10px var(--purple-main);">🛡️ لوحة التحكم والإغلاق والفتح للمالك</h2>
                 <button class="btn btn-danger" style="padding: 5px 15px; font-size: 0.9rem;" onclick="logoutAdmin()">خروج</button>
             </div>
 
-            <h3 style="font-size: 1rem; margin-bottom: 10px; text-align: right; color: #a78bfa;">📊 عداد المقاعد المعتمدة المتبقية:</h3>
-            <div class="counters-container">
-                <div class="counter-badge">Founder: <span id="count-founder">0</span> / 1</div>
-                <div class="counter-badge">CO-Owner: <span id="count-co_owner">0</span> / 2</div>
-                <div class="counter-badge">Headadmin: <span id="count-head_admin">0</span> / 3</div>
-                <div class="counter-badge">Admin: <span id="count-admin">0</span> / 4</div>
+            <div class="admin-section">
+                <h3>⚙️ التحكم بفتح وإغلاق التقديمات الفورية:</h3>
+                <div class="toggle-container">
+                    <button id="toggle-game-btn" class="btn btn-success" style="padding: 8px 15px; font-size: 0.9rem;" onclick="togglePlatformStatus('game')">تقديم شاليه طرب: مفتوح</button>
+                    <button id="toggle-discord-btn" class="btn btn-success" style="padding: 8px 15px; font-size: 0.9rem;" onclick="togglePlatformStatus('discord')">تقديم طرب ديسكورد: مفتوح</button>
+                </div>
+                <span class="input-note" style="color:#94a3b8;">* عند إغلاق التقديم، لن يتمكن أي شخص من الدخول أو تعبئة استمارة التقديم الخاصة بها بالخارج.</span>
             </div>
 
-            <div style="overflow-x: auto; margin-top: 15px;">
-                <table class="requests-table">
-                    <thead>
-                        <tr>
-                            <th>المتقدم</th>
-                            <th>المكان</th>
-                            <th>الرتبة</th>
-                            <th>الإجابات والبيانات</th>
-                            <th>الإجراءات الإدارية</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminRequestsRows"></tbody>
-                </table>
+            <div class="admin-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="margin-bottom:0;">📊 السقف الإداري الحالي للمقاعد المتبقية في النظام:</h3>
+                    <button class="btn btn-danger" style="padding:4px 10px; font-size:0.75rem;" onclick="resetAllCounts()">🔄 تصفير كافة المقاعد</button>
+                </div>
+                <div class="counters-container">
+                    <div class="counter-badge">Founder: <span id="count-founder">0</span> / 1</div>
+                    <div class="counter-badge">CO-Owner: <span id="count-co_owner">0</span> / 2</div>
+                    <div class="counter-badge">Headadmin: <span id="count-head_admin">0</span> / 3</div>
+                    <div class="counter-badge">Admin: <span id="count-admin">0</span> / 4</div>
+                </div>
+            </div>
+
+            <div class="admin-section" style="background:none; border:none; padding:0;">
+                <h3 style="color:#c084fc;">📥 التقديمات المعلقة بانتظار مراجعتك وقرارك:</h3>
+                <div style="overflow-x: auto;">
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>المتقدم</th>
+                                <th>المكان</th>
+                                <th>الرتبة المطلوب</th>
+                                <th>الإجابات والمطالب</th>
+                                <th>إجراء إداري فورى</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminRequestsRows"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -282,130 +370,135 @@
     <script>
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
         const ADMIN_PASSWORD = "DEMON_TARAB_2026"; 
+        
+        // الحدود المقررة بدقة متناهية بناء على طلبك
         const LIMITS = { founder: 1, co_owner: 2, head_admin: 3, admin: 4 };
 
+        // جلب البيانات من ذاكرة التخزين المحلية
         let applications = JSON.parse(localStorage.getItem('tarab_apps')) || [];
         let approvedCounts = JSON.parse(localStorage.getItem('tarab_counts')) || { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
+        let systemStatus = JSON.parse(localStorage.getItem('tarab_status')) || { game: true, discord: true };
 
-        function startApplicationProcess() {
-            document.getElementById('mainContainer').classList.add('split-mode');
-            navigateTo('pageApply');
-        }
-
-        function resetToWelcome() {
-            document.getElementById('mainContainer').classList.remove('split-mode');
-            navigateTo('pageWelcome');
-        }
-
+        // إدارة التنقل وعرض الهياكل العريضة تلقائياً
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             
             const container = document.getElementById('mainContainer');
-            if (pageId === 'pageAdminPanel') {
-                container.classList.add('admin-mode');
-                container.classList.remove('split-mode');
-            } else if (pageId === 'pageApply') {
-                container.classList.add('split-mode');
-                container.classList.remove('admin-mode');
+            if (pageId === 'pageApplyGame' || pageId === 'pageApplyDiscord' || pageId === 'pageAdminPanel') {
+                container.classList.add('wide-mode');
             } else {
-                container.classList.remove('admin-mode', 'split-mode');
+                container.classList.remove('wide-mode');
+            }
+
+            if(pageId === 'pageGate') {
+                updateGateUI();
             }
         }
 
-        function validateQuestions(textarea) {
-            const counter = document.getElementById('charCounter');
-            const len = textarea.value.length;
-            if (len < 10) {
-                counter.style.color = "#ef4444";
-                counter.innerText = `متبقي ${10 - len} أحرف للوصول للحد الأدنى (10).`;
-            } else {
-                counter.style.color = "#22c55e";
-                counter.innerText = `عدد الأحرف الحالية: ${len}`;
-            }
+        function resetToWelcome() {
+            navigateTo('pageWelcome');
         }
 
-        function handlePlatformChange() {
-            const platform = document.getElementById('platformType').value;
-            const rankSelect = document.getElementById('userRank');
-            rankSelect.disabled = false;
-            rankSelect.innerHTML = '<option value="" disabled selected>اختر الرتبة الإدارية...</option>';
+        // فحص حالة الفتح والإغلاق وعرض شارات للمتقدمين
+        function updateGateUI() {
+            const cardGame = document.getElementById('card-game');
+            const cardDiscord = document.getElementById('card-discord');
             
-            rankSelect.innerHTML += `
-                <option value="founder">Founder</option>
-                <option value="co_owner">CO Owner</option>
-                <option value="head_admin">Headadmin</option>
-                <option value="admin">Admin</option>
-            `;
-            toggleSubmitBtn();
+            // إزالة الشارات القديمة إن وجدت
+            document.querySelectorAll('.badge-closed').forEach(b => b.remove());
+
+            if (!systemStatus.game) {
+                cardGame.innerHTML += `<span class="badge-closed">مغلق حالياً</span>`;
+            }
+            if (!systemStatus.discord) {
+                cardDiscord.innerHTML += `<span class="badge-closed">مغلق حالياً</span>`;
+            }
         }
 
-        function handleRankChange() {
-            const platform = document.getElementById('platformType').value;
-            const rank = document.getElementById('userRank').value;
-            const conditionsDiv = document.getElementById('rankConditions');
-            const questionsTextArea = document.getElementById('rankQuestions');
+        function selectPlatform(type) {
+            if (!systemStatus[type]) {
+                alert(`🚨 نعتذر منك، لقد تم إغلاق التقديم على هذا القسم حالياً من قِبل مالك السيرفر والعملية متوقفة!`);
+                return;
+            }
+            if (type === 'game') navigateTo('pageApplyGame');
+            else navigateTo('pageApplyDiscord');
+        }
+
+        // تحديث وعرض الشروط والأسئلة المفصلة
+        function updateConditions(type) {
+            const rank = document.getElementById(`${type}Rank`).value;
+            const conditionsDiv = document.getElementById(`${type}Conditions`);
+            const textArea = document.getElementById(`${type}Answers`);
             
             const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل اليومية :\nخبراتك السابقة بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
-            
-            // تم تعديل الأسئلة هنا وإلغاء شرط الزي الرسمي تماماً بناءً على طلبك
             const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام التام بالنظام الإداري الصارم داخل شاليه طرب :`;
 
-            if (platform === 'discord') {
+            if (type === 'discord') {
                 if(rank === 'founder') conditionsDiv.innerHTML = `<b>متطلبات Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة بالكامل وضمان حماية النظام العام.`;
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>متطلبات CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جداً بإدارة الطاقم واحترافية بحل النزاعات وتنظيم الأقسام وحظر المصلحة الشخصية.`;
                 else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>متطلبات Head Admin (طرب ديسكورد):</b>\n• إشراف ومتابعة دقيقة لتطبيق القوانين، تفاعل قوي جداً وتوجيه كامل الـ Admins.`;
                 else if(rank === 'admin') conditionsDiv.innerHTML = `<b>متطلبات Admin (طرب ديسكورد):</b>\n• تفاعل ممتاز، احترام جميع الأعضاء وتطهير الشات والرموز من أي مخالفات أو سباب فوراً.`;
-                questionsTextArea.value = discordForm;
-            } else if (platform === 'game') {
-                // تم تعديل شروط الشاليه هنا لإلغاء أي ذكر للزي
+                textArea.value = discordForm;
+            } else {
                 if(rank === 'founder') conditionsDiv.innerHTML = `<b>🔥 متطلبات Founder (شاليه طرب):</b>\n• سلطة قيادية عليا مسؤولة عن إدارة وضبط سيرفرات الماب بالكامل وتطوير جودة الأمن الإداري ومنع الثغرات.`;
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>⚡ متطلبات CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم المراقبة وإصدار قرارات الباند النهائي للمخربين ورصد الأداء اليومي.`;
                 else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>🛡️ متطلبات Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
                 else if(rank === 'admin') conditionsDiv.innerHTML = `<b>👾 متطلبات Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل الفوري معهم.`;
-                questionsTextArea.value = gameForm;
+                textArea.value = gameForm;
             }
-            validateQuestions(questionsTextArea);
-            toggleSubmitBtn();
+            toggleSubmitBtn(type);
         }
 
-        function toggleSubmitBtn() {
-            const checkBox = document.getElementById('agreeCheck');
-            const questionsLen = document.getElementById('rankQuestions').value.length;
-            const nameLen = document.getElementById('discordName').value.length;
-            const platform = document.getElementById('platformType').value;
-            const rank = document.getElementById('userRank').value;
-            
-            document.getElementById('submitBtn').disabled = !(checkBox.checked && questionsLen >= 10 && nameLen >= 3 && platform && rank);
+        // فحص شروط التمكين لكل استمارة مستقلة بذاتها
+        function toggleSubmitBtn(type) {
+            const checkBox = document.getElementById(`agree${type === 'game' ? 'Game' : 'Discord'}`);
+            const name = document.getElementById(`${type}DiscordName`).value;
+            const rank = document.getElementById(`${type}Rank`).value;
+            const answers = document.getElementById(`${type}Answers`).value;
+            const btn = document.getElementById(`submit${type === 'game' ? 'Game' : 'Discord'}Btn`);
+
+            btn.disabled = !(checkBox.checked && name.length >= 3 && rank && answers.length >= 10);
         }
 
-        function submitApplication(event) {
+        // تقديم وإرسال الاستمارة وتخزينها باللوحة المدمجة للفرز
+        function submitApplication(event, type) {
             event.preventDefault();
+
+            if (!systemStatus[type]) {
+                alert("🚨 هذا التقديم مغلق حالياً، لا يمكنك الإرسال.");
+                return;
+            }
+
+            const platformSelect = type === 'game' ? "شاليه طرب" : "طرب ديسكورد";
+            const rankSelect = document.getElementById(`${type}Rank`);
 
             const newApp = {
                 id: Date.now(),
-                name: document.getElementById('discordName').value,
-                platform: document.getElementById('platformType').value,
-                platformText: document.getElementById('platformType').options[document.getElementById('platformType').selectedIndex].text,
-                rank: document.getElementById('userRank').value,
-                rankText: document.getElementById('userRank').options[document.getElementById('userRank').selectedIndex].text,
-                answers: document.getElementById('rankQuestions').value,
+                name: document.getElementById(`${type}DiscordName`).value,
+                platform: type,
+                platformText: platformSelect,
+                rank: rankSelect.value,
+                rankText: rankSelect.options[rankSelect.selectedIndex].text,
+                answers: document.getElementById(`${type}Answers`).value,
                 status: 'pending'
             };
 
             applications.push(newApp);
             localStorage.setItem('tarab_apps', JSON.stringify(applications));
 
-            sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة", newApp, 9121510, "في انتظار مراجعة المالك والقبول من اللوحة السرية.");
+            // إشعار قيد الانتظار للديسكورد
+            sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة الإدارية", newApp, 9121510, "بانتظار مراجعة المالك واتخاذ قرار القبول أو الرفض عبر لوحة التحكم.");
 
             navigateTo('pageStatus');
-            document.getElementById('appForm').reset();
-            document.getElementById('userRank').disabled = true;
-            toggleSubmitBtn();
+            document.getElementById(`form${type === 'game' ? 'Game' : 'Discord'}`).reset();
+            toggleSubmitBtn(type);
         }
 
+        /* ==================== عمليات لوحة إدارة التحكم للمالك ==================== */
+
         function openAdminLogin() {
-            const pass = prompt("أدخل الرقم السري لمالك طرب للوصول للوحة التقديمات:");
+            const pass = prompt("أدخل الرقم السري لمالك طرب للوصول للوحة التحكم الفورية:");
             if (pass === ADMIN_PASSWORD) {
                 renderAdminPanel();
                 navigateTo('pageAdminPanel');
@@ -418,7 +511,39 @@
             navigateTo('pageWelcome');
         }
 
+        // ميزة المالك لإغلاق وفتح التقديمات بضغطة زر
+        function togglePlatformStatus(type) {
+            systemStatus[type] = !systemStatus[type];
+            localStorage.setItem('tarab_status', JSON.stringify(systemStatus));
+            
+            const btn = document.getElementById(`toggle-${type}-btn`);
+            if (systemStatus[type]) {
+                btn.className = "btn btn-success";
+                btn.innerText = `تقديم ${type === 'game' ? 'شاليه طرب' : 'طرب ديسكورد'}: مفتوح`;
+            } else {
+                btn.className = "btn btn-danger";
+                btn.innerText = `تقديم ${type === 'game' ? 'شاليه طرب' : 'طرب ديسكورد'}: مغلق`;
+            }
+        }
+
+        function resetAllCounts() {
+            if(confirm("⚠️ هل أنت متأكد من رغبتك في تصفير جميع المقاعد المشغولة الحالية؟")) {
+                approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
+                localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
+                renderAdminPanel();
+            }
+        }
+
         function renderAdminPanel() {
+            // تحديث حالة الأزرار الخاصة بالفتح والإغلاق بالداخل للتحكم
+            const btnGame = document.getElementById(`toggle-game-btn`);
+            const btnDisc = document.getElementById(`toggle-discord-btn`);
+            btnGame.className = systemStatus.game ? "btn btn-success" : "btn btn-danger";
+            btnGame.innerText = `تقديم شاليه طرب: ${systemStatus.game ? 'مفتوح' : 'مغلق'}`;
+            btnDisc.className = systemStatus.discord ? "btn btn-success" : "btn btn-danger";
+            btnDisc.innerText = `تقديم طرب ديسكورد: ${systemStatus.discord ? 'مفتوح' : 'مغلق'}`;
+
+            // تحديث الأسقف والمقاعد على الشاشة أمام المالك
             document.getElementById('count-founder').innerText = approvedCounts.founder;
             document.getElementById('count-co_owner').innerText = approvedCounts.co_owner;
             document.getElementById('count-head_admin').innerText = approvedCounts.head_admin;
@@ -430,7 +555,7 @@
             const pendingApps = applications.filter(a => a.status === 'pending');
 
             if (pendingApps.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: #6b7280; padding:20px;">لا توجد أي تقديمات جديدة معلقة حالياً..</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: #6b7280; padding:25px;">لا توجد أي تقديمات إدارية جديدة معلقة حتى الآن..</td></tr>`;
                 return;
             }
 
@@ -438,9 +563,9 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-weight:700; color:#fff;">${app.name}</td>
-                    <td><span style="color:#c084fc;">${app.platformText}</span></td>
-                    <td><span style="background:rgba(139,92,246,0.15); padding:3px 8px; border-radius:4px;">${app.rankText}</span></td>
-                    <td><div style="font-size:0.85rem; background:#000; padding:8px; border-radius:5px; max-height:90px; overflow-y:auto; white-space:pre-line; max-width:320px;">${app.answers}</div></td>
+                    <td><span style="color:#c084fc; font-weight:600;">${app.platformText}</span></td>
+                    <td><span style="background:rgba(139,92,246,0.15); padding:4px 10px; border-radius:4px;">${app.rankText}</span></td>
+                    <td><div style="font-size:0.85rem; background:#000; padding:8px; border-radius:5px; max-height:100px; overflow-y:auto; white-space:pre-line; max-width:340px;">${app.answers}</div></td>
                     <td>
                         <div class="action-btns">
                             <button class="btn btn-success" onclick="processApplication(${app.id}, 'approve')">قبول</button>
@@ -452,6 +577,7 @@
             });
         }
 
+        // اتخاذ قرار القبول أو الرفض وتدقيق العدادات الممتلئة بناءً على طلبك
         function processApplication(appId, action) {
             const app = applications.find(a => a.id === appId);
             if (!app) return;
@@ -460,8 +586,9 @@
                 const currentCount = approvedCounts[app.rank];
                 const limit = LIMITS[app.rank];
 
+                // شرط فحص المقاعد الممتلئة مع التوجيه لتجربة رتب أخرى
                 if (currentCount >= limit) {
-                    alert(`🚨 عذراً، لا يمكنك قبول هذا الشخص! مقاعد رتبة (${app.rankText}) ممتلئة تماماً حالياً (${currentCount}/${limit}).`);
+                    alert(`🚨 العدد ممتلئ! لا يمكن قبول المتقدم لأن مقاعد رتبة (${app.rankText}) ممتلئة تماماً حالياً (${currentCount}/${limit}). اطلب منه تجربة رتب أخرى متوفرة.`);
                     return;
                 }
 
@@ -469,13 +596,13 @@
                 app.status = 'approved';
                 localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
                 
-                alert(`✅ تم قبول المتقدم ${app.name} بنجاح، وتم إرسال إشعار القبول والمنشن الفوري في الديسكورد!`);
-                sendWebhookNotification(`🎉 تهانينا! تم قبولك رسمياً من قبل المالك`, app, 2246001, `🟢 النتيجة: مقبول للعمل الإداري\nملاحظة: توجه فوراً لفتح تكت بالديسكورد لاستلام رتبتك بعد قبولك بنجاح.`);
+                alert(`✅ تم قبول ${app.name} بنجاح كـ ${app.rankText}!`);
+                sendWebhookNotification(`🎉 تهانينا! تم قبولك رسمياً من قبل المالك`, app, 2246001, `🟢 النتيجة النهائية: مقبول للعمل الإداري\nملاحظة: توجه فوراً إلى سيرفر الديسكورد وافتح تكت استلام الرتبة.`);
 
             } else if (action === 'reject') {
                 app.status = 'rejected';
                 alert(`❌ تم رفض طلب المتقدم ${app.name}.`);
-                sendWebhookNotification(`🛑 نعتذر منك! تم رفض طلب التقديم`, app, 15682844, `🔴 النتيجة: مرفوض حالياً من قبل الإدارة العليا نظراً لعدم استيفاء الشروط كاملة أو الاكتفاء.`);
+                sendWebhookNotification(`🛑 نعتذر منك! تم رفض طلب التقديم الحالى`, app, 15682844, `🔴 النتيجة: مرفوض حالياً من قبل الإدارة العليا لعدم استيفاء الشروط أو اكتمال المقاعد.`);
             }
 
             localStorage.setItem('tarab_apps', JSON.stringify(applications));
@@ -484,19 +611,19 @@
 
         function sendWebhookNotification(titleText, appData, colorCode, statusNotice) {
             const payload = {
-                content: appData.status === 'approved' ? `⚡ **إشعار قبول رسمي: @everyone**` : null, 
+                content: appData.status === 'approved' ? `⚡ **إشعار قبول رسمي جديد: @everyone**` : null, 
                 embeds: [{
                     title: titleText,
                     color: colorCode,
                     timestamp: new Date().toISOString(),
                     fields: [
                         { name: "👤 يوزر المتقدم بالديسكورد", value: `\`${appData.name}\``, inline: true },
-                        { name: "🏢 جهة ومكان العمل", value: `\`${appData.platformText}\``, inline: true },
-                        { name: "👑 الرتبة الإدارية المقررة", value: `\`${appData.rankText}\``, inline: true },
+                        { name: "🏢 مكان الإدارة المطلوب", value: `\`${appData.platformText}\``, inline: true },
+                        { name: "👑 الرتبة المنشودة", value: `\`${appData.rankText}\``, inline: true },
                         { name: "📋 تفاصيل إجابات الاستمارة", value: `\`\`\`text\n${appData.answers}\n\`\`\``, inline: false },
-                        { name: "📢 حالة وقرار الطلب الحالي", value: `**${statusNotice}**`, inline: false }
+                        { name: "📢 حالة التقديم الحالية", value: `**${statusNotice}**`, inline: false }
                     ],
-                    footer: { text: "إدارة بوابة طرب الذكية" }
+                    footer: { text: "بوابة توزيع المقاعد المحدثة - إدارة طرب" }
                 }]
             };
 
