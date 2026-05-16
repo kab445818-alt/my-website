@@ -537,10 +537,10 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // المتغيرات المحلية (الحين محمية وتنتظر الـ Firebase)
+        // 🛠️ جعل الحالة الافتراضية "غير محددة" لنعرف هل Firebase اشتغل أو لسه
         let applications = JSON.parse(localStorage.getItem('tarab_apps')) || [];
         let approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
-        let systemStatus = { game: true, discord: true };
+        let systemStatus = null; // نخليه null عشان ما ينفذ شيء عشوائي قبل السحاب
         let maintenanceMode = false;
         let maintenanceEndTime = null;
         let maintenanceInterval = null;
@@ -552,12 +552,12 @@
             admin: "• التفاعل الصوتي والكتابي المستمر وتوجيه الأعضاء الجدد.\n• تصفية الشات من السب، حظر المخربين، ورفع التقارير للرتب العليا.\n• الالتزام بساعات عمل محددة."
         };
 
-        // 🟢 التعديل والحل السحري: فحص أول لبيانات السحاب لضمان الحفظ وعدم التصفير عند التحديث
+        // 🟢 الاتصال ومراقبة التغييرات من Firebase
         db.ref('tarab_portal_settings').on('value', (snapshot) => {
             const cloudData = snapshot.val();
             
             if (cloudData) {
-                // السحاب يحتوي على بيانات؟ ممتاز اقرأ منها فوراً واحفظها محلياً
+                // السحاب يحتوي على بيانات؟ نحدث فوراً
                 systemStatus = cloudData.systemStatus || { game: true, discord: true };
                 maintenanceMode = cloudData.maintenanceMode !== undefined ? cloudData.maintenanceMode : false;
                 maintenanceEndTime = cloudData.maintenanceEndTime || null;
@@ -565,13 +565,15 @@
                 
                 applyCloudSettingsToUI();
             } else {
-                // 🛠️ الثغرة هنا! لو السحاب فاضي لأول مرة، ارفع الإعدادات الحالية بدلاً من تركها معلقة
+                // لو السحاب فاضي تماماً (أول تشغيل)، نرفع القيم الافتراضية المفتوحة عشان نثبتها بالسيرفر
+                systemStatus = { game: true, discord: true };
                 syncSettingsToCloud();
             }
         });
 
         // دالة لإرسال التحديثات الجديدة للسحاب
         function syncSettingsToCloud() {
+            if (systemStatus === null) return; // حماية من تصفير البيانات بالخطأ
             db.ref('tarab_portal_settings').set({
                 systemStatus: systemStatus,
                 maintenanceMode: maintenanceMode,
@@ -582,6 +584,8 @@
 
         // دالة لتطبيق الإعدادات السحابية على الواجهات
         function applyCloudSettingsToUI() {
+            if (!systemStatus) return; // لو السحاب لسه ما رد، لا تسوي شيء
+
             // 1. فحص وضع الصيانة الكلي
             if (maintenanceMode) {
                 navigateTo('pageMaintenance');
@@ -680,7 +684,7 @@
         function resetToWelcome() { navigateTo('pageWelcome'); }
 
         function selectPlatform(platform) {
-            if (!systemStatus[platform]) {
+            if (!systemStatus || !systemStatus[platform]) {
                 alert('عذراً، هذا التقديم مغلق حالياً بقرار من الإدارة العليا.');
                 return;
             }
@@ -829,6 +833,7 @@
         function logoutAdmin() { resetToWelcome(); }
 
         function togglePlatformStatus(platform) {
+            if (!systemStatus) return;
             systemStatus[platform] = !systemStatus[platform];
             syncSettingsToCloud(); 
         }
