@@ -29,13 +29,12 @@
             position: relative;
         }
 
-        /* ----- الخلفية الجديدة: صورة الشبح الغامض بالأبيض والأسود ----- */
+        /* ----- الخلفية: صورة الشبح الغامض بالأبيض والأسود ----- */
         .background-container {
             position: absolute;
             width: 100%; height: 100%;
             top: 0; left: 0;
             z-index: -2;
-            /* تم وضع رابط صورة الشبح مباشرة هنا مع تأثيرات تعتيم متناسقة */
             background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
                         url('https://googleusercontent.com/image_generation_content/1') no-repeat center center fixed;
             background-size: cover;
@@ -155,7 +154,7 @@
         .input-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; display: block; opacity: 0.8; }
 
         .acknowledgement-box { display: flex; gap: 12px; background: rgba(0,0,0,0.5); border: 1px dashed rgba(255, 255, 255, 0.2); padding: 14px; border-radius: 6px; text-align: right; font-size: 0.85rem; line-height: 1.6; }
-        .acknowledgement-box input { accent-color: #ffffff; cursor: pointer; scale: 1.2; margin-top: 4px; }
+        .acknowledgement-box input { cursor: pointer; scale: 1.2; margin-top: 4px; }
         .acknowledgement-box label { cursor: pointer; color: #cbd5e1; user-select: none; }
 
         /* ----- لوحة التحكم للمالك ----- */
@@ -177,6 +176,7 @@
         .action-btns .btn { padding: 5px 12px; font-size: 0.8rem; border-radius: 4px; }
 
         .status-screen { padding: 35px 20px; border-radius: 8px; font-size: 1.2rem; font-weight: 700; line-height: 1.8; border: 1px solid var(--accent-green); background: rgba(34, 197, 94, 0.04); box-shadow: 0 0 15px rgba(34, 197, 94, 0.1); }
+        .status-screen.status-error { border-color: var(--accent-red); background: rgba(239, 68, 68, 0.04); box-shadow: 0 0 15px rgba(239, 68, 68, 0.1); }
 
         .secret-admin-btn { position: fixed; bottom: 10px; left: 10px; opacity: 0.2; background: none; border: none; color: gray; cursor: pointer; font-size: 0.75rem; z-index: 100; transition: opacity 0.2s; }
         .secret-admin-btn:hover { opacity: 1; color: #ffffff; }
@@ -220,7 +220,7 @@
         </div>
 
         <div id="pageApplyGame" class="page">
-            <h2>📋 استمارة تقديم - شاليه طرب (روبلوكس)</h2>
+            <h2 id="titleGameForm">📋 استمارة تقديم - شاليه طرب (روبلوكس)</h2>
             <form id="formGame" onsubmit="submitApplication(event, 'game')">
                 <div class="split-layout">
                     <div class="split-right">
@@ -247,10 +247,10 @@
                     <div class="split-left">
                         <div class="form-group">
                             <label>اسم حسابك في الديسكورد (بالإنجليزي):</label>
-                            <input type="text" id="gameDiscordName" required placeholder="مثال: demon_studio" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
+                            <input type="text" id="gameDiscordName" required placeholder="مثال: demon_studio" onblur="checkExistingApplication('game')" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
                         </div>
                         <div class="form-group">
-                            <label>اختر الرتبة المطلوبة في الماب:</label>
+                            <label>اختر الرتبة المطلوب التقديم عليها:</label>
                             <select id="gameRank" required onchange="updateConditions('game')">
                                 <option value="" disabled selected>اختر الرتبة الإدارية...</option>
                                 <option value="founder">Founder</option>
@@ -273,7 +273,7 @@
         </div>
 
         <div id="pageApplyDiscord" class="page">
-            <h2>📋 استمارة تقديم - طرب ديسكورد</h2>
+            <h2 id="titleDiscordForm">📋 استمارة تقديم - طرب ديسكورد</h2>
             <form id="formDiscord" onsubmit="submitApplication(event, 'discord')">
                 <div class="split-layout">
                     <div class="split-right">
@@ -300,7 +300,7 @@
                     <div class="split-left">
                         <div class="form-group">
                             <label>اسم حسابك في الديسكورد (بالإنجليزي):</label>
-                            <input type="text" id="discordDiscordName" required placeholder="مثال: demon_studio" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
+                            <input type="text" id="discordDiscordName" required placeholder="مثال: demon_studio" onblur="checkExistingApplication('discord')" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')">
                         </div>
                         <div class="form-group">
                             <label>اختر الرتبة المطلوبة في الديسكورد:</label>
@@ -326,10 +326,9 @@
         </div>
 
         <div id="pageStatus" class="page">
-            <div class="status-screen">
-                <span style="font-size: 2.5rem;">⚪</span><br><br>
-                تم إرسال تقديمك بنجاح للنظام التاريخي المطور!<br><br>
-                <span style="color: #cbd5e1; font-weight: 600;">سيقوم المالك بمراجعة إجاباتك المفصلة وقبولك في حال وجود مقاعد متوفرة في السقف الإداري.</span>
+            <div id="statusBox" class="status-screen">
+                <span id="statusIcon" style="font-size: 2.5rem;">⚪</span><br><br>
+                <span id="statusMessage">تم إرسال تقديمك بنجاح للنظام التاريخي المطور!</span>
             </div>
             <button class="btn" style="margin-top: 25px;" onclick="resetToWelcome()">العودة للرئيسية</button>
         </div>
@@ -387,10 +386,12 @@
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
         const ADMIN_PASSWORD = "yZn_444-999"; 
         const LIMITS = { founder: 1, co_owner: 2, head_admin: 3, admin: 4 };
+        const COOLDOWN_TIME = 5 * 60 * 1000; // 5 دقائق بالملي ثانية
 
         let applications = JSON.parse(localStorage.getItem('tarab_apps')) || [];
         let approvedCounts = JSON.parse(localStorage.getItem('tarab_counts')) || { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
         let systemStatus = JSON.parse(localStorage.getItem('tarab_status')) || { game: true, discord: true };
+        let cooldowns = JSON.parse(localStorage.getItem('tarab_cooldowns')) || {}; // { username: timestamp }
 
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
@@ -431,8 +432,53 @@
                 alert(`🚨 نعتذر منك، لقد تم إغلاق التقديم على هذا القسم حالياً من قِبل مالك السيرفر والعملية متوقفة!`);
                 return;
             }
-            if (type === 'game') navigateTo('pageApplyGame');
-            else navigateTo('pageApplyDiscord');
+            
+            // تصفير وتجهيز العناوين والأزرار الافتراضية
+            if (type === 'game') {
+                document.getElementById('titleGameForm').innerText = "📋 استمارة تقديم - شاليه طرب (روبلوكس)";
+                document.getElementById('submitGameBtn').innerText = "تقديم الطلب للماب";
+                navigateTo('pageApplyGame');
+            } else {
+                document.getElementById('titleDiscordForm').innerText = "📋 استمارة تقديم - طرب ديسكورد";
+                document.getElementById('submitDiscordBtn').innerText = "تقديم الطلب للديسكورد";
+                navigateTo('pageApplyDiscord');
+            }
+        }
+
+        // دالة تفحص تلقائياً إذا كان الإسم مكتوباً وله طلب معلق لتحديثه (ميزة تغيير الرأي) أو يقع تحت كول داون
+        function checkExistingApplication(type) {
+            const nameInput = document.getElementById(`${type}DiscordName`).value.trim().toLowerCase();
+            if(!nameInput) return;
+
+            const currentTime = Date.now();
+
+            // 1. فحص نظام الكول داون (إذا كان مرفوضاً مؤخراً)
+            if (cooldowns[nameInput]) {
+                const expirationTime = cooldowns[nameInput] + COOLDOWN_TIME;
+                if (currentTime < expirationTime) {
+                    const timeLeft = Math.round((expirationTime - currentTime) / 1000);
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    
+                    showStatusScreen(false, `❌ نعتذر منك، تم رفض طلبك السابق مؤخراً. يرجى الانتظار مدة **${minutes} دقيقة و ${seconds} ثانية** قبل المحاولة مجدداً.`);
+                    return;
+                } else {
+                    delete cooldowns[nameInput];
+                    localStorage.setItem('tarab_cooldowns', JSON.stringify(cooldowns));
+                }
+            }
+
+            // 2. فحص ميزة تغيير الرأي (تعديل الطلب القديم)
+            const foundApp = applications.find(app => app.name.toLowerCase() === nameInput && app.platform === type && app.status === 'pending');
+            if (foundApp) {
+                document.getElementById(`${type}Rank`).value = foundApp.rank;
+                document.getElementById(`${type}Answers`).value = foundApp.answers;
+                updateConditions(type);
+                
+                // تعديل نصوص الفورم ليعرف العميل أنه يغير رأيه الآن
+                document.getElementById(type === 'game' ? 'titleGameForm' : 'titleDiscordForm').innerText = "🔄 تعديل وتحديث طلبك الحالي (تغيير الرأي)";
+                document.getElementById(`submit${type === 'game' ? 'Game' : 'Discord'}Btn`).innerText = "تحديث وإرسال التعديل";
+            }
         }
 
         function updateConditions(type) {
@@ -443,18 +489,19 @@
             const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل اليومية :\nخبراتك السابقة بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
             const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام التام بالنظام الإداري الصارم داخل شاليه طرب :`;
 
+            // نضع القالب فقط إذا كانت الخانة فارغة أو تحتوي على القالب الافتراضي الآخر لكي لا نمسح تعديل المستخدم
             if (type === 'discord') {
                 if(rank === 'founder') conditionsDiv.innerHTML = `<b>متطلبات Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة بالكامل وضمان حماية النظام العام.`;
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>متطلبات CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جداً بإدارة الطاقم واحترافية بحل النزاعات وتنظيم الأقسام وحظر المصلحة الشخصية.`;
                 else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>متطلبات Head Admin (طرب ديسكورد):</b>\n• إشراف ومتابعة دقيقة لتطبيق القوانين، تفاعل قوي جداً وتوجيه كامل الـ Admins.`;
                 else if(rank === 'admin') conditionsDiv.innerHTML = `<b>متطلبات Admin (طرب ديسكورد):</b>\n• تفاعل ممتاز، احترام جميع الأعضاء وتطهير الشات والرموز من أي مخالفات أو سباب فوراً.`;
-                textArea.value = discordForm;
+                if(textArea.value.trim() === "" || textArea.value.includes("روبلوكس")) textArea.value = discordForm;
             } else {
                 if(rank === 'founder') conditionsDiv.innerHTML = `<b>🔥 متطلبات Founder (شاليه طرب):</b>\n• سلطة قيادية عليا مسؤولة عن إدارة وضبط سيرفرات الماب بالكامل وتطوير جودة الأمن الإداري ومنع الثغرات.`;
                 else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>⚡ متطلبات CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم المراقبة وإصدار قرارات الباند النهائي للمخربين ورصد الأداء اليومي.`;
                 else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>🛡️ متطلبات Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
                 else if(rank === 'admin') conditionsDiv.innerHTML = `<b>👾 متطلبات Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل الفوري معهم.`;
-                textArea.value = gameForm;
+                if(textArea.value.trim() === "" || textArea.value.includes("ديسكورد")) textArea.value = gameForm;
             }
             toggleSubmitBtn(type);
         }
@@ -469,6 +516,22 @@
             btn.disabled = !(checkBox.checked && name.length >= 3 && rank && answers.length >= 10);
         }
 
+        function showStatusScreen(isSuccess, message) {
+            const statusBox = document.getElementById('statusBox');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusMessage = document.getElementById('statusMessage');
+
+            if(isSuccess) {
+                statusBox.className = "status-screen";
+                statusIcon.innerText = "✅";
+            } else {
+                statusBox.className = "status-screen status-error";
+                statusIcon.innerText = "❌";
+            }
+            statusMessage.innerHTML = message;
+            navigateTo('pageStatus');
+        }
+
         function submitApplication(event, type) {
             event.preventDefault();
 
@@ -477,30 +540,79 @@
                 return;
             }
 
-            const platformSelect = type === 'game' ? "شاليه طرب" : "طرب ديسكورد";
+            const nameInput = document.getElementById(`${type}DiscordName`).value.trim().toLowerCase();
             const rankSelect = document.getElementById(`${type}Rank`);
+            const answersText = document.getElementById(`${type}Answers`).value;
+            const platformSelect = type === 'game' ? "شاليه طرب" : "طرب ديسكورد";
 
-            const newApp = {
-                id: Date.now(),
-                name: document.getElementById(`${type}DiscordName`).value,
-                platform: type,
-                platformText: platformSelect,
-                rank: rankSelect.value,
-                rankText: rankSelect.options[rankSelect.selectedIndex].text,
-                answers: document.getElementById(`${type}Answers`).value,
-                status: 'pending'
-            };
+            // فحص كول داون أخير قبل الرفع للحماية
+            if (cooldowns[nameInput] && (Date.now() < cooldowns[nameInput] + COOLDOWN_TIME)) {
+                checkExistingApplication(type);
+                return;
+            }
 
-            applications.push(newApp);
-            localStorage.setItem('tarab_apps', JSON.stringify(applications));
+            // البحث إذا كان تعديل (تغيير رأي) أو تقديم جديد
+            let existingAppIndex = applications.findIndex(app => app.name.toLowerCase() === nameInput && app.platform === type && app.status === 'pending');
 
-            sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة الإدارية", newApp, 16777215, "بانتظار مراجعة المالك واتخاذ قرار القبول أو الرفض عبر لوحة التحكم السرية.");
+            if (existingAppIndex !== -1) {
+                // تحديث البيانات للطلب المعلق الحالي
+                applications[existingAppIndex].rank = rankSelect.value;
+                applications[existingAppIndex].rankText = rankSelect.options[rankSelect.selectedIndex].text;
+                applications[existingAppIndex].answers = answersText;
+                applications[existingAppIndex].time = Date.now();
 
-            navigateTo('pageStatus');
+                localStorage.setItem('tarab_apps', JSON.stringify(applications));
+                sendWebhookNotification("🔄 تم تحديث تعديل جديد (تغيير رأي)", applications[existingAppIndex], 3447003, "قام المستخدم بتعديل طلب المعلق مسبقاً وتغيير معلوماته.");
+                showStatusScreen(true, "🔄 تم تحديث وتعديل طلبك السابق بنجاح بمعلوماتك الجديدة والجديدة كلياً!");
+            } else {
+                // إنشاء طلب جديد تماماً أول مرة
+                const newApp = {
+                    id: Date.now(),
+                    name: document.getElementById(`${type}DiscordName`).value.trim(),
+                    platform: type,
+                    platformText: platformSelect,
+                    rank: rankSelect.value,
+                    rankText: rankSelect.options[rankSelect.selectedIndex].text,
+                    answers: answersText,
+                    status: 'pending',
+                    time: Date.now()
+                };
+
+                applications.push(newApp);
+                localStorage.setItem('tarab_apps', JSON.stringify(applications));
+                sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة الإدارية", newApp, 16777215, "بانتظار مراجعة المالك واتخاذ قرار القبول أو الرفض عبر لوحة التحكم.");
+                showStatusScreen(true, "✅ تم إرسال تقديمك الأول بنجاح للنظام التاريخي المطور!<br><br><span style='color: #cbd5e1; font-weight: 600;'>إذا غيّرت رايك يمكنك إدخال نفس الاسم لتحديث الطلب.</span>");
+            }
+
             document.getElementById(`form${type === 'game' ? 'Game' : 'Discord'}`).reset();
             toggleSubmitBtn(type);
         }
 
+        // دالة إرسال الويب هوك لديسكورد
+        function sendWebhookNotification(title, app, color, footerText) {
+            const payload = {
+                embeds: [{
+                    title: title,
+                    color: color,
+                    fields: [
+                        { name: "👤 اسم المتقدم (ديسكورد):", value: `\`${app.name}\``, inline: true },
+                        { name: "🏢 مكان التقديم:", value: `\`${app.platformText}\``, inline: true },
+                        { name: "👑 الرتبة المحددة:", value: `\`${app.rankText}\``, inline: true },
+                        { name: "📝 الإجابات والنموذج المشروح:", value: `\`\`\`text\n${app.answers}\n\`\`\`` }
+                    ],
+                    footer: { text: footerText },
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error("Webhook error:", err));
+        }
+
+        /* ----- كود لوحة التحكم للمالك والأدمن ----- */
         function openAdminLogin() {
             const pass = prompt("أدخل الرقم السري المحدث لمالك طرب للوصول للوحة التحكم الفورية:");
             if (pass === ADMIN_PASSWORD) {
@@ -530,7 +642,7 @@
         }
 
         function resetAllCounts() {
-            if(confirm("⚠️ هل أنت متأكد من رغبتك في تصفير جميع المقاعد المشغولة الحالية؟")) {
+            if(confirm("هل أنت متأكد من تصفير كافة مقاعد السقف الإداري المتوفرة؟")) {
                 approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
                 localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
                 renderAdminPanel();
@@ -538,32 +650,40 @@
         }
 
         function renderAdminPanel() {
-            // تحديث العدادات بالشاشة
-            for (const rank in LIMITS) {
-                document.getElementById(`count-${rank}`).innerText = approvedCounts[rank];
-            }
+            document.getElementById('count-founder').innerText = approvedCounts.founder;
+            document.getElementById('count-co_owner').innerText = approvedCounts.co_owner;
+            document.getElementById('count-head_admin').innerText = approvedCounts.head_admin;
+            document.getElementById('count-admin').innerText = approvedCounts.admin;
+
+            const btnGame = document.getElementById('toggle-game-btn');
+            btnGame.className = systemStatus.game ? "btn btn-success" : "btn btn-danger";
+            btnGame.innerText = `تقديم شاليه طرب: ${systemStatus.game ? 'مفتوح' : 'مغلق'}`;
+
+            const btnDiscord = document.getElementById('toggle-discord-btn');
+            btnDiscord.className = systemStatus.discord ? "btn btn-success" : "btn btn-danger";
+            btnDiscord.innerText = `تقديم طرب ديسكورد: ${systemStatus.discord ? 'مفتوح' : 'مغلق'}`;
 
             const tbody = document.getElementById('adminRequestsRows');
-            tbody.innerHTML = '';
+            tbody.innerHTML = "";
 
             const pendingApps = applications.filter(app => app.status === 'pending');
 
-            if (pendingApps.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94a3b8;">لا توجد أي تقديمات معلقة حالياً في السيرفر..</td></tr>`;
+            if(pendingApps.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#666;">لا توجد أي طلبات تقديم معلقة حالياً بانتظارك..</td></tr>`;
                 return;
             }
 
             pendingApps.forEach(app => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight:bold;">${app.name}</td>
+                    <td style="font-weight:bold; color:#fff;">${app.name}</td>
                     <td>${app.platformText}</td>
-                    <td><span style="color:#ffffff; font-weight:600;">${app.rankText}</span></td>
-                    <td><div class="content-box" style="max-height:100px; font-size:0.8rem; margin:0; width:250px;">${app.answers}</div></td>
+                    <td style="color:var(--accent-green); font-weight:bold;">${app.rankText}</td>
+                    <td><div class="content-box" style="max-height:100px; margin-bottom:0; font-size:0.8rem;">${app.answers}</div></td>
                     <td>
                         <div class="action-btns">
-                            <button class="btn btn-success" onclick="processApplication(${app.id}, 'approve')">قبول</button>
-                            <button class="btn btn-danger" onclick="processApplication(${app.id}, 'reject')">رفض</button>
+                            <button class="btn btn-success" onclick="processApp(${app.id}, 'approve')">قبول</button>
+                            <button class="btn btn-danger" onclick="processApp(${app.id}, 'reject')">رفض</button>
                         </div>
                     </td>
                 `;
@@ -571,52 +691,37 @@
             });
         }
 
-        function processApplication(appId, action) {
-            const appIndex = applications.findIndex(app => app.id === appId);
-            if (appIndex === -1) return;
+        function processApp(appId, action) {
+            const index = applications.findIndex(app => app.id === appId);
+            if(index === -1) return;
 
-            const app = applications[appIndex];
+            const app = applications[index];
 
-            if (action === 'approve') {
-                if (approvedCounts[app.rank] >= LIMITS[app.rank]) {
-                    alert(`🚨 لا يمكن القبول! لقد تم الوصول للسقف الإداري الأقصى لهذه الرتبة (${LIMITS[app.rank]} مقاعد بالكامل)!`);
+            if(action === 'approve') {
+                if(approvedCounts[app.rank] >= LIMITS[app.rank]) {
+                    alert(`🚨 نعتذر منك أيها المالك! لا يمكن القبول، لقد تم الوصول للحد الأقصى للسقف الإداري لهذه الرتبة (${LIMITS[app.rank]} مقاعد).`);
                     return;
                 }
                 approvedCounts[app.rank]++;
                 localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
-                app.status = 'approved';
-                sendWebhookNotification("🟢 تم قبول المتقدم رسمياً من قِبل المالك", app, 65280, `تمت الموافقة وشغل مقعد جديد بالرتبة بنجاح (${approvedCounts[app.rank]} / ${LIMITS[app.rank]}).`);
-            } else {
-                app.status = 'rejected';
-                sendWebhookNotification("🔴 تم رفض طلب المتقدم من قِبل المالك", app, 16711680, "تم استبعاد الطلب من اللوحة الإدارية لعدم الكفاءة أو اكتمال الأسقف.");
+                
+                applications[index].status = 'approved';
+                sendWebhookNotification("🟢 تم قبول المتقدم رسمياً بواسطة المالك", app, 3066993, "تمت إضافة المتقدم للسقف وجاري تسليمه الرتبة والخصائص.");
+                alert(`✅ تم قبول طلب ${app.name} وتحديث السقف الإداري بنجاح!`);
+            } 
+            else if(action === 'reject') {
+                // تفعيل نظام الكول داون فوراً لحساب الشخص لمدة 5 دقائق
+                const lowercaseName = app.name.toLowerCase();
+                cooldowns[lowercaseName] = Date.now();
+                localStorage.setItem('tarab_cooldowns', JSON.stringify(cooldowns));
+
+                applications[index].status = 'rejected';
+                sendWebhookNotification("🔴 تم رفض المتقدم وتفعيل فترة الكول داون", app, 15158332, "تم رفض الطلب وحظر المستخدم من التقديم مجدداً لمدة 5 دقائق كاملة.");
+                alert(`🚫 تم رفض طلب ${app.name} ودخل في فترة كول داون 5 دقائق حالياً.`);
             }
 
-            applications.splice(appIndex, 1);
             localStorage.setItem('tarab_apps', JSON.stringify(applications));
             renderAdminPanel();
-        }
-
-        function sendWebhookNotification(title, app, colorCode, footerText) {
-            const payload = {
-                embeds: [{
-                    title: title,
-                    color: colorCode,
-                    fields: [
-                        { name: "👤 اسم حساب المتقدم:", value: `\`${app.name}\``, inline: true },
-                        { name: "📍 جهة الانضمام:", value: app.platformText, inline: true },
-                        { name: "🏅 الرتبة المطلوبة:", value: app.rankText, inline: true },
-                        { name: "📝 الإجابات والبيانات الكاملة:", value: `\`\`\`\n${app.answers}\n\`\`\`` }
-                    ],
-                    footer: { text: footerText },
-                    timestamp: new Date().toISOString()
-                }]
-            };
-
-            fetch(DISCORD_WEBHOOK_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error("Webhook Error:", err));
         }
     </script>
 </body>
