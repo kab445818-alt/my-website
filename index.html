@@ -3,15 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <title>طرب للتقديمات</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
+  color: white;
+}
+
+header {
+  padding: 40px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 45px;
+  margin: 0;
+}
+
+p {
+  color: #bbb;
+}
+
+.container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+button {
+  padding: 15px 35px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: white;
+  color: black;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00c3ff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.card {
+  margin: 30px auto;
+  width: 60%;
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 15px;
+}
+
+input, select, textarea {
+  width: 80%;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.page {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+</style>
 </head>
-<body style="text-align:center; font-family:Arial; background:#111; color:white;">
 
-<h1>مرحباً بك في طرب للتقديمات</h1>
-<p>تم استرجاع الموقع بنجاح 🔥</p>
+<body>
 
-<button onclick="alert('ابدأ التقديم قريبًا')">
-ابدأ التقديم
-</button>
+<header>
+  <h1>طرب للتقديمات</h1>
+  <p>النظام الرسمي لتقديم الإدارة</p>
+</header>
+
+<!-- الصفحة الرئيسية -->
+<div id="home" class="page active container">
+  <button onclick="go('rules')">ابدأ التقديم</button>
+</div>
+
+<!-- القوانين -->
+<div id="rules" class="page container">
+  <div class="card">
+    <h2>القوانين</h2>
+    <p>1- احترام الإدارة</p>
+    <p>2- الالتزام بالشروط</p>
+    <p>3- عدم الإزعاج</p>
+  </div>
+  <button onclick="go('form')">أوافق</button>
+</div>
+
+<!-- التقديم -->
+<div id="form" class="page container">
+  <div class="card">
+    <h2>نموذج التقديم</h2>
+
+    <input type="text" placeholder="اسمك في الديسكورد">
+    <br>
+
+    <select>
+      <option>اختر الرتبة</option>
+      <option>مشرف</option>
+      <option>إداري</option>
+      <option>مراقب</option>
+    </select>
+    <br>
+
+    <textarea placeholder="لماذا تريد الانضمام؟"></textarea>
+    <br>
+
+    <textarea placeholder="اكتب الإقرار: أتعهد بالالتزام بالقوانين"></textarea>
+    <br>
+
+    <button onclick="go('done')">إرسال</button>
+  </div>
+</div>
+
+<!-- تم -->
+<div id="done" class="page container">
+  <h2>تم إرسال تقديمك ✅</h2>
+  <p>سيتم مراجعة طلبك قريبًا</p>
+</div>
+
+<script>
+function go(page){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+}
+</script>
 
 </body>
 </html>
