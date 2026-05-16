@@ -46,7 +46,6 @@
             overflow: hidden;
         }
 
-        /* الغيوم */
         .clouds {
             position: absolute;
             width: 300%;
@@ -63,7 +62,6 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* البرق العشوائي */
         .lightning-flash {
             position: absolute;
             width: 100%;
@@ -100,7 +98,6 @@
             transform-origin: bottom center;
         }
 
-        /* عيون الشبح المتوهجة بالبنفسجي الخافت */
         .ghost-shadow::before, .ghost-shadow::after {
             content: '';
             position: absolute;
@@ -171,7 +168,6 @@
         .btn:hover { transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5); }
         .btn:disabled { background: #262030; color: #6b7280; cursor: not-allowed; box-shadow: none; transform: none; border: 1px solid rgba(250,250,250,0.05); }
 
-        /* صندوق استعراض الشروط والقوانين الرسمية */
         .content-box {
             background: rgba(0, 0, 0, 0.55);
             border: 1px solid rgba(139, 92, 246, 0.18);
@@ -207,11 +203,10 @@
             border-color: var(--purple-main);
             box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
         }
-        .form-group textarea { resize: none; height: 110px; }
+        .form-group textarea { resize: none; height: 130px; }
         
         .input-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; display: block; }
 
-        /* صندوق الإقرار */
         .acknowledgement-box {
             display: flex;
             align-items: flex-start;
@@ -226,7 +221,6 @@
         .acknowledgement-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--purple-main); cursor: pointer; }
         .acknowledgement-box label { font-size: 0.8rem; color: #fca5a5; cursor: pointer; user-select: none; line-height: 1.4; }
 
-        /* شاشات القبول والرفض الاحترافية */
         .status-screen { padding: 30px 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 700; line-height: 1.7; }
         .status-screen.accepted {
             border: 1px solid var(--accent-green);
@@ -249,7 +243,7 @@
         
         <div id="pageWelcome" class="page active">
             <h1>بوابة طرب للتقديم</h1>
-            <p>مرحباً بك في نظام التتقديم الرسمي لإدارة سيرفر طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية.</p>
+            <p>مرحباً بك في نظام التقديم الرسمي لإدارة سيرفر طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية.</p>
             <button class="btn" onclick="navigateTo('pageApply')">ابدأ التقديم</button>
         </div>
 
@@ -283,20 +277,25 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="platformType">مكان التقديم المطلوب:</label>
+                    <select id="platformType" required onchange="handlePlatformChange()">
+                        <option value="" disabled selected>اختر مكان الإدارة...</option>
+                        <option value="discord">إدارة الديسكورد (Discord Admin)</option>
+                        <option value="game">إدارة اللعبة داخل روبلوكس (In-Game Admin)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="userRank">اختر الرتبة المطلوبة:</label>
-                    <select id="userRank" required onchange="handleRankChange()">
-                        <option value="" disabled selected>اختر الرتبة الإدارية...</option>
-                        <option value="founder">Founder</option>
-                        <option value="co_owner">CO Owner</option>
-                        <option value="head_admin">Headadmin</option>
-                        <option value="admin">Admin</option>
+                    <select id="userRank" required onchange="handleRankChange()" disabled>
+                        <option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>شروط ومتطلبات الرتبة المحددة:</label>
-                    <div id="rankConditions" class="content-box" style="height: 110px; color: #c084fc;">
-                        يرجى تحديد الرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..
+                    <div id="rankConditions" class="content-box" style="height: 120px; color: #c084fc;">
+                        يرجى تحديد مكان التقديم والرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..
                     </div>
                 </div>
 
@@ -304,7 +303,7 @@
                     <label id="questionsLabel">نموذج التقديم والإجابات:</label>
                     <textarea id="rankQuestions" required minlength="10"
                               oninput="validateQuestions(this)"
-                              placeholder="يرجى اختيار رتبة أولاً لتظهر لك الأسئلة والنموذج هنا للإجابة عليه..."></textarea>
+                              placeholder="يرجى اختيار الرتبة لتظهر لك الأسئلة والنموذج هنا للإجابة عليه..."></textarea>
                     <span class="input-note" id="charCounter">الحد الأدنى للكتابة: 10 أحرف.</span>
                 </div>
 
@@ -331,7 +330,6 @@
     </div>
 
     <script>
-        // الـ Webhook الجديد المحدث الخاص بك
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
 
         function navigateTo(pageId) {
@@ -355,25 +353,72 @@
             }
         }
 
+        // تحديث الرتب بناءً على اختيار (لعبة أو ديسكورد)
+        function handlePlatformChange() {
+            const platform = document.getElementById('platformType').value;
+            const rankSelect = document.getElementById('userRank');
+            const conditionsDiv = document.getElementById('rankConditions');
+            const questionsTextArea = document.getElementById('rankQuestions');
+            
+            rankSelect.disabled = false;
+            rankSelect.innerHTML = '<option value="" disabled selected>اختر الرتبة الإدارية...</option>';
+            conditionsDiv.innerHTML = 'يرجى تحديد الرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..';
+            questionsTextArea.value = '';
+
+            if (platform === 'discord') {
+                rankSelect.innerHTML += `
+                    <option value="founder">Founder</option>
+                    <option value="co_owner">CO Owner</option>
+                    <option value="head_admin">Headadmin</option>
+                    <option value="admin">Admin</option>
+                `;
+            } else if (platform === 'game') {
+                rankSelect.innerHTML += `
+                    <option value="game_director">Game Director (مشرف عام اللعبة)</option>
+                    <option value="server_supervisor">Server Supervisor (مراقب سيرفرات)</option>
+                    <option value="game_moderator">Game Moderator (مراقب داخل اللعبة)</option>
+                `;
+            }
+            toggleSubmitBtn();
+        }
+
+        // تحديث الشروط والأسئلة بناءً على الرتب المحددة
         function handleRankChange() {
+            const platform = document.getElementById('platformType').value;
             const rank = document.getElementById('userRank').value;
             const conditionsDiv = document.getElementById('rankConditions');
             const questionsTextArea = document.getElementById('rankQuestions');
             
-            const baseForm = `الاسم أو اللقب :\nالرتبة المطلوبة :\nعدد ساعات التفاعل :\nخبراتك بالإدارة :\nالسيرفرات اللي أدرتها قبل :\nكيف تتعامل مع المشاكل والنزاعات؟ :\nوش اللي يميزك عن غيرك؟ :\nوش بتقدم لسيرفر طرب إذا انقبلت؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
+            // قوالب الأسئلة الثابتة
+            const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة للديسكورد :\nعدد ساعات التفاعل في الديسكورد :\nخبراتك بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد سيرفر طرب؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
+            
+            const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة داخل اللعبة :\nعدد ساعات تواجدك اليومي داخل اللعبة :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب اللعبة؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي مثلاً) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات أو الـ Exploits والإبلاغ عنها؟ :\nتعهد بالالتزام بالزي الرسمي والنظام الإداري الصارم داخل الماب :`;
 
-            if(rank === 'founder') {
-                conditionsDiv.innerHTML = `<b>متطلبات رتبة Founder:</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة.\n• التكفل بالتطوير العام وإدارة شؤون المجتمع مصيرياً.`;
-                questionsTextArea.value = baseForm;
-            } else if(rank === 'co_owner') {
-                conditionsDiv.innerHTML = `<b>متطلبات رتبة CO Owner:</b>\n• خبرة قوية جدًا بإدارة السيرفرات الكبيرة\n• قدرة كاملة على إدارة الطاقم الإداري\n• احترافية بالتعامل مع المشاكل والقرارات المهمة\n• متابعة كاملة لجميع أقسام السيرفر\n• تطوير السيرفر وتنظيمه بشكل مستمر\n• يمنع استخدام الصلاحيات لأي مصلحة شخصية\n• تحمل المسؤولية الكاملة عن أي قرار إداري`;
-                questionsTextArea.value = baseForm;
-            } else if(rank === 'head_admin') {
-                conditionsDiv.innerHTML = `<b>متطلبات رتبة Head Admin:</b>\n• خبرة ممتازة بالإدارة والإشراف\n• تفاعل قوي ومستمر داخل السيرفر\n• احترافية بحل المشاكل والنزاعات\n• متابعة تطبيق القوانين داخل السيرفر\n• التعامل مع الجميع باحترام وهدوء\n• الالتزام الكامل بتعليمات الإدارة العليا`;
-                questionsTextArea.value = baseForm;
-            } else if(rank === 'admin') {
-                conditionsDiv.innerHTML = `<b>متطلبات رتبة Admin:</b>\n• تفاعل ممتاز داخل السيرفر\n• احترام جميع الأعضاء والإدارة\n• معرفة جيدة بقوانين السيرفر\n• يمنع إساءة استخدام الصلاحيات\n• الحفاظ على نظام الرومات والشات\n• تنفيذ التعليمات المطلوبة بدون إهمال`;
-                questionsTextArea.value = baseForm;
+            if (platform === 'discord') {
+                if(rank === 'founder') {
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Founder (ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة.\n• التكفل بالتطوير العام وإدارة شؤون المجتمع مصيرياً.`;
+                    questionsTextArea.value = discordForm;
+                } else if(rank === 'co_owner') {
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة CO Owner (ديسكورد):</b>\n• خبرة قوية جدًا بإدارة السيرفرات، إدارة الطاقم، احترافية بحل النزاعات، تنظيم الأقسام، وحظر تام للمصلحة الشخصية.`;
+                    questionsTextArea.value = discordForm;
+                } else if(rank === 'head_admin') {
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Head Admin (ديسكورد):</b>\n• إشراف ومتابعة تطبيق القوانين، تفاعل قوي، وهدوء تام وتوجيه طاقم الـ Admins بالكامل.`;
+                    questionsTextArea.value = discordForm;
+                } else if(rank === 'admin') {
+                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Admin (ديسكورد):</b>\n• تفاعل ممتاز، احترام الأعضاء، تنفيذ التعليمات، وتطهير الشات والرموز من أي مخالفات فوراً.`;
+                    questionsTextArea.value = discordForm;
+                }
+            } else if (platform === 'game') {
+                if(rank === 'game_director') {
+                    conditionsDiv.innerHTML = `<b>🔥 متطلبات رتبة Game Director (إدارة اللعبة):</b>\n• سلطة عليا داخل الماب مسؤولة عن تنظيم السيرفرات بالكامل.\n• إدارة مراقبي اللعبة وتوزيعهم على السيرفرات لمنع أي تخريب.\n• القدرة على اتخاذ قرارات حظر نهائي (Permaban) للمخربين والهاكات بالتنسيق مع الإدارة العليا.`;
+                    questionsTextArea.value = gameForm;
+                } else if(rank === 'server_supervisor') {
+                    conditionsDiv.innerHTML = `<b>⚡ متطلبات رتبة Server Supervisor (إدارة اللعبة):</b>\n• الإشراف المباشر على سيرفرات الماب وحل النزاعات السريعة بين اللاعبين.\n• التواجد الميداني المستمر والتأكد من استقرار اللعبة وعدم وجود "جلتشات متعمدة" تخرب متعة الآخرين.\n• رفع تقارير يومية عن حالة اللعبة وأي ثغرات مريبة.`;
+                    questionsTextArea.value = gameForm;
+                } else if(rank === 'game_moderator') {
+                    conditionsDiv.innerHTML = `<b>🛡️ متطلبات رتبة Game Moderator (إدارة اللعبة):</b>\n• عين الإدارة داخل الماب! التفاعل اليومي المستمر وسط اللاعبين.\n• رصد وتوثيق أي لاعب يستخدم (Hacks / Exploits) والتعامل الفوري معه بالـ Kick أو الـ Ban المؤقت.\n• الالتزام التام بالحيادية وعدم مجاملة الأصدقاء بالصلاحيات الإدارية نهائياً.`;
+                    questionsTextArea.value = gameForm;
+                }
             }
             validateQuestions(questionsTextArea);
         }
@@ -382,8 +427,10 @@
             const checkBox = document.getElementById('agreeCheck');
             const questionsLen = document.getElementById('rankQuestions').value.length;
             const nameLen = document.getElementById('discordName').value.length;
+            const platform = document.getElementById('platformType').value;
+            const rank = document.getElementById('userRank').value;
             
-            document.getElementById('submitBtn').disabled = !(checkBox.checked && questionsLen >= 10 && nameLen >= 3);
+            document.getElementById('submitBtn').disabled = !(checkBox.checked && questionsLen >= 10 && nameLen >= 3 && platform && rank);
         }
 
         document.getElementById('appForm').addEventListener('input', toggleSubmitBtn);
@@ -392,22 +439,28 @@
             event.preventDefault();
 
             const discordName = document.getElementById('discordName').value;
+            const selectedPlatformElement = document.getElementById('platformType');
+            const platformName = selectedPlatformElement.options[selectedPlatformElement.selectedIndex].text;
+            
             const selectedRankElement = document.getElementById('userRank');
             const rankName = selectedRankElement.options[selectedRankElement.selectedIndex].text;
             const userAnswers = document.getElementById('rankQuestions').value;
 
+            // تحديد لون الـ Embed بناء على نوع التقديم (بنفسجي للديسكورد، أحمر/برتقالي ناري للعبة)
+            const embedColor = document.getElementById('platformType').value === 'discord' ? 9121510 : 15682844;
+
             const discordPayload = {
                 embeds: [{
-                    title: "📥 تقديم رسمي جديد لإدارة طرب",
-                    color: 9121510,
+                    title: `📥 تقديم رسمي جديد - ${platformName}`,
+                    color: embedColor,
                     timestamp: new Date().toISOString(),
                     fields: [
                         { name: "👤 يوزر المتقدم (Discord)", value: `\`${discordName}\``, inline: true },
-                        { name: "👑 الرتبة المطلوبة", value: `\`${rankName}\``, inline: true },
-                        { name: "📝 الاستمارة والإجابات", value: `\`\`\`text\n${userAnswers}\n\`\`\``, inline: false },
-                        { name: "⚖️ الإقرار وتأكيد الموافقة", value: "أنا وافقت على جميع الشروط والقوانين والإقرار المذكور أعلاه، وأتحمل كامل المسؤولية عن أي مخالفة تصدر مني مستقبلاً.", inline: false }
+                        { name: "👑 الرتبة والمنصب المطلوب", value: `\`${rankName}\``, inline: true },
+                        { name: "📝 الاستمارة والإجابات الكاملة", value: `\`\`\`text\n${userAnswers}\n\`\`\``, inline: false },
+                        { name: "⚖️ الإقرار وتأكيد الموافقة", value: "أنا وافقت على جميع الشروط والقوانين والإقرار المذكور أعلاه، وأتعهد بالالتزام الكامل بالقوانين داخل المنصة المحددة ومستعد للمحاسبة الإدارية.", inline: false }
                     ],
-                    footer: { text: "نظام التقديم التلقائي لسيرفر طرب" }
+                    footer: { text: "نظام التقديم المطور لسيرفر وماب طرب" }
                 }]
             };
 
@@ -420,6 +473,9 @@
                 if (response.ok) {
                     navigateTo('pageStatus');
                     document.getElementById('appForm').reset();
+                    document.getElementById('userRank').disabled = true;
+                    document.getElementById('userRank').innerHTML = '<option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>';
+                    document.getElementById('rankConditions').innerHTML = 'يرجى تحديد مكان التقديم والرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..';
                     toggleSubmitBtn();
                 } else {
                     alert("فشل إرسال الاستمارة للديسكورد، تأكد من سلامة الـ Webhook.");
