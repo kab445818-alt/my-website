@@ -537,7 +537,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // المتغيرات المحلية
+        // المتغيرات المحلية (الحين محمية وتنتظر الـ Firebase)
         let applications = JSON.parse(localStorage.getItem('tarab_apps')) || [];
         let approvedCounts = { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
         let systemStatus = { game: true, discord: true };
@@ -552,17 +552,21 @@
             admin: "• التفاعل الصوتي والكتابي المستمر وتوجيه الأعضاء الجدد.\n• تصفية الشات من السب، حظر المخربين، ورفع التقارير للرتب العليا.\n• الالتزام بساعات عمل محددة."
         };
 
-        // 🟢 الاستماع المباشر (Realtime) للتغييرات السحابية وتحديث المتصفح فوراً عند الكُل!
+        // 🟢 التعديل والحل السحري: فحص أول لبيانات السحاب لضمان الحفظ وعدم التصفير عند التحديث
         db.ref('tarab_portal_settings').on('value', (snapshot) => {
             const cloudData = snapshot.val();
+            
             if (cloudData) {
+                // السحاب يحتوي على بيانات؟ ممتاز اقرأ منها فوراً واحفظها محلياً
                 systemStatus = cloudData.systemStatus || { game: true, discord: true };
                 maintenanceMode = cloudData.maintenanceMode !== undefined ? cloudData.maintenanceMode : false;
                 maintenanceEndTime = cloudData.maintenanceEndTime || null;
                 approvedCounts = cloudData.approvedCounts || { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
                 
-                // تحديث الواجهة عند الكُل لايف
                 applyCloudSettingsToUI();
+            } else {
+                // 🛠️ الثغرة هنا! لو السحاب فاضي لأول مرة، ارفع الإعدادات الحالية بدلاً من تركها معلقة
+                syncSettingsToCloud();
             }
         });
 
@@ -654,7 +658,6 @@
 
         // التنقل بين الصفحات
         function navigateTo(pageId) {
-            // لو وضع الصيانة شغال يمنع تصفح أي صفحة ما عدا لوحة التحكم والصيانة
             if (maintenanceMode && pageId !== 'pageMaintenance' && pageId !== 'pageAdminPanel') {
                 pageId = 'pageMaintenance';
             }
@@ -726,13 +729,10 @@
             }
         }
 
-        // إرسال الاستمارة والطلب
         function submitApplicationForm(event, platform) {
             event.preventDefault();
-
             const rank = document.getElementById(platform === 'game' ? 'gameRank' : 'discordRank').value;
             
-            // تحقق من السقف والمقاعد قبل الإرسال
             if (approvedCounts[rank] >= LIMITS[rank]) {
                 navigateTo('pageStatus');
                 const box = document.getElementById('statusBox');
@@ -743,7 +743,6 @@
             }
 
             const discordUser = document.getElementById(platform === 'game' ? 'gameDiscordName' : 'discordDiscordName').value;
-            
             let embedFields = [];
             let appData = { id: Date.now(), platform: platform, rank: rank, discord: discordUser, data: {} };
 
@@ -787,17 +786,15 @@
                 ];
             }
 
-            // حفظ محلي لمراجعة الإدارة باللوحة
             applications.push(appData);
             localStorage.setItem('tarab_apps', JSON.stringify(applications));
 
-            // إرسال للديسكورد ويب هوك
             const payload = {
                 username: "بوابة طرب الإدارية الكبرى",
                 avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
                 embeds: [{
                     title: "📥 استمارة تقديم إدارية جديدة متكاملة",
-                    color: 15614016, // أحمر غامق
+                    color: 15614016, 
                     fields: embedFields,
                     footer: { text: "نظام إدارة طرب التلقائي السحابي" },
                     timestamp: new Date().toISOString()
@@ -820,7 +817,6 @@
             });
         }
 
-        // دوال لوحة التحكم والتعديل السحابي الكلي للكل
         function openAdminLogin() {
             const p = prompt('أدخل كلمة مرور النظام لتعديل السقف والإغلاق:');
             if (p === ADMIN_PASSWORD) {
@@ -834,13 +830,13 @@
 
         function togglePlatformStatus(platform) {
             systemStatus[platform] = !systemStatus[platform];
-            syncSettingsToCloud(); // تحديث فوري عند الكل
+            syncSettingsToCloud(); 
         }
 
         function toggleMaintenance() {
             maintenanceMode = !maintenanceMode;
             if (!maintenanceMode) maintenanceEndTime = null;
-            syncSettingsToCloud(); // تحديث فوري عند الكل
+            syncSettingsToCloud(); 
         }
 
         function setMaintenanceTime() {
@@ -848,7 +844,7 @@
             if (m && !isNaN(m)) {
                 maintenanceEndTime = Date.now() + (parseInt(m) * 60 * 1000);
                 maintenanceMode = true;
-                syncSettingsToCloud(); // تحديث فوري عند الكل
+                syncSettingsToCloud(); 
             }
         }
 
@@ -867,7 +863,7 @@
                     clearInterval(maintenanceInterval);
                     maintenanceMode = false;
                     maintenanceEndTime = null;
-                    syncSettingsToCloud(); // تفتح تلقائي عند الكل
+                    syncSettingsToCloud(); 
                     return;
                 }
                 const mins = Math.floor(diff / 60000);
@@ -917,7 +913,7 @@
                 alert('تم اعتماد مقعد للمتقدم، وتم قفل العداد السحابي بنجاح عند الكُل!');
                 applications.splice(index, 1);
                 localStorage.setItem('tarab_apps', JSON.stringify(applications));
-                syncSettingsToCloud(); // مزامنة العداد الجديد عند الكل
+                syncSettingsToCloud(); 
             } else if (action === 'delete') {
                 applications.splice(index, 1);
                 localStorage.setItem('tarab_apps', JSON.stringify(applications));
