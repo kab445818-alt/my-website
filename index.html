@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-  <title>موقعي</title>
+<meta charset="UTF-8">
+<title>طرب للتقديمات</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #000, #222);
+  color: white;
+  text-align: center;
+}
+
+.page {
+  display: none;
+  padding: 50px;
+}
+
+.active {
+  display: block;
+}
+
+button {
+  padding: 12px 25px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn {
+  background: white;
+  color: black;
+}
+
+.btn:hover {
+  background: #00c3ff;
+  color: white;
+}
+
+input, select, textarea {
+  width: 60%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.box {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 15px;
+  width: 70%;
+  margin: auto;
+}
+</style>
 </head>
-<body style="text-align:center; font-family:Arial;">
-  <h1>مرحباً في موقعي</h1>
-  <p>تم إنشاء الموقع عبر GitHub Pages</p>
+
+<body>
+
+<!-- الصفحة 1 -->
+<div id="home" class="page active">
+  <h1>مرحباً بك في طرب للتقديمات</h1>
+  <p>نظام التقديم الرسمي للإدارة</p>
+  <button class="btn" onclick="go('rules')">ابدأ التقديم</button>
+</div>
+
+<!-- الصفحة 2 القوانين -->
+<div id="rules" class="page">
+  <h2>القوانين</h2>
+  <div class="box">
+    <p>1- احترام الإدارة والأعضاء</p>
+    <p>2- الالتزام الكامل بالشروط</p>
+    <p>3- عدم الإزعاج أو المخالفات</p>
+  </div>
+  <button class="btn" onclick="go('apply')">أوافق وأكمل</button>
+</div>
+
+<!-- الصفحة 3 التقديم -->
+<div id="apply" class="page">
+  <h2>نموذج التقديم</h2>
+
+  <input type="text" placeholder="اسمك في الديسكورد"><br>
+
+  <select>
+    <option>اختر الرتبة</option>
+    <option>مشرف</option>
+    <option>إداري</option>
+    <option>مراقب</option>
+  </select><br>
+
+  <textarea placeholder="اكتب سبب التقديم"></textarea><br>
+
+  <textarea placeholder="اكتب الإقرار: أقر أني ملتزم بالقوانين وأتحمل المسؤولية"></textarea><br>
+
+  <button class="btn" onclick="send()">إرسال التقديم</button>
+</div>
+
+<!-- الصفحة 4 -->
+<div id="done" class="page">
+  <h1>تم إرسال تقديمك ✅</h1>
+  <p>سيتم مراجعة طلبك قريباً</p>
+</div>
+
+<script>
+function go(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+}
+
+function send() {
+  go('done');
+}
+</script>
+
 </body>
 </html>
