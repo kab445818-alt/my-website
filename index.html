@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة تقديم طرب الرسمية</title>
+    <title>بوابة تقديم طرب الرسمية الإدارية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,18 +15,13 @@
             --accent-green: #22c55e;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,352 +29,288 @@
             position: relative;
         }
 
-        /* ----- تأثير البرق والغيوم المتحركة في الخلفية ----- */
+        /* ----- الخلفية والمؤثرات المتطورة ----- */
         .background-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
             z-index: -2;
             background: linear-gradient(to bottom, #07020a 0%, #11051c 100%);
             overflow: hidden;
         }
-
-        /* الغيوم العامة والمتحركة */
         .clouds {
             position: absolute;
-            width: 300%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.6) 0%, transparent 40%);
-            opacity: 0.65;
-            filter: blur(40px);
+            width: 300%; height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            opacity: 0.65; filter: blur(40px);
             animation: moveClouds 35s linear infinite alternate;
         }
-
-        /* غيوم مخصصة في الأعلى واليمين للواجهة الترحيبية */
         .top-right-clouds {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 600px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(17, 5, 28, 0.6) 50%, transparent 100%);
-            filter: blur(50px);
-            z-index: -1;
+            position: absolute; top: -50px; right: -50px; width: 600px; height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 100%);
+            filter: blur(50px); z-index: -1;
             animation: cloudFloatTopRight 8s ease-in-out infinite alternate;
-            pointer-events: none;
         }
+        @keyframes moveClouds { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes cloudFloatTopRight { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-30px, 20px) scale(1.1); } }
 
-        @keyframes moveClouds {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        @keyframes cloudFloatTopRight {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-            100% { transform: translate(-30px, 20px) scale(1.1); opacity: 0.9; }
-        }
-
-        .lightning-flash {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: #fff;
-            opacity: 0;
-            z-index: -1;
-            pointer-events: none;
-            animation: lightningStrike 7s ease-in-out infinite;
-        }
-
-        @keyframes lightningStrike {
-            0%, 92%, 94%, 98%, 100% { opacity: 0; filter: blur(0px); }
-            93% { opacity: 0.12; filter: blur(5px); background: #c084fc; }
-            95% { opacity: 0.25; filter: blur(10px); background: #fff; }
-            97% { opacity: 0.15; filter: blur(2px); }
-        }
-
-        /* ----- الشبح الأسود المرعب الجامد بالزاوية ----- */
-        .ghost-shadow {
-            position: absolute;
-            bottom: -20px;
-            left: -30px;
-            width: 280px;
-            height: 480px;
-            background: radial-gradient(ellipse at center, rgba(7, 3, 12, 0.98) 0%, rgba(0, 0, 0, 0.95) 40%, transparent 70%);
-            z-index: -1;
-            clip-path: polygon(40% 0%, 60% 5%, 85% 15%, 90% 40%, 75% 75%, 90% 100%, 10% 100%, 20% 75%, 5% 40%, 15% 15%);
-            filter: blur(4px);
-            opacity: 0.85;
-            animation: ghostFloat 4s ease-in-out infinite alternate;
-            transform-origin: bottom center;
-        }
-
-        .ghost-shadow::before, .ghost-shadow::after {
-            content: '';
-            position: absolute;
-            top: 15%;
-            width: 6px;
-            height: 6px;
-            background-color: #a78bfa;
-            border-radius: 50%;
-            box-shadow: 0 0 12px 4px #8b5cf6;
-            opacity: 0.6;
-        }
-        .ghost-shadow::before { left: 45%; }
-        .ghost-shadow::after { left: 53%; }
-
-        @keyframes ghostFloat {
-            0% { transform: translateY(0) scaleX(1); filter: blur(3px); }
-            100% { transform: translateY(-8px) scaleX(0.96); filter: blur(5px); }
-        }
-
-        /* ----- تأثير نص الترحيب المتحرك في الواجهة ----- */
-        .welcome-badge {
-            display: inline-block;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: #c084fc;
-            font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            animation: pulseGlow 2s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.2); }
-            100% { box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); }
-        }
-
-        /* ----- الحاوية الرئيسية ومحتوى الموقع ----- */
+        /* ----- الحاوية الرئيسية (شاشة عريضة لتقسيم يمين ويسار) ----- */
         .container {
             background: rgba(10, 6, 15, 0.82);
             border: 1px solid rgba(139, 92, 246, 0.2);
             backdrop-filter: blur(25px);
             width: 100%;
-            max-width: 520px;
+            max-width: 550px; /* تفتح تلقائياً عند الدخول للاستمارة */
             padding: 35px 25px;
             border-radius: 16px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 35px var(--purple-glow);
             text-align: center;
             position: relative;
-            max-height: 92vh;
+            max-height: 95vh;
             overflow-y: auto;
             z-index: 10;
+            transition: max-width 0.4s ease;
         }
 
-        .container::-webkit-scrollbar { width: 5px; }
-        .container::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 10px; }
+        /* حاوية التقديم الواسعة المقسمة لليمين واليسار وحاوية لوحة الإدارة */
+        .container.split-mode, .container.admin-mode { max-width: 1050px; width: 95%; }
+
+        /* تقسيم عناصر شاشة التقديم */
+        .split-layout { display: flex; gap: 25px; text-align: right; flex-wrap: wrap; }
+        .split-right { flex: 1; min-width: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+        .split-left { flex: 1.3; min-width: 350px; }
 
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        h1 {
-            font-size: 2.2rem;
-            color: #fff;
-            text-shadow: 0 0 15px var(--purple-main);
-            margin-bottom: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
+        h1 { font-size: 2.2rem; color: #fff; text-shadow: 0 0 15px var(--purple-main); margin-bottom: 12px; font-weight: 800; }
+        h2 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(139,92,246,0.2); padding-bottom: 10px; }
+        p { color: #a78bfa; font-size: 0.98rem; margin-bottom: 25px; }
 
-        h2 { font-size: 1.4rem; color: #fff; margin-bottom: 20px; font-weight: 700; }
-        p { color: #a78bfa; font-size: 0.98rem; margin-bottom: 25px; line-height: 1.6; }
+        .welcome-badge {
+            display: inline-block; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 4px 16px; border-radius: 50px; font-size: 0.85rem; color: #c084fc; font-weight: 700; margin-bottom: 15px;
+        }
 
         .btn {
             background: linear-gradient(135deg, var(--purple-main), #6d28d9);
-            color: white;
-            border: none;
-            padding: 11px 30px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+            color: white; border: none; padding: 12px 30px; font-size: 1.05rem; font-weight: 700;
+            border-radius: 8px; cursor: pointer; transition: all 0.25s ease;
         }
         .btn:hover { transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5); }
-        .btn:disabled { background: #262030; color: #6b7280; cursor: not-allowed; box-shadow: none; transform: none; border: 1px solid rgba(250,250,250,0.05); }
+        .btn:disabled { background: #262030; color: #6b7280; cursor: not-allowed; box-shadow: none; transform: none;}
+        .btn-success { background: linear-gradient(135deg, #22c55e, #15803d); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #b91c1c); }
 
+        /* صناديق القوانين والشروط المنسقة */
         .content-box {
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(139, 92, 246, 0.18);
-            padding: 15px;
-            border-radius: 8px;
-            max-height: 180px;
-            overflow-y: auto;
-            text-align: right;
-            font-size: 0.85rem;
-            color: #d1d5db;
-            line-height: 1.6;
-            white-space: pre-line;
-            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(139, 92, 246, 0.18);
+            padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto;
+            text-align: right; font-size: 0.88rem; color: #d1d5db; line-height: 1.7; white-space: pre-line; margin-bottom: 20px;
         }
         .content-box::-webkit-scrollbar { width: 4px; }
         .content-box::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.25); border-radius: 10px; }
 
         .form-group { text-align: right; margin-bottom: 16px; }
-        .form-group label { display: block; margin-bottom: 6px; color: #c084fc; font-weight: 600; font-size: 0.88rem; }
-        
+        .form-group label { display: block; margin-bottom: 6px; color: #c084fc; font-weight: 600; font-size: 0.9rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 11px 14px;
-            background: rgba(5, 2, 8, 0.85);
-            border: 1px solid rgba(139, 92, 246, 0.22);
-            color: white;
-            border-radius: 7px;
-            outline: none;
-            font-size: 0.92rem;
-            transition: all 0.25s;
+            width: 100%; padding: 12px 14px; background: rgba(5, 2, 8, 0.85);
+            border: 1px solid rgba(139, 92, 246, 0.22); color: white; border-radius: 7px; outline: none; font-size: 0.95rem;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--purple-main);
-            box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
-        }
-        .form-group textarea { resize: none; height: 130px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--purple-main); box-shadow: 0 0 8px rgba(139, 92, 246, 0.3); }
         
+        /* تكبير صندوق الأسئلة والإجابات ليكون واسع جداً وضخم للكتابة المريحة */
+        .form-group textarea { resize: vertical; height: 250px; min-height: 200px; font-size: 1rem; line-height: 1.6; }
+
         .input-note { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; display: block; }
 
-        .acknowledgement-box {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            background: rgba(239, 68, 68, 0.02);
-            border: 1px dashed rgba(239, 68, 68, 0.2);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: right;
-        }
-        .acknowledgement-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--purple-main); cursor: pointer; }
-        .acknowledgement-box label { font-size: 0.8rem; color: #fca5a5; cursor: pointer; user-select: none; line-height: 1.4; }
+        /* صندوق الإقرار المرتب أسفل اليمين */
+        .acknowledgement-box { display: flex; gap: 10px; background: rgba(239, 68, 68, 0.02); border: 1px dashed rgba(139, 92, 246, 0.3); padding: 14px; border-radius: 8px; margin-bottom: 10px; text-align: right; font-size: 0.85rem; line-height: 1.5; }
+        .acknowledgement-box input { accent-color: var(--purple-main); cursor: pointer; scale: 1.2; margin-top: 4px; }
+        .acknowledgement-box label { cursor: pointer; color: #d1d5db; user-select: none; }
 
-        .status-screen { padding: 30px 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 700; line-height: 1.7; }
-        .status-screen.accepted {
-            border: 1px solid var(--accent-green);
-            background: rgba(34, 197, 94, 0.04);
-            box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);
-            color: #f3f4f6;
-        }
+        /* ----- لوحة التحكم الإدارية ----- */
+        .admin-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(139, 92, 246, 0.2); }
+        .counters-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .counter-badge { background: rgba(255,255,255,0.04); border: 1px solid rgba(139,92,246,0.2); padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; }
+        .counter-badge span { color: #c084fc; font-weight: bold; }
+        .requests-table { width: 100%; border-collapse: collapse; text-align: right; margin-top: 15px; font-size: 0.9rem; }
+        .requests-table th, .requests-table td { padding: 12px; border-bottom: 1px solid rgba(139, 92, 246, 0.15); }
+        .requests-table th { background: rgba(139, 92, 246, 0.1); color: #c084fc; }
+        .requests-table tr:hover { background: rgba(255,255,255,0.02); }
+        .action-btns { display: flex; gap: 5px; }
+        .action-btns .btn { padding: 5px 12px; font-size: 0.8rem; border-radius: 4px; }
+
+        .status-screen { padding: 30px 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 700; line-height: 1.7; border: 1px solid var(--accent-green); background: rgba(34, 197, 94, 0.04); }
+
+        .secret-admin-btn { position: fixed; bottom: 10px; left: 10px; opacity: 0.15; background: none; border: none; color: gray; cursor: pointer; font-size: 0.75rem; z-index: 100; }
+        .secret-admin-btn:hover { opacity: 1; color: var(--purple-main); }
     </style>
 </head>
 <body>
 
     <div class="background-container">
         <div class="clouds"></div>
-        <div class="top-right-clouds"></div> <div class="lightning-flash"></div>
+        <div class="top-right-clouds"></div>
     </div>
-    
-    <div class="ghost-shadow"></div>
 
-    <div class="container">
+    <button class="secret-admin-btn" onclick="openAdminLogin()">🔒 لوحة التحكم</button>
+
+    <div class="container" id="mainContainer">
         
         <div id="pageWelcome" class="page active">
             <div class="welcome-badge">👋 أهلاً بك في البوابة الرسمية</div>
-            <h1>بوابة طرب للتقديم</h1>
-            <p>مرحباً بك في نظام التقديم الموحد لـ طرب ديسكورد وشاليه طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية.</p>
-            <button class="btn" onclick="navigateTo('pageApply')">ابدأ التقديم</button>
+            <h1 style="margin-top: 10px;">بوابة طرب للتقديم</h1>
+            <p>مرحباً بك في نظام التقديم الموحد لـ طرب ديسكورد وشاليه طرب.<br>التقديم متاح فقط للأشخاص القادرين على تحمل المسؤولية الكاملة.</p>
+            <button class="btn" onclick="startApplicationProcess()">ابدأ التقديم</button>
         </div>
 
         <div id="pageApply" class="page">
             <h2>التقديم الرسمي لإدارة طرب</h2>
             
-            <div class="form-group">
-                <label>الشروط والتعليمات العامة لسيرفر وماب طرب:</label>
-                <div class="content-box">
-                    • تم فتح التقديمات للإدارة للأشخاص القادرين على تحمل المسؤولية والمحافظة على النظام.
-                    • الرجاء قراءة جميع الشروط بعناية، لأن أي مخالفة أو استهتار قد يؤدي إلى رفض التقديم أو سحب الرتبة مستقبلاً.
-                    
-                    ⚖️ قوانين وتعليمات التقديم:
-                    • أي تقديم غير جاد يتم رفضه مباشرة.
-                    • يمنع الكذب أو إعطاء معلومات وهمية.
-                    • يمنع منشن الإدارة بعد إرسال التقديم.
-                    • الإدارة مسؤولية كاملة وليست مجرد صلاحيات.
-                    • إساءة استخدام الرتبة يعرضك للسحب المباشر بدون تنبيه.
-                </div>
-            </div>
-
             <form id="appForm" onsubmit="submitApplication(event)">
-                
-                <div class="form-group">
-                    <label for="discordName">اسم حسابك في الديسكورد (بالإنجليزي فقط):</label>
-                    <input type="text" id="discordName" required 
-                           pattern="[A-Za-z0-9_.\s]{3,}" 
-                           oninput="validateName(this)"
-                           placeholder="مثال: demon_studio">
-                    <span class="input-note">يجب أن يكون باللغة الإنجليزية و يتكون من 3 أحرف أو أكثر.</span>
-                </div>
+                <div class="split-layout">
+                    
+                    <div class="split-right">
+                        <div>
+                            <div class="form-group">
+                                <label>⚖️ الشروط والتعليمات العامة لطرب:</label>
+                                <div class="content-box">
+                                    • تم فتح التقديمات للإدارة للأشخاص القادرين على تحمل المسؤولية والمحافظة على نظام السيرفر والماب.
+                                    • أي تقديم غير جاد يتم رفضه مباشرة.
+                                    • يمنع الكذب أو إعطاء معلومات وهمية في الاستمارة.
+                                    • يمنع منشن الإدارة العليا أو المالك بعد إرسال التقديم.
+                                    • الإدارة مسؤولية وأمانة كاملة وليست مجرد ميزات وصلاحيات.
+                                    • إساءة استخدام الرتبة يعرضك للسحب المباشر الفوري.
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="platformType">مكان التقديم المطلوب:</label>
-                    <select id="platformType" required onchange="handlePlatformChange()">
-                        <option value="" disabled selected>اختر مكان الإدارة...</option>
-                        <option value="discord">طرب ديسكورد (Discord Admin)</option>
-                        <option value="game">شاليه طرب (In-Game Admin)</option>
-                    </select>
-                </div>
+                            <div class="form-group">
+                                <label>📜 شروط ومتطلبات الرتبة المحددة:</label>
+                                <div id="rankConditions" class="content-box" style="height: 130px; color: #c084fc;">
+                                    يرجى تحديد مكان التقديم والرتبة المطلوبة من اليسار لعرض الشروط الخاصة بها هنا..
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label for="userRank">اختر الرتبة المطلوبة:</label>
-                    <select id="userRank" required onchange="handleRankChange()" disabled>
-                        <option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>شروط ومتطلبات الرتبة المحددة:</label>
-                    <div id="rankConditions" class="content-box" style="height: 120px; color: #c084fc;">
-                        يرجى تحديد مكان التقديم والرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..
+                        <div class="acknowledgement-box">
+                            <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
+                            <label for="agreeCheck">
+                                أقر أنا مقدم الطلب بأنني قرأت جميع شروط وقوانين الإدارة الخاصة بـ طرب، وأتعهد بالالتزام الكامل بها دون أي مخالفة، ومستعد للمحاسبة وسحب الصلاحيات في حال التقصير.
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label id="questionsLabel">نموذج التقديم والإجابات:</label>
-                    <textarea id="rankQuestions" required minlength="10"
-                              oninput="validateQuestions(this)"
-                              placeholder="يرجى اختيار الرتبة لتظهر لك الأسئلة والنموذج هنا للإجابة عليه..."></textarea>
-                    <span class="input-note" id="charCounter">الحد الأدنى للكتابة: 10 أحرف.</span>
-                </div>
+                    <div class="split-left">
+                        <div class="form-group">
+                            <label for="discordName">اسم حسابك في الديسكورد (بالإنجليزي فقط):</label>
+                            <input type="text" id="discordName" required pattern="[A-Za-z0-9_.\s]{3,}" oninput="this.value = this.value.replace(/[^A-Za-z0-9_.\s]/g, '')" placeholder="مثال: demon_studio">
+                            <span class="input-note">يجب أن يتكون من 3 أحرف أو أكثر.</span>
+                        </div>
 
-                <div class="acknowledgement-box">
-                    <input type="checkbox" id="agreeCheck" onchange="toggleSubmitBtn()">
-                    <label for="agreeCheck">
-                        أقر أنا مقدم الطلب بأنني قرأت جميع شروط وقوانين الإدارة الخاصة بـ طرب، وأتعهد بالالتزام الكامل بها دون أي مخالفة. كما أتحمل كامل المسؤولية عن أي إساءة استخدام للصلاحيات.
-                    </label>
-                </div>
+                        <div class="form-group">
+                            <label for="platformType">مكان التقديم المطلوب:</label>
+                            <select id="platformType" required onchange="handlePlatformChange()">
+                                <option value="" disabled selected>اختر مكان الإدارة...</option>
+                                <option value="discord">طرب ديسكورد (Discord Admin)</option>
+                                <option value="game">شاليه طرب (In-Game Admin)</option>
+                            </select>
+                        </div>
 
-                <button type="submit" id="submitBtn" class="btn" style="width: 100%;" disabled>تقديم الطلب</button>
+                        <div class="form-group">
+                            <label for="userRank">اختر الرتبة المطلوبة:</label>
+                            <select id="userRank" required onchange="handleRankChange()" disabled>
+                                <option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label id="questionsLabel">📝 نموذج التقديم والإجابات الوافية:</label>
+                            <textarea id="rankQuestions" required minlength="10" oninput="validateQuestions(this)" placeholder="يرجى اختيار الرتبة لتظهر لك الأسئلة والنموذج هنا لتكتب إجاباتك كاملة وبشكل واسع ومفصل..."></textarea>
+                            <span class="input-note" id="charCounter">الحد الأدنى للكتابة: 10 أحرف.</span>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn" style="width: 100%; margin-top: 10px;" disabled>تقديم الطلب الرسمي</button>
+                    </div>
+
+                </div>
             </form>
         </div>
 
         <div id="pageStatus" class="page">
-            <div id="statusBox" class="status-screen accepted">
+            <div class="status-screen">
                 <span style="font-size: 2.5rem;">🟢</span><br><br>
-                تم إرسال تقديمك بنجاح للأرشفة الفورية!<br><br>
-                <span style="color: #a78bfa; font-weight: 600;">انتظر رد الإدارة بالديسكورد بالخاص إذا كان يوزرك صحيح.</span>
+                تم إرسال تقديمك بنجاح للنظام الفوري!<br><br>
+                <span style="color: #a78bfa; font-weight: 600;">سيقوم مالك السيرفر بمراجعة طلبك يدويّاً وقبوله بناءً على المقاعد المتاحة.</span>
             </div>
-            <button class="btn" style="margin-top: 25px; font-size: 0.95rem; padding: 6px 20px;" onclick="navigateTo('pageWelcome')">العودة للرئيسية</button>
+            <button class="btn" style="margin-top: 25px;" onclick="resetToWelcome()">العودة للرئيسية</button>
+        </div>
+
+        <div id="pageAdminPanel" class="page">
+            <div class="admin-nav">
+                <h2 style="margin-bottom: 0; color: #fff; text-shadow: 0 0 10px var(--purple-main);">🛡️ لوحة إدارة التقديمات الفورية</h2>
+                <button class="btn btn-danger" style="padding: 5px 15px; font-size: 0.9rem;" onclick="logoutAdmin()">خروج</button>
+            </div>
+
+            <h3 style="font-size: 1rem; margin-bottom: 10px; text-align: right; color: #a78bfa;">📊 عداد المقاعد المعتمدة المتبقية:</h3>
+            <div class="counters-container">
+                <div class="counter-badge">Founder: <span id="count-founder">0</span> / 1</div>
+                <div class="counter-badge">CO-Owner: <span id="count-co_owner">0</span> / 2</div>
+                <div class="counter-badge">Headadmin: <span id="count-head_admin">0</span> / 3</div>
+                <div class="counter-badge">Admin: <span id="count-admin">0</span> / 4</div>
+            </div>
+
+            <div style="overflow-x: auto; margin-top: 15px;">
+                <table class="requests-table">
+                    <thead>
+                        <tr>
+                            <th>المتقدم</th>
+                            <th>المكان</th>
+                            <th>الرتبة</th>
+                            <th>الإجابات والبيانات</th>
+                            <th>الإجراءات الإدارية</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminRequestsRows"></tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 
     <script>
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
+        const ADMIN_PASSWORD = "DEMON_TARAB_2026"; 
+        const LIMITS = { founder: 1, co_owner: 2, head_admin: 3, admin: 4 };
+
+        let applications = JSON.parse(localStorage.getItem('tarab_apps')) || [];
+        let approvedCounts = JSON.parse(localStorage.getItem('tarab_counts')) || { founder: 0, co_owner: 0, head_admin: 0, admin: 0 };
+
+        function startApplicationProcess() {
+            document.getElementById('mainContainer').classList.add('split-mode');
+            navigateTo('pageApply');
+        }
+
+        function resetToWelcome() {
+            document.getElementById('mainContainer').classList.remove('split-mode');
+            navigateTo('pageWelcome');
+        }
 
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-        }
-
-        function validateName(input) {
-            input.value = input.value.replace(/[^A-Za-z0-9_.\s]/g, '');
+            
+            const container = document.getElementById('mainContainer');
+            if (pageId === 'pageAdminPanel') {
+                container.classList.add('admin-mode');
+                container.classList.remove('split-mode');
+            } else if (pageId === 'pageApply') {
+                container.classList.add('split-mode');
+                container.classList.remove('admin-mode');
+            } else {
+                container.classList.remove('admin-mode', 'split-mode');
+            }
         }
 
         function validateQuestions(textarea) {
@@ -390,23 +321,16 @@
                 counter.innerText = `متبقي ${10 - len} أحرف للوصول للحد الأدنى (10).`;
             } else {
                 counter.style.color = "#22c55e";
-                counter.innerText = `اجتزت الحد الأدنى! عدد الأحرف الحالية: ${len}`;
+                counter.innerText = `عدد الأحرف الحالية: ${len}`;
             }
         }
 
-        // تحديث الرتب لتكون بنفس أسماء رتب الديسكورد لكلا الخيارين
         function handlePlatformChange() {
             const platform = document.getElementById('platformType').value;
             const rankSelect = document.getElementById('userRank');
-            const conditionsDiv = document.getElementById('rankConditions');
-            const questionsTextArea = document.getElementById('rankQuestions');
-            
             rankSelect.disabled = false;
             rankSelect.innerHTML = '<option value="" disabled selected>اختر الرتبة الإدارية...</option>';
-            conditionsDiv.innerHTML = 'يرجى تحديد الرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..';
-            questionsTextArea.value = '';
-
-            // توحيد أسماء الرتب للجهتين بناء على طلبك
+            
             rankSelect.innerHTML += `
                 <option value="founder">Founder</option>
                 <option value="co_owner">CO Owner</option>
@@ -422,34 +346,27 @@
             const conditionsDiv = document.getElementById('rankConditions');
             const questionsTextArea = document.getElementById('rankQuestions');
             
-            const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل في الديسكورد :\nخبراتك بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
+            const discordForm = `الاسم أو اللقب :\nالرتبة المطلوبة في طرب ديسكورد :\nعدد ساعات التفاعل اليومية :\nخبراتك السابقة بالإدارة وسيرفرات أدرتها سابقاً :\nكيف تتعامل مع المشاكل والنزاعات بين الأعضاء؟ :\nما الذي يميزك وبماذا ستفيد طرب ديسكورد؟ :\nهل تقدر تتحمل مسؤوليات الرتبة كاملة؟ :`;
             
-            const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي مثلاً) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام بالزي الرسمي والنظام الإداري الصارم داخل شاليه طرب :`;
+            // تم تعديل الأسئلة هنا وإلغاء شرط الزي الرسمي تماماً بناءً على طلبك
+            const gameForm = `الاسم أو اللقب :\nاسم حسابك في روبلوكس (Roblox Username) :\nالرتبة المطلوبة في شاليه طرب :\nعدد ساعات تواجدك اليومي داخل الماب :\nكيف تصرفك لو رأيت لاعب يخرب أو يسب داخل شاليه طرب؟ :\nلو رأيت إداري آخر يسيء استخدام الصلاحيات (بند عشوائي) وش تسوي؟ :\nهل عندك علم بكيفية التعامل مع الهاكات والإبلاغ عنها؟ :\nتعهد بالالتزام التام بالنظام الإداري الصارم داخل شاليه طرب :`;
 
             if (platform === 'discord') {
-                if(rank === 'founder') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة.\n• التكفل بالتطوير العام وإدارة شؤون المجتمع مصيرياً.`;
-                } else if(rank === 'co_owner') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جدًا بإدارة السيرفرات، إدارة الطاقم، احترافية بحل النزاعات، تنظيم الأقسام، وحظر تام للمصلحة الشخصية.`;
-                } else if(rank === 'head_admin') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Head Admin (طرب ديسكورد):</b>\n• إشراف ومتابعة تطبيق القوانين، تفاعل قوي، وهدوء تام وتوجيه طاقم الـ Admins بالكامل.`;
-                } else if(rank === 'admin') {
-                    conditionsDiv.innerHTML = `<b>متطلبات رتبة Admin (طرب ديسكورد):</b>\n• تفاعل ممتاز، احترام الأعضاء، تنفيذ التعليمات، وتطهير الشات والرموز من أي مخالفات فوراً.`;
-                }
+                if(rank === 'founder') conditionsDiv.innerHTML = `<b>متطلبات Founder (طرب ديسكورد):</b>\n• خبرة قيادية عليا شاملة لكافة أقسام السيرفر وطاقم الإدارة بالكامل وضمان حماية النظام العام.`;
+                else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>متطلبات CO Owner (طرب ديسكورد):</b>\n• خبرة قوية جداً بإدارة الطاقم واحترافية بحل النزاعات وتنظيم الأقسام وحظر المصلحة الشخصية.`;
+                else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>متطلبات Head Admin (طرب ديسكورد):</b>\n• إشراف ومتابعة دقيقة لتطبيق القوانين، تفاعل قوي جداً وتوجيه كامل الـ Admins.`;
+                else if(rank === 'admin') conditionsDiv.innerHTML = `<b>متطلبات Admin (طرب ديسكورد):</b>\n• تفاعل ممتاز، احترام جميع الأعضاء وتطهير الشات والرموز من أي مخالفات أو سباب فوراً.`;
                 questionsTextArea.value = discordForm;
             } else if (platform === 'game') {
-                if(rank === 'founder') {
-                    conditionsDiv.innerHTML = `<b>🔥 متطلبات رتبة Founder (شاليه طرب):</b>\n• سلطة قيادية عليا مسؤولة عن إدارة وضبط سيرفرات الماب بالكامل وتطوير جودة الأمن الإداري داخل الماب بالتنسيق مع الإدارة العليا.`;
-                } else if(rank === 'co_owner') {
-                    conditionsDiv.innerHTML = `<b>⚡ متطلبات رتبة CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم الإشراف الداخلي، وإصدار قرارات الباند النهائي للمخربين الكبار، والتعامل الاحترافي مع النزاعات ومتابعة الأداء اليومي.`;
-                } else if(rank === 'head_admin') {
-                    conditionsDiv.innerHTML = `<b>🛡️ متطلبات رتبة Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني، ورصد أداء الـ Admins الجدد، وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
-                } else if(rank === 'admin') {
-                    conditionsDiv.innerHTML = `<b>👾 متطلبات رتبة Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي المستمر وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل معهم فوراً (Kick / Ban مؤقت) دون أي مجاملات شخصية.`;
-                }
+                // تم تعديل شروط الشاليه هنا لإلغاء أي ذكر للزي
+                if(rank === 'founder') conditionsDiv.innerHTML = `<b>🔥 متطلبات Founder (شاليه طرب):</b>\n• سلطة قيادية عليا مسؤولة عن إدارة وضبط سيرفرات الماب بالكامل وتطوير جودة الأمن الإداري ومنع الثغرات.`;
+                else if(rank === 'co_owner') conditionsDiv.innerHTML = `<b>⚡ متطلبات CO Owner (شاليه طرب):</b>\n• القدرة الكاملة على توجيه طاقم المراقبة وإصدار قرارات الباند النهائي للمخربين ورصد الأداء اليومي.`;
+                else if(rank === 'head_admin') conditionsDiv.innerHTML = `<b>🛡️ متطلبات Head Admin (شاليه طرب):</b>\n• متابعة سيرفرات الماب وحل جلتشات التخريب الميداني وضمان تطبيق قوانين الشاليه بكل حزم وهدوء.`;
+                else if(rank === 'admin') conditionsDiv.innerHTML = `<b>👾 متطلبات Admin (شاليه طرب):</b>\n• التواجد الميداني اليومي وسط اللاعبين، رصد وتوثيق المخربين وأصحاب الـ Exploits والتعامل الفوري معهم.`;
                 questionsTextArea.value = gameForm;
             }
             validateQuestions(questionsTextArea);
+            toggleSubmitBtn();
         }
 
         function toggleSubmitBtn() {
@@ -462,57 +379,132 @@
             document.getElementById('submitBtn').disabled = !(checkBox.checked && questionsLen >= 10 && nameLen >= 3 && platform && rank);
         }
 
-        document.getElementById('appForm').addEventListener('input', toggleSubmitBtn);
-
         function submitApplication(event) {
             event.preventDefault();
 
-            const discordName = document.getElementById('discordName').value;
-            const selectedPlatformElement = document.getElementById('platformType');
-            const platformName = selectedPlatformElement.options[selectedPlatformElement.selectedIndex].text;
-            
-            const selectedRankElement = document.getElementById('userRank');
-            const rankName = selectedRankElement.options[selectedRankElement.selectedIndex].text;
-            const userAnswers = document.getElementById('rankQuestions').value;
+            const newApp = {
+                id: Date.now(),
+                name: document.getElementById('discordName').value,
+                platform: document.getElementById('platformType').value,
+                platformText: document.getElementById('platformType').options[document.getElementById('platformType').selectedIndex].text,
+                rank: document.getElementById('userRank').value,
+                rankText: document.getElementById('userRank').options[document.getElementById('userRank').selectedIndex].text,
+                answers: document.getElementById('rankQuestions').value,
+                status: 'pending'
+            };
 
-            const embedColor = document.getElementById('platformType').value === 'discord' ? 9121510 : 15682844;
+            applications.push(newApp);
+            localStorage.setItem('tarab_apps', JSON.stringify(applications));
 
-            const discordPayload = {
+            sendWebhookNotification("📥 تقديم جديد قيد الانتظار في اللوحة", newApp, 9121510, "في انتظار مراجعة المالك والقبول من اللوحة السرية.");
+
+            navigateTo('pageStatus');
+            document.getElementById('appForm').reset();
+            document.getElementById('userRank').disabled = true;
+            toggleSubmitBtn();
+        }
+
+        function openAdminLogin() {
+            const pass = prompt("أدخل الرقم السري لمالك طرب للوصول للوحة التقديمات:");
+            if (pass === ADMIN_PASSWORD) {
+                renderAdminPanel();
+                navigateTo('pageAdminPanel');
+            } else if (pass !== null) {
+                alert("الرمز السري خاطئ! لا تملك الصلاحيات المخصصة للمالك.");
+            }
+        }
+
+        function logoutAdmin() {
+            navigateTo('pageWelcome');
+        }
+
+        function renderAdminPanel() {
+            document.getElementById('count-founder').innerText = approvedCounts.founder;
+            document.getElementById('count-co_owner').innerText = approvedCounts.co_owner;
+            document.getElementById('count-head_admin').innerText = approvedCounts.head_admin;
+            document.getElementById('count-admin').innerText = approvedCounts.admin;
+
+            const tbody = document.getElementById('adminRequestsRows');
+            tbody.innerHTML = '';
+
+            const pendingApps = applications.filter(a => a.status === 'pending');
+
+            if (pendingApps.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: #6b7280; padding:20px;">لا توجد أي تقديمات جديدة معلقة حالياً..</td></tr>`;
+                return;
+            }
+
+            pendingApps.forEach(app => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700; color:#fff;">${app.name}</td>
+                    <td><span style="color:#c084fc;">${app.platformText}</span></td>
+                    <td><span style="background:rgba(139,92,246,0.15); padding:3px 8px; border-radius:4px;">${app.rankText}</span></td>
+                    <td><div style="font-size:0.85rem; background:#000; padding:8px; border-radius:5px; max-height:90px; overflow-y:auto; white-space:pre-line; max-width:320px;">${app.answers}</div></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn btn-success" onclick="processApplication(${app.id}, 'approve')">قبول</button>
+                            <button class="btn btn-danger" onclick="processApplication(${app.id}, 'reject')">رفض</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function processApplication(appId, action) {
+            const app = applications.find(a => a.id === appId);
+            if (!app) return;
+
+            if (action === 'approve') {
+                const currentCount = approvedCounts[app.rank];
+                const limit = LIMITS[app.rank];
+
+                if (currentCount >= limit) {
+                    alert(`🚨 عذراً، لا يمكنك قبول هذا الشخص! مقاعد رتبة (${app.rankText}) ممتلئة تماماً حالياً (${currentCount}/${limit}).`);
+                    return;
+                }
+
+                approvedCounts[app.rank]++;
+                app.status = 'approved';
+                localStorage.setItem('tarab_counts', JSON.stringify(approvedCounts));
+                
+                alert(`✅ تم قبول المتقدم ${app.name} بنجاح، وتم إرسال إشعار القبول والمنشن الفوري في الديسكورد!`);
+                sendWebhookNotification(`🎉 تهانينا! تم قبولك رسمياً من قبل المالك`, app, 2246001, `🟢 النتيجة: مقبول للعمل الإداري\nملاحظة: توجه فوراً لفتح تكت بالديسكورد لاستلام رتبتك بعد قبولك بنجاح.`);
+
+            } else if (action === 'reject') {
+                app.status = 'rejected';
+                alert(`❌ تم رفض طلب المتقدم ${app.name}.`);
+                sendWebhookNotification(`🛑 نعتذر منك! تم رفض طلب التقديم`, app, 15682844, `🔴 النتيجة: مرفوض حالياً من قبل الإدارة العليا نظراً لعدم استيفاء الشروط كاملة أو الاكتفاء.`);
+            }
+
+            localStorage.setItem('tarab_apps', JSON.stringify(applications));
+            renderAdminPanel();
+        }
+
+        function sendWebhookNotification(titleText, appData, colorCode, statusNotice) {
+            const payload = {
+                content: appData.status === 'approved' ? `⚡ **إشعار قبول رسمي: @everyone**` : null, 
                 embeds: [{
-                    title: `📥 تقديم رسمي جديد - ${platformName}`,
-                    color: embedColor,
+                    title: titleText,
+                    color: colorCode,
                     timestamp: new Date().toISOString(),
                     fields: [
-                        { name: "👤 يوزر المتقدم (Discord)", value: `\`${discordName}\``, inline: true },
-                        { name: "👑 الرتبة والمنصب المطلوب", value: `\`${rankName}\``, inline: true },
-                        { name: "📝 الاستمارة والإجابات الكاملة", value: `\`\`\`text\n${userAnswers}\n\`\`\``, inline: false },
-                        { name: "⚖️ الإقرار وتأكيد الموافقة", value: "أنا وافقت على جميع الشروط والقوانين والإقرار المذكور أعلاه، وأتعهد بالالتزام الكامل بالقوانين داخل المنصة المحددة ومستعد للمحاسبة الإدارية.", inline: false }
+                        { name: "👤 يوزر المتقدم بالديسكورد", value: `\`${appData.name}\``, inline: true },
+                        { name: "🏢 جهة ومكان العمل", value: `\`${appData.platformText}\``, inline: true },
+                        { name: "👑 الرتبة الإدارية المقررة", value: `\`${appData.rankText}\``, inline: true },
+                        { name: "📋 تفاصيل إجابات الاستمارة", value: `\`\`\`text\n${appData.answers}\n\`\`\``, inline: false },
+                        { name: "📢 حالة وقرار الطلب الحالي", value: `**${statusNotice}**`, inline: false }
                     ],
-                    footer: { text: "نظام التقديم المطور لسيرفر وماب طرب" }
+                    footer: { text: "إدارة بوابة طرب الذكية" }
                 }]
             };
 
             fetch(DISCORD_WEBHOOK_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(discordPayload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    navigateTo('pageStatus');
-                    document.getElementById('appForm').reset();
-                    document.getElementById('userRank').disabled = true;
-                    document.getElementById('userRank').innerHTML = '<option value="" disabled selected>يرجى اختيار مكان التقديم أولاً...</option>';
-                    document.getElementById('rankConditions').innerHTML = 'يرجى تحديد مكان التقديم والرتبة المطلوبة أولاً لعرض الشروط والأسئلة الخاصة بها..';
-                    toggleSubmitBtn();
-                } else {
-                    alert("فشل إرسال الاستمارة للديسكورد، تأكد من سلامة الـ Webhook.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("حدث خطأ في الاتصال بالشبكة.");
-            });
+                body: JSON.stringify(payload)
+            }).catch(err => console.error("Webhook Error:", err));
         }
     </script>
 </body>
