@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>بوابة طرب الرسمية</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
 --bg:#050505;
---card:#0d0d0d;
+--card:#0f0f0f;
 --border:rgba(255,255,255,.08);
---white:#fff;
 --text:#d1d5db;
+--white:#fff;
 --green:#22c55e;
 --red:#ef4444;
---shadow:0 20px 60px rgba(0,0,0,.7);
+--blue:#3b82f6;
+--gold:#facc15;
+--shadow:0 25px 80px rgba(0,0,0,.7);
 }
 
 *{
@@ -25,6 +29,10 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Cairo',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
@@ -45,10 +53,10 @@ align-items:center;
 position:fixed;
 inset:0;
 z-index:-2;
-background:
-radial-gradient(circle at top,#1a1a1a 0%,#050505 45%),
-linear-gradient(to bottom,#020202,#050505);
 overflow:hidden;
+background:
+radial-gradient(circle at top,#1b1b1b 0%,#050505 40%),
+linear-gradient(to bottom,#030303,#050505);
 }
 
 .bg::before{
@@ -57,32 +65,39 @@ position:absolute;
 width:200%;
 height:200%;
 background:
-radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);
 background-size:50px 50px;
-animation:move 20s linear infinite;
+animation:bgMove 20s linear infinite;
+opacity:.4;
 }
 
-@keyframes move{
-0%{transform:translate(0,0);}
-100%{transform:translate(-50px,-50px);}
+@keyframes bgMove{
+0%{
+transform:translate(0,0);
+}
+100%{
+transform:translate(-50px,-50px);
+}
 }
 
 /* الحاوية */
 
 .container{
 width:100%;
-max-width:650px;
-background:rgba(10,10,10,.95);
+max-width:850px;
+background:rgba(8,8,8,.95);
 border:1px solid var(--border);
-border-radius:20px;
-padding:25px;
+border-radius:28px;
+padding:30px;
+backdrop-filter:blur(18px);
 box-shadow:var(--shadow);
-backdrop-filter:blur(15px);
 }
+
+/* الصفحات */
 
 .page{
 display:none;
-animation:fade .3s ease;
+animation:fade .35s ease;
 }
 
 .page.active{
@@ -92,7 +107,7 @@ display:block;
 @keyframes fade{
 from{
 opacity:0;
-transform:translateY(10px);
+transform:translateY(15px);
 }
 to{
 opacity:1;
@@ -100,48 +115,56 @@ transform:translateY(0);
 }
 }
 
+/* النصوص */
+
 h1{
-font-size:2rem;
-margin-bottom:10px;
-font-weight:800;
+font-size:2.4rem;
+font-weight:900;
+margin-bottom:15px;
 text-align:center;
 }
 
 h2{
-font-size:1.5rem;
+font-size:1.8rem;
 margin-bottom:20px;
 text-align:center;
+font-weight:800;
+}
+
+h3{
+font-size:1.2rem;
+margin-bottom:10px;
 }
 
 p{
+line-height:1.9;
 color:var(--text);
-line-height:1.8;
-margin-bottom:20px;
-text-align:center;
-}
-
-.badge{
-display:inline-block;
-padding:6px 14px;
-border-radius:999px;
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.1);
-font-size:.85rem;
-margin-bottom:15px;
 }
 
 .center{
 text-align:center;
 }
 
+.badge{
+display:inline-block;
+padding:7px 16px;
+border-radius:999px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.1);
+margin-bottom:20px;
+font-size:.9rem;
+}
+
+/* الأزرار */
+
 .btn{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:12px;
+border-radius:14px;
 cursor:pointer;
 font-size:1rem;
-font-weight:700;
+font-weight:800;
 transition:.2s;
 margin-top:10px;
 }
@@ -171,11 +194,13 @@ border:1px solid var(--border);
 color:white;
 }
 
+/* الكروت */
+
 .cards{
 display:grid;
 grid-template-columns:1fr;
-gap:15px;
-margin-top:20px;
+gap:18px;
+margin-top:25px;
 }
 
 @media(min-width:700px){
@@ -185,32 +210,35 @@ grid-template-columns:1fr 1fr;
 }
 
 .card{
-background:#0f0f0f;
+background:#101010;
 border:1px solid var(--border);
+border-radius:18px;
 padding:25px;
-border-radius:16px;
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 position:relative;
+overflow:hidden;
 }
 
 .card:hover{
-transform:translateY(-3px);
+transform:translateY(-4px);
 border-color:white;
 }
 
-.card h3{
-margin-bottom:10px;
+.card::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(to top right,transparent,rgba(255,255,255,.03));
+pointer-events:none;
 }
 
 .card p{
-margin:0;
-text-align:right;
-font-size:.9rem;
+font-size:.95rem;
 }
 
 .closed{
-opacity:.45;
+opacity:.4;
 cursor:not-allowed;
 }
 
@@ -221,14 +249,16 @@ border-color:var(--border);
 
 .closed-badge{
 position:absolute;
-top:10px;
-left:10px;
+top:12px;
+left:12px;
 background:var(--red);
-padding:5px 10px;
-border-radius:8px;
-font-size:.75rem;
-font-weight:bold;
+padding:6px 12px;
+border-radius:10px;
+font-size:.8rem;
+font-weight:800;
 }
+
+/* الفورم */
 
 .form-group{
 margin-bottom:18px;
@@ -236,21 +266,28 @@ margin-bottom:18px;
 
 .form-group label{
 display:block;
-margin-bottom:8px;
-font-weight:700;
+margin-bottom:10px;
+font-weight:800;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea{
 width:100%;
-padding:13px;
+padding:14px;
 background:#090909;
 border:1px solid var(--border);
-border-radius:12px;
+border-radius:14px;
 color:white;
 outline:none;
 font-size:.95rem;
+transition:.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+border-color:white;
 }
 
 textarea{
@@ -258,20 +295,23 @@ resize:vertical;
 min-height:120px;
 }
 
+/* بوكس */
+
 .box{
-background:#080808;
+background:#0b0b0b;
 border:1px solid var(--border);
-padding:15px;
-border-radius:12px;
-line-height:1.8;
+border-radius:16px;
+padding:18px;
+margin-bottom:20px;
+line-height:2;
 color:var(--text);
-max-height:180px;
-overflow:auto;
 }
+
+/* العمليات */
 
 .actions{
 display:flex;
-gap:10px;
+gap:12px;
 flex-wrap:wrap;
 }
 
@@ -279,15 +319,18 @@ flex-wrap:wrap;
 flex:1;
 }
 
+/* الأدمن */
+
 .secret{
 position:fixed;
-bottom:10px;
-left:10px;
-opacity:.2;
+bottom:12px;
+left:12px;
+opacity:.15;
 background:none;
 border:none;
 color:white;
 cursor:pointer;
+font-size:.9rem;
 transition:.2s;
 }
 
@@ -297,58 +340,91 @@ opacity:1;
 
 .table-wrap{
 overflow:auto;
-margin-top:15px;
+margin-top:20px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-min-width:600px;
+min-width:700px;
 }
 
 th,td{
-padding:12px;
+padding:14px;
 border-bottom:1px solid var(--border);
 text-align:center;
 }
 
 th{
-background:#101010;
+background:#111;
 }
 
 .counter-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-gap:10px;
-margin-top:15px;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:12px;
+margin-top:20px;
 }
 
 .counter{
-background:#0d0d0d;
+background:#101010;
 border:1px solid var(--border);
-padding:15px;
-border-radius:12px;
+border-radius:16px;
+padding:18px;
 text-align:center;
 }
 
+.counter h3{
+font-size:1.7rem;
+margin-top:8px;
+}
+
+/* الحالة */
+
 .status{
-padding:30px;
-border-radius:20px;
-text-align:center;
-font-size:1.1rem;
-line-height:2;
-background:#0b0b0b;
+padding:35px;
+border-radius:24px;
+background:#0c0c0c;
 border:1px solid var(--border);
+text-align:center;
+font-size:1.15rem;
+line-height:2;
+}
+
+/* Responsive */
+
+@media(max-width:600px){
+
+.container{
+padding:18px;
+border-radius:20px;
+}
+
+h1{
+font-size:1.9rem;
+}
+
+h2{
+font-size:1.4rem;
+}
+
+.actions{
+flex-direction:column;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="bg"></div>
 
-<button class="secret" onclick="openAdmin()">لوحة التحكم</button>
+<button class="secret" onclick="openAdmin()">
+لوحة التحكم
+</button>
 
 <div class="container">
 
@@ -357,17 +433,24 @@ border:1px solid var(--border);
 <div class="page active" id="home">
 
 <div class="center">
-<div class="badge">⚔️ البوابة الرسمية</div>
-<h1>بوابة طرب للتقديم</h1>
 
-<p>
-مرحباً بك في النظام الرسمي لتقديمات
-شاليه طرب وسيرفر طرب ديسكورد.
+<div class="badge">
+⚔️ البوابة الرسمية
+</div>
+
+<h1>
+بوابة طرب للتقديم
+</h1>
+
+<p style="margin-bottom:25px;">
+مرحباً بك في نظام تقديمات طرب الرسمي،
+تم تصميم النظام باحترافية كاملة ليتوافق مع جميع الأجهزة.
 </p>
 
 <button class="btn btn-main" onclick="go('selectPage')">
 ابدأ التقديم
 </button>
+
 </div>
 
 </div>
@@ -376,22 +459,38 @@ border:1px solid var(--border);
 
 <div class="page" id="selectPage">
 
-<h2>اختر جهة التقديم</h2>
+<h2>
+اختر جهة التقديم
+</h2>
 
 <div class="cards">
 
 <div class="card" id="gameCard" onclick="openPlatform('game')">
-<h3>👾 شاليه طرب</h3>
+
+<h3>
+👾 إدارة الماب
+</h3>
+
 <p>
-تقديمات الإدارة الخاصة بالماب.
+التقديمات الخاصة بإدارة الماب،
+الإشراف، متابعة اللاعبين،
+حل المشاكل والإدارة العامة.
 </p>
+
 </div>
 
 <div class="card" id="discordCard" onclick="openPlatform('discord')">
-<h3>💬 طرب ديسكورد</h3>
+
+<h3>
+💬 إدارة الديسكورد
+</h3>
+
 <p>
-تقديمات إدارة السيرفر والإشراف.
+تقديمات الإشراف والدعم الفني
+ومتابعة التكتات والمشاكل
+وإدارة المجتمع بالكامل.
 </p>
+
 </div>
 
 </div>
@@ -402,46 +501,73 @@ border:1px solid var(--border);
 
 </div>
 
-<!-- نموذج -->
+<!-- الفورم -->
 
 <div class="page" id="formPage">
 
 <h2 id="formTitle"></h2>
 
+<div class="box" id="infoBox"></div>
+
 <div class="form-group">
-<label>الرتبة المطلوبة</label>
+
+<label>
+الرتبة المطلوبة
+</label>
 
 <select id="rank">
-<option value="">اختر الرتبة</option>
-<option value="Founder">Founder</option>
-<option value="CO Owner">CO Owner</option>
-<option value="Head Admin">Head Admin</option>
-<option value="Admin">Admin</option>
+
+<option value="">
+اختر الرتبة
+</option>
+
+<option value="Founder">
+Founder
+</option>
+
+<option value="CO Owner">
+CO Owner
+</option>
+
+<option value="Head Admin">
+Head Admin
+</option>
+
+<option value="Admin">
+Admin
+</option>
+
 </select>
+
 </div>
 
 <div class="form-group">
-<label>اسم حسابك بالديسكورد</label>
-<input id="discordName" type="text">
+<label>اسمك بالديسكورد</label>
+<input type="text" id="discordName">
 </div>
 
 <div class="form-group">
-<label>الاسم أو اللقب</label>
-<input id="realName" type="text">
+<label>اسمك أو لقبك</label>
+<input type="text" id="realName">
 </div>
 
 <div class="form-group">
-<label>خبراتك</label>
+<label>كم خبرتك بالإدارة؟ اذكر أمثلة</label>
 <textarea id="experience"></textarea>
 </div>
 
 <div class="form-group">
-<label>كيف تتعامل مع المشاكل؟</label>
+<label>كيف تتصرف لو صار هوشة أو مشكلة؟</label>
 <textarea id="problems"></textarea>
 </div>
 
 <div class="form-group">
-<label>لماذا تريد الإدارة؟</label>
+<label>وش الأدوات أو الأوامر اللي تعرف تستخدمها؟</label>
+<textarea id="tools"></textarea>
+</div>
+
+<div class="form-group">
+<label>ليش نشوفك مناسب للإدارة؟</label>
 <textarea id="why"></textarea>
 </div>
 
@@ -466,25 +592,27 @@ border:1px solid var(--border);
 <div class="status" id="statusBox"></div>
 
 <button class="btn btn-main" onclick="go('home')">
-الرئيسية
+العودة للرئيسية
 </button>
 
 </div>
 
-<!-- الأدمن -->
+<!-- لوحة التحكم -->
 
 <div class="page" id="adminPage">
 
-<h2>🛡️ لوحة التحكم</h2>
+<h2>
+🛡️ لوحة التحكم
+</h2>
 
 <div class="actions">
 
 <button class="btn btn-green" onclick="togglePlatform('game')">
-فتح/إغلاق الماب
+فتح / إغلاق الماب
 </button>
 
 <button class="btn btn-green" onclick="togglePlatform('discord')">
-فتح/إغلاق الديسكورد
+فتح / إغلاق الديسكورد
 </button>
 
 <button class="btn btn-red" onclick="resetCounters()">
@@ -522,12 +650,14 @@ Admin
 <table>
 
 <thead>
+
 <tr>
 <th>الاسم</th>
 <th>الجهة</th>
 <th>الرتبة</th>
 <th>إجراء</th>
 </tr>
+
 </thead>
 
 <tbody id="appsTable"></tbody>
@@ -546,9 +676,15 @@ Admin
 
 <script>
 
-const WEBHOOK = "https://discord.com/api/webhooks/1505185868456001606/rVUW4ZVYLXfhphBID5nHcKxHgAHo8nJomr6_j6m6YKN1An9AbyHYnYi0L1iUVTbejrtu";
+/* =========================
+الإعدادات
+========================= */
 
-const ADMIN_PASSWORD = "w2*fr"";
+const WEBHOOK = "حط_الويب_هوك_هنا";
+
+const ADMIN_PASSWORD = 'w2*fr"';
+
+/* ========================= */
 
 const limits = {
 "Founder":1,
@@ -573,6 +709,8 @@ let counts = JSON.parse(localStorage.getItem("tarab_counts")) || {
 "Admin":0
 };
 
+/* حفظ البيانات */
+
 function saveData(){
 
 localStorage.setItem("tarab_apps",JSON.stringify(apps));
@@ -581,10 +719,12 @@ localStorage.setItem("tarab_counts",JSON.stringify(counts));
 
 }
 
+/* التنقل */
+
 function go(id){
 
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
+document.querySelectorAll(".page").forEach(page=>{
+page.classList.remove("active");
 });
 
 document.getElementById(id).classList.add("active");
@@ -595,6 +735,8 @@ updateCounters();
 }
 
 }
+
+/* تحديث الكروت */
 
 function updateCards(){
 
@@ -634,9 +776,11 @@ discord.innerHTML += `
 
 updateCards();
 
+/* فتح المنصة */
+
 function openPlatform(type){
 
-if(type === "game" && !settings.game){
+if(type === "game" && !settings.game"){
 alert("تقديم الماب مغلق حالياً");
 return;
 }
@@ -648,16 +792,45 @@ return;
 
 currentPlatform = type;
 
+const infoBox = document.getElementById("infoBox");
+
+if(type === "game"){
+
 document.getElementById("formTitle").innerText =
-type === "game"
-?
-"👾 تقديم شاليه طرب"
-:
-"💬 تقديم طرب ديسكورد";
+"👾 تقديم إدارة الماب";
+
+infoBox.innerHTML = `
+<b>شروط إدارة الماب:</b><br><br>
+
+• لازم تكون فاهم بالقوانين بشكل كامل.<br>
+• تعرف تتعامل مع المشاكل بدون ظلم.<br>
+• سرعة استجابة واحترام للجميع.<br>
+• أمثلة مطلوبة بخبراتك السابقة.<br>
+• أي استهتار أو إساءة = رفض مباشر.
+`;
+
+}else{
+
+document.getElementById("formTitle").innerText =
+"💬 تقديم إدارة الديسكورد";
+
+infoBox.innerHTML = `
+<b>شروط إدارة الديسكورد:</b><br><br>
+
+• تعرف تستخدم أوامر الإدارة والبوتات.<br>
+• التعامل الراقي مع الأعضاء.<br>
+• متابعة التكتات والمشاكل.<br>
+• احترام القوانين وعدم إساءة استخدام الصلاحيات.<br>
+• النشاط مطلوب بشكل دائم.
+`;
+
+}
 
 go("formPage");
 
 }
+
+/* إرسال */
 
 async function submitForm(){
 
@@ -666,16 +839,23 @@ const discord = document.getElementById("discordName").value;
 const real = document.getElementById("realName").value;
 const exp = document.getElementById("experience").value;
 const prob = document.getElementById("problems").value;
+const tools = document.getElementById("tools").value;
 const why = document.getElementById("why").value;
 
-if(!rank || !discord || !real || !exp || !prob || !why){
-alert("عب كل الحقول");
+if(!rank || !discord || !real || !exp || !prob || !tools || !why){
+
+alert("عبي كل الحقول");
+
 return;
+
 }
 
 if(counts[rank] >= limits[rank]){
+
 showStatus("❌ تم اكتمال المقاعد لهذه الرتبة");
+
 return;
+
 }
 
 const app = {
@@ -693,62 +873,91 @@ saveData();
 try{
 
 await fetch(WEBHOOK,{
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify({
+
 embeds:[
 {
+
 title:"📥 تقديم جديد",
+
 color:65280,
+
 fields:[
+
 {
 name:"الجهة",
 value:currentPlatform
 },
+
 {
 name:"الرتبة",
 value:rank
 },
+
 {
 name:"الديسكورد",
 value:discord
 },
+
 {
 name:"الاسم",
 value:real
 },
+
 {
 name:"الخبرات",
 value:exp
 },
+
 {
-name:"المشاكل",
+name:"التعامل مع المشاكل",
 value:prob
 },
+
+{
+name:"الأدوات",
+value:tools
+},
+
 {
 name:"ليش الإدارة",
 value:why
 }
+
 ]
+
 }
+
 ]
+
 })
+
 });
 
-}catch(e){}
+}catch(error){}
+
+/* تفريغ */
+
+document.getElementById("rank").value = "";
+document.getElementById("discordName").value = "";
+document.getElementById("realName").value = "";
+document.getElementById("experience").value = "";
+document.getElementById("problems").value = "";
+document.getElementById("tools").value = "";
+document.getElementById("why").value = "";
 
 showStatus("✅ تم إرسال تقديمك بنجاح");
 
-document.getElementById("rank").value="";
-document.getElementById("discordName").value="";
-document.getElementById("realName").value="";
-document.getElementById("experience").value="";
-document.getElementById("problems").value="";
-document.getElementById("why").value="";
-
 }
+
+/* حالة */
 
 function showStatus(text){
 
@@ -757,6 +966,8 @@ go("statusPage");
 document.getElementById("statusBox").innerHTML = text;
 
 }
+
+/* الأدمن */
 
 function openAdmin(){
 
@@ -768,11 +979,13 @@ go("adminPage");
 
 }else if(pass !== null){
 
-alert("كلمة المرور خطأ");
+alert("❌ كلمة المرور خطأ");
 
 }
 
 }
+
+/* عرض الطلبات */
 
 function renderApps(){
 
@@ -785,7 +998,7 @@ if(apps.length === 0){
 table.innerHTML = `
 <tr>
 <td colspan="4">
-لا يوجد طلبات
+لا يوجد طلبات حالياً
 </td>
 </tr>
 `;
@@ -797,6 +1010,7 @@ return;
 apps.forEach((app,index)=>{
 
 table.innerHTML += `
+
 <tr>
 
 <td>${app.discord}</td>
@@ -830,11 +1044,14 @@ onclick="deleteApp(${index})">
 </td>
 
 </tr>
+
 `;
 
 });
 
 }
+
+/* قبول */
 
 function approveApp(index){
 
@@ -850,9 +1067,11 @@ renderApps();
 
 updateCounters();
 
-alert("تم القبول");
+alert("✅ تم قبول الطلب");
 
 }
+
+/* حذف */
 
 function deleteApp(index){
 
@@ -863,6 +1082,8 @@ saveData();
 renderApps();
 
 }
+
+/* العدادات */
 
 function updateCounters(){
 
@@ -880,6 +1101,8 @@ counts["Admin"];
 
 }
 
+/* فتح / إغلاق */
+
 function togglePlatform(type){
 
 settings[type] = !settings[type];
@@ -888,13 +1111,15 @@ saveData();
 
 updateCards();
 
-alert("تم تحديث الحالة");
+alert("✅ تم تحديث الحالة");
 
 }
 
+/* تصفير */
+
 function resetCounters(){
 
-if(confirm("متأكد؟")){
+if(confirm("هل أنت متأكد؟")){
 
 counts = {
 "Founder":0,
